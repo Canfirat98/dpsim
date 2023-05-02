@@ -45,9 +45,11 @@ namespace DPsim {
 		CPS::Logger::Level mLogLevel;
 		/// Logger
 		CPS::Logger::Log mSLog;
+		/// Solver Parameters
+		SolverParameters* mSolverParams;
+		/// Time step for fixed step solvers
+		Real mTimeStep;
 		
-		
-
 		// #### Initialization ####
 		/// Enable recomputation of system matrix during simulation
 		Bool mSystemMatrixRecomputation = false;
@@ -64,8 +66,7 @@ namespace DPsim {
 
 		virtual ~Solver() { }
 
-		SolverParameters* mSolverParams;
-
+		
 		// #### Solver settings ####
 		/// Solver types:
 		/// Modified Nodal Analysis, Differential Algebraic, Newton Raphson
@@ -74,6 +75,7 @@ namespace DPsim {
 		///
 		virtual void setSystem(const CPS::SystemTopology &system) {}
 		///
+		void setTimeStep(Real timeStep) { mTimeStep = timeStep; }
 		///
 		void doSystemMatrixRecomputation(Bool value) { mSystemMatrixRecomputation = value; }
 
@@ -95,5 +97,6 @@ namespace DPsim {
 		virtual CPS::Task::List getTasks() = 0;
 		/// Log results
 		virtual void log(Real time, Int timeStepCount) { };
+
 	};
 }
