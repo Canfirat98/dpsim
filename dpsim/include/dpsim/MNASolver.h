@@ -63,8 +63,7 @@ namespace DPsim {
 
 
 		using Solver::mSolverParams;
-
-		SolverParametersMNA* mSolverParamsMNA;
+	
 
 		/// System topology
 		CPS::SystemTopology mSystem;
@@ -218,6 +217,8 @@ namespace DPsim {
 		Matrix& rightSideVector() { return mRightSideVector; }
 		///
 		virtual CPS::Task::List getTasks() override;
+		///
+		SolverParametersMNA* getMNAParameters() { return std::dynamic_pointer_cast<SolverParametersMNA*>(mSolverParams); }
 
 	};
 }
