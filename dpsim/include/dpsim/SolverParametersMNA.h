@@ -7,7 +7,7 @@
 namespace DPsim {
 	/// Solver class using Modified Nodal Analysis (MNA).
 	class SolverParametersMNA : public SolverParameters {
-	protected: 
+	public: 
 		// #### General simulation settings ####
 		/// Simulation domain, which can be dynamic phasor (DP) or EMT
 		CPS::Domain mDomain;
@@ -46,7 +46,7 @@ namespace DPsim {
 
 
 
-	public:
+	
 
 		SolverParametersMNA() {}
 		
