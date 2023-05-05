@@ -83,7 +83,7 @@ namespace DPsim {
 		///
 		DirectLinearSolverConfiguration mDirectLinearSolverConfiguration;
 		///
-		SolverParameters* mSolverParams;
+		std::shared_ptr<SolverParameters> mSolverParams;
 	
 
 		/// If tearing components exist, the Diakoptics
@@ -187,7 +187,7 @@ namespace DPsim {
 		///
 		void setSimulationParameters(CPS::Real a, CPS::Real b) {}
 		///
-		void setSolverParameters(CPS::Domain domain, Solver::Type type, SolverParameters& solverParameters);
+		void setSolverParameters(CPS::Domain domain, Solver::Type type, std::shared_ptr<SolverParameters> &solverParameters);
 
 
 		/// Set the scheduling method
