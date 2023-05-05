@@ -26,6 +26,5 @@ using namespace CPS;
 using namespace DPsim;
 
 
-// Constructor
-SolverParameters::SolverParameters(){}
+
 
