@@ -23,7 +23,7 @@ namespace DPsim {
 		
 		/// If this is false, all voltages are initialized with zero
 		Bool mInitFromNodesAndTerminals = true;
-
+	
 	
 
 		SolverParameters() {}
