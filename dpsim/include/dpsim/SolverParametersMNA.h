@@ -4,6 +4,9 @@
 #include <dpsim-models/Attribute.h>
 #include <dpsim/Solver.h>
 
+// using namespace CPS;
+
+
 namespace DPsim {
 	/// Solver class using Modified Nodal Analysis (MNA).
 	class SolverParametersMNA : public SolverParameters {
@@ -48,7 +51,10 @@ namespace DPsim {
 
 	
 
-		SolverParametersMNA() {}
+		SolverParametersMNA():
+			mSplitSubnets(CPS::AttributeStatic<Bool>::make(true)),
+			mSteadyStateInit(CPS::AttributeStatic<Bool>::make(false)) {
+		}
 		
 		/// Destructor
 		virtual ~SolverParametersMNA() {};
