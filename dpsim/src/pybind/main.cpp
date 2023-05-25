@@ -69,8 +69,6 @@ PYBIND11_MODULE(dpsimpy, m) {
 
 	py::class_<DPsim::SolverParameters, std::shared_ptr<DPsim::SolverParameters>>(m, "SolverParameters")
 		.def(py::init<>())
-		.def("set_time_step", &DPsim::SolverParameters::setTimeStep)
-		.def("get_time_step", &DPsim::SolverParameters::getTimeStep)
 		.def("set_init_from_nodes_and_terminals", &DPsim::SolverParameters::setInitFromNodesAndTerminals)
 		.def("get_init_from_nodes_and_terminals", &DPsim::SolverParameters::getInitFromNodesAndTerminals);
 

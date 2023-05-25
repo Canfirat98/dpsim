@@ -54,26 +54,22 @@ Simulation::Simulation(String name, CommandLineArgs& args) :
 void Simulation::setSolverParameters(CPS::Domain domain, Solver::Type type, std::shared_ptr<SolverParameters> solverParameters)
 {
 	mDomain = domain;
-	//if ((typeid(solverParameters) == typeid(SolverParametersMNA)) && (type == Solver::Type::MNA)) {
 	if (std::dynamic_pointer_cast<DPsim::SolverParametersMNA>(solverParameters) && (type == Solver::Type::MNA)) {
-		std::cout << "Object is of type SolverParametersMNA" << endl;
 		mSolverParams = solverParameters;
 		mSolverType = Solver::Type::MNA;
 	}
 	else if (std::dynamic_pointer_cast<DPsim::SolverParametersDAE>(solverParameters) && (type == Solver::Type::DAE)) {
-		std::cout << "Object is of type SolverParametersDAE" << endl;
 		mSolverParams = solverParameters;
 		mSolverType = Solver::Type::DAE;
 	}
 	else if (std::dynamic_pointer_cast<DPsim::SolverParametersNRP>(solverParameters) && (type == Solver::Type::NRP)) {
-		std::cout << "Object is of type SolverParametersNRP" << endl;
 		mSolverParams = solverParameters;
 		mSolverType = Solver::Type::NRP;
 	}
 	else {
 		std::cout << "Object is of unknown type" << endl;
 		mSolverParams = solverParameters;
-	}		
+	}
 }
 
 void Simulation::create() {
@@ -90,7 +86,6 @@ void Simulation::initialize() {
 		return;
 
 	mSolvers.clear();
-
 	switch (mDomain) {
 	case Domain::SP:
 		// Treat SP as DP
@@ -356,6 +351,7 @@ Graph::Graph Simulation::dependencyGraph() {
 
 void Simulation::start() {
 	SPDLOG_LOGGER_INFO(mLog, "Initialize simulation: {}", **mName);
+	mLog->flush();
 	if (!mInitialized)
 		initialize();
 
@@ -388,7 +384,6 @@ void Simulation::stop() {
 		lg->close();
 
 	SPDLOG_LOGGER_INFO(mLog, "Simulation finished.");
-	mLog->flush();
 }
 
 Real Simulation::next() {
