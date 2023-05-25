@@ -67,14 +67,14 @@ PYBIND11_MODULE(dpsimpy, m) {
 
 	addAttributes(m);
 
-	py::class_<DPsim::SolverParameters>(m, "SolverParameters")
+	py::class_<DPsim::SolverParameters, std::shared_ptr<DPsim::SolverParameters>>(m, "SolverParameters")
 		.def(py::init<>())
 		.def("set_time_step", &DPsim::SolverParameters::setTimeStep)
-		.def("set_init_from_nodes_and_terminals", &DPsim::SolverParameters::setInitFromNodesAndTerminals)
 		.def("get_time_step", &DPsim::SolverParameters::getTimeStep)
+		.def("set_init_from_nodes_and_terminals", &DPsim::SolverParameters::setInitFromNodesAndTerminals)
 		.def("get_init_from_nodes_and_terminals", &DPsim::SolverParameters::getInitFromNodesAndTerminals);
 
-	py::class_<DPsim::SolverParametersMNA>(m, "SolverParametersMNA")
+	py::class_<DPsim::SolverParametersMNA, DPsim::SolverParameters, std::shared_ptr<DPsim::SolverParametersMNA>>(m, "SolverParametersMNA", py::multiple_inheritance())
 		.def(py::init<>())
 		.def("set_domain", &DPsim::SolverParametersMNA::setDomain)
 		.def("set_solver_and_component_behaviour", &DPsim::SolverParametersMNA::setSolverAndComponentBehaviour)
@@ -108,12 +108,12 @@ PYBIND11_MODULE(dpsimpy, m) {
 		.def("name", &DPsim::Simulation::name)
 		.def("set_time_step", &DPsim::Simulation::setTimeStep)
 		.def("set_final_time", &DPsim::Simulation::setFinalTime)
+		.def("set_simulation_parameters", &DPsim::Simulation::setSimulationParameters, "time_step"_a, "final_time"_a)
 		.def("add_logger", &DPsim::Simulation::addLogger)
 		.def("set_system", &DPsim::Simulation::setSystem)
 		.def("run", &DPsim::Simulation::run)
 		.def("set_solver", &DPsim::Simulation::setSolverType)
 		.def("set_domain", &DPsim::Simulation::setDomain)
-		.def("set_simulation_parameters", &DPsim::Simulation::setSimulationParameters, "a"_a,"b"_a)
 		.def("set_solver_parameters", &DPsim::Simulation::setSolverParameters, "domain"_a, "type"_a, "solverParameters"_a)
 		.def("start", &DPsim::Simulation::start)
 		.def("next", &DPsim::Simulation::next)

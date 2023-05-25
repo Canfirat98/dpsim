@@ -69,7 +69,7 @@ namespace DPsim {
 		/// LU factorization configuration
 		DirectLinearSolverConfiguration mConfigurationInUse;
 
-		using Solver::mSolverParams;
+		using MnaSolver<VarType>::mSolverParams;
 		using MnaSolver<VarType>::mSwitches;
 		using MnaSolver<VarType>::mMNAIntfSwitches;
 		using MnaSolver<VarType>::mMNAComponents;
@@ -142,6 +142,7 @@ namespace DPsim {
 		/// Constructor should not be called by users but by Simulation
 		/// sovlerImpl: choose the most advanced solver implementation available by default
 		MnaSolverDirect(String name,
+			std::shared_ptr<SolverParametersMNA> solverParams,
 			CPS::Domain domain = CPS::Domain::DP,
 			CPS::Logger::Level logLevel = CPS::Logger::Level::info);
 
@@ -156,9 +157,6 @@ namespace DPsim {
 
 		/// log LU decomposition times
 		void logLUTimes() override;
-
-		/// Gets Solver Parameters for Modified Nodal Analysis (MNA) 
-        std::shared_ptr<SolverParametersMNA> getMNAParameters() { return std::dynamic_pointer_cast<SolverParametersMNA>(mSolverParams); }
 
 
 		// #### MNA Solver Tasks ####
