@@ -121,11 +121,11 @@ void MnaSolver<Real>::initializeComponents() {
 
 	// Initialize signal components.
 	for (auto comp : mSimSignalComps)
-		comp->initialize(mSystem.mSystemOmega, mSolverParams->getTimeStep());
+		comp->initialize(mSystem.mSystemOmega, mTimeStep);
 
 	// Initialize MNA specific parts of components.
 	for (auto comp : allMNAComps) {
-		comp->mnaInitialize(mSystem.mSystemOmega, mSolverParams->getTimeStep(), mLeftSideVector);
+		comp->mnaInitialize(mSystem.mSystemOmega, mTimeStep, mLeftSideVector);
 		const Matrix& stamp = comp->getRightVector()->get();
 		if (stamp.size() != 0) {
 			mRightVectorStamps.push_back(&stamp);
@@ -133,7 +133,7 @@ void MnaSolver<Real>::initializeComponents() {
 	}
 
 	for (auto comp : mMNAIntfSwitches)
-		comp->mnaInitialize(mSystem.mSystemOmega, mSolverParams->getTimeStep(), mLeftSideVector);
+		comp->mnaInitialize(mSystem.mSystemOmega, mTimeStep, mLeftSideVector);
 }
 
 template <>
@@ -155,14 +155,14 @@ void MnaSolver<Complex>::initializeComponents() {
 
 	// Initialize signal components.
 	for (auto comp : mSimSignalComps)
-		comp->initialize(mSystem.mSystemOmega, mSolverParams->getTimeStep());
+		comp->initialize(mSystem.mSystemOmega, mTimeStep);
 
 	SPDLOG_LOGGER_INFO(mSLog, "-- Initialize MNA properties of components");
 	if (mSolverParams->getFreqParallel()) {
 		// Initialize MNA specific parts of components.
 		for (auto comp : mMNAComponents) {
 			// Initialize MNA specific parts of components.
-			comp->mnaInitializeHarm(mSystem.mSystemOmega, mSolverParams->getTimeStep(), mLeftSideVectorHarm);
+			comp->mnaInitializeHarm(mSystem.mSystemOmega, mTimeStep, mLeftSideVectorHarm);
 			const Matrix& stamp = comp->getRightVector()->get();
 			if (stamp.size() != 0) mRightVectorStamps.push_back(&stamp);
 		}
@@ -174,7 +174,7 @@ void MnaSolver<Complex>::initializeComponents() {
 	else {
 		// Initialize MNA specific parts of components.
 		for (auto comp : allMNAComps) {
-			comp->mnaInitialize(mSystem.mSystemOmega, mSolverParams->getTimeStep(), mLeftSideVector);
+			comp->mnaInitialize(mSystem.mSystemOmega, mTimeStep, mLeftSideVector);
 			const Matrix& stamp = comp->getRightVector()->get();
 			if (stamp.size() != 0) {
 				mRightVectorStamps.push_back(&stamp);
@@ -182,7 +182,7 @@ void MnaSolver<Complex>::initializeComponents() {
 		}
 
 		for (auto comp : mMNAIntfSwitches)
-			comp->mnaInitialize(mSystem.mSystemOmega, mSolverParams->getTimeStep(), mLeftSideVector);
+			comp->mnaInitialize(mSystem.mSystemOmega, mTimeStep, mLeftSideVector);
 	}
 }
 
@@ -461,7 +461,7 @@ void MnaSolver<VarType>::steadyStateInitialization() {
 	SimSignalComp::Behaviour initBehaviourSignalComps = SimSignalComp::Behaviour::Initialization;
 
 	// TODO: enable use of timestep distinct from simulation timestep
-	Real initTimeStep = mSolverParams->getTimeStep();
+	Real initTimeStep = mTimeStep;
 	Int timeStepCount = 0;
 	Real time = 0;
 	Real maxDiff = 1.0;
