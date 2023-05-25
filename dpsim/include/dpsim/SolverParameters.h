@@ -25,21 +25,21 @@ namespace DPsim {
 		Bool mInitFromNodesAndTerminals = true;
 	
 	
-
+	public:
 		SolverParameters() {}
 
 		virtual ~SolverParameters() { }
 
+		// #### Setters ####
+		///
 		void setTimeStep(Real timeStep) { mTimeStep = timeStep; }
-		
-		// #### Initialization ####
 		/// activate powerflow initialization
 		void setInitFromNodesAndTerminals(Bool f) { mInitFromNodesAndTerminals = f; }
 		
-
 		// #### Getter ####
+		///
         Real getTimeStep() {return mTimeStep;}
-
+		/// 
 		Bool getInitFromNodesAndTerminals() {return mInitFromNodesAndTerminals;}
  		
 	};
