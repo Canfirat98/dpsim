@@ -17,10 +17,11 @@ static void get_error_str(int error_code, int IDAMaxNumSteps, int IDAMaxErrTestF
 // static void PrintOutput(void *mem, realtype t, N_Vector y);
 
 template <typename VarType>
-DAESolver<VarType>::DAESolver(const String& name, CPS::SystemTopology system, 
+DAESolver<VarType>::DAESolver(const String& name, std::shared_ptr<SolverParametersDAE> solverParams, CPS::SystemTopology system, 
     Real dt, Real t0, CPS::Logger::Level logLevel) :
 	Solver(name, logLevel), mSystem(system), mTimestep(dt) {
-
+   
+    mSolverParams = solverParams;
     mSimTime = t0;
     mInitTime = t0;
 
@@ -143,12 +144,12 @@ void DAESolver<VarType>::initialize() {
     if(check_retval((void *)mAbsoluteTolerances, "N_VNew_Serial", 0)) throw CPS::Exception();
 
     // creates and allocates memory for vector of error weights
-    mErrorWeights = N_VNew_Serial(mNEQ, mSunctx);
-    if(check_retval((void *)mErrorWeights, "N_VNew_Serial", 0)) throw CPS::Exception();
+    mSolverParams->mErrorWeights = N_VNew_Serial(mNEQ, mSunctx);
+    if(check_retval((void *)(mSolverParams->mErrorWeights), "N_VNew_Serial", 0)) throw CPS::Exception();
     
     // creates and allocates memory for vector of estimated local errors
-    mEstLocalErrors = N_VNew_Serial(mNEQ, mSunctx);
-    if(check_retval((void *)mEstLocalErrors, "N_VNew_Serial", 0)) throw CPS::Exception();
+    mSolverParams->mEstLocalErrors = N_VNew_Serial(mNEQ, mSunctx);
+    if(check_retval((void *)(mSolverParams->mEstLocalErrors), "N_VNew_Serial", 0)) throw CPS::Exception();
 
     // capturing a returned array/pointer
     sval  = N_VGetArrayPointer(mStateVector);
@@ -252,54 +253,54 @@ void DAESolver<VarType>::initialize() {
     
     // Set relative and absolute tolerances
     mSLog->info("Call IDATolerances");
-    ret = IDASVtolerances(mIDAMemoryBlock, mRelativeTolerance, mAbsoluteTolerances);
+    ret = IDASVtolerances(mIDAMemoryBlock, mSolverParams->mRelativeTolerance, mAbsoluteTolerances);
     if (check_retval(&ret, "IDASVtolerances", 1)) throw CPS::Exception();
-    mSLog->info("Set relative tolerance =  {:f}", mRelativeTolerance);
+    mSLog->info("Set relative tolerance =  {:f}", mSolverParams->mRelativeTolerance);
 
     // ### Nonlinear solver interface optional input functions ### 
     ///  specifies the maximum number of nonlinear solver iterations in one solve attempt
     mSLog->info("Call IDASetMaxNonlinIters");
-    ret = IDASetMaxNonlinIters(mIDAMemoryBlock, mIDAMaxNonlinIters);
+    ret = IDASetMaxNonlinIters(mIDAMemoryBlock, mSolverParams->mIDAMaxNonlinIters);
     if (check_retval(&ret, "IDASetMaxNonlinIters", 1)) throw CPS::Exception();
-    mSLog->info("MaxNonlinIters set to {}", mIDAMaxNonlinIters);
+    mSLog->info("MaxNonlinIters set to {}", mSolverParams->mIDAMaxNonlinIters);
 
     /// specifies the maximum number of nonlinear solver convergence failures in one step
     mSLog->info("Call IDASetMaxConvFails");
-    ret = IDASetMaxConvFails(mIDAMemoryBlock, mIDAMaxConvFails);
+    ret = IDASetMaxConvFails(mIDAMemoryBlock, mSolverParams->mIDAMaxConvFails);
     if (check_retval(&ret, "IDASetMaxConvFails", 1)) throw CPS::Exception();
-    mSLog->info("MaxConvFails set to {}", mIDAMaxConvFails);
+    mSLog->info("MaxConvFails set to {}", mSolverParams->mIDAMaxConvFails);
 
     /// specifies the safety factor in the nonlinear convergence test
     mSLog->info("Call IDASetNonlinConvCoef");
-    ret = IDASetNonlinConvCoef(mIDAMemoryBlock, mIDANonlinConvCoef);
+    ret = IDASetNonlinConvCoef(mIDAMemoryBlock, mSolverParams->mIDANonlinConvCoef);
     if (check_retval(&ret, "IDASetNonlinConvCoef", 1)) throw CPS::Exception();
-    mSLog->info("NonlinConvCoef set to {}", mIDANonlinConvCoef);
+    mSLog->info("NonlinConvCoef set to {}", mSolverParams->mIDANonlinConvCoef);
 
     // ### Main solver optional input functions ###
     /// specifies Maximum order for BDF method
     mSLog->info("Call IDASetMaxOrd");
-    ret = IDASetMaxOrd(mIDAMemoryBlock, mIDAMaxBDFOrder);
+    ret = IDASetMaxOrd(mIDAMemoryBlock, mSolverParams->mIDAMaxBDFOrder);
     if (check_retval(&ret, "IDASetMaxOrd", 1)) throw CPS::Exception();
-    mSLog->info("MaxOrd set to {}", mIDAMaxBDFOrder);
+    mSLog->info("MaxOrd set to {}", mSolverParams->mIDAMaxBDFOrder);
 
     /// specifies the maximum number of steps to be taken by the solver in its attempt to reach the next output
     mSLog->info("Call IDASetMaxNumSteps");
-    ret = IDASetMaxNumSteps(mIDAMemoryBlock, mIDAMaxNumSteps);  //Max. number of timesteps until tout (-1 = unlimited)
+    ret = IDASetMaxNumSteps(mIDAMemoryBlock, mSolverParams->mIDAMaxNumSteps);  //Max. number of timesteps until tout (-1 = unlimited)
     if (check_retval(&ret, "IDASetMaxNumSteps", 1)) throw CPS::Exception();
-    mSLog->info("MaxNumSteps set to {}", mIDAMaxNumSteps);
+    mSLog->info("MaxNumSteps set to {}", mSolverParams->mIDAMaxNumSteps);
 
-    if (mVariableStepSize) {
+    if (mSolverParams->mVariableStepSize) {
         // specifies the minimum absolute value of the step size.
         mSLog->info("Call IDASetMinStep");
-        ret = IDASetMinStep(mIDAMemoryBlock, mMinStepSize);
+        ret = IDASetMinStep(mIDAMemoryBlock, mSolverParams->mMinStepSize);
         if (check_retval(&ret, "IDASetMinStep", 1)) throw CPS::Exception();
-        mSLog->info("Minimum absolute value of the step size set to {}", mMinStepSize);
+        mSLog->info("Minimum absolute value of the step size set to {}", mSolverParams->mMinStepSize);
 
         // specifies the maximum absolute value of the step size.
         mSLog->info("Call IDASetMaxStep");
-        ret = IDASetMaxStep(mIDAMemoryBlock, mMaxStepSize);
+        ret = IDASetMaxStep(mIDAMemoryBlock, mSolverParams->mMaxStepSize);
         if (check_retval(&ret, "IDASetMaxStep", 1)) throw CPS::Exception();
-        mSLog->info("Maximum absolute value of the step size set to {}", mMaxStepSize);
+        mSLog->info("Maximum absolute value of the step size set to {}", mSolverParams->mMaxStepSize);
     } else {    // set IDASetMinStep == IDASetMaxStep == mTimeStep
         // specifies the minimum absolute value of the step size.
         mSLog->info("Call IDASetMinStep");
@@ -321,9 +322,9 @@ void DAESolver<VarType>::initialize() {
 
     // specifies the maximum number of error test failures in attempting one step.
     mSLog->info("Call IDASetMaxErrTestFails");
-    ret = IDASetMaxErrTestFails(mIDAMemoryBlock, mIDAMaxErrTestFails);
+    ret = IDASetMaxErrTestFails(mIDAMemoryBlock, mSolverParams->mIDAMaxErrTestFails);
     if (check_retval(&ret, "IDASetMaxErrTestFails", 1)) throw CPS::Exception();
-    mSLog->info("Set IDASetMaxErrTestFails =  {:}", mIDAMaxErrTestFails);
+    mSLog->info("Set IDASetMaxErrTestFails =  {:}", mSolverParams->mIDAMaxErrTestFails);
 
     // indicates whether or not to suppress algebraic variables in the local error test.
     /*
@@ -331,7 +332,7 @@ void DAESolver<VarType>::initialize() {
     whereas it is generally encouraged for systems of index 2 or more.
     */
     mSLog->info("Call IDASetSuppressAlg");
-    ret = IDASetSuppressAlg(mIDAMemoryBlock, mIDASetSuppressAlg);
+    ret = IDASetSuppressAlg(mIDAMemoryBlock, mSolverParams->mIDASetSuppressAlg);
     if (check_retval(&ret, "IDASetSuppressAlg", 1)) throw CPS::Exception();
 
     // specify algebraic/differential components in the state vector.
@@ -375,7 +376,7 @@ void DAESolver<VarType>::initialize() {
     */
 
     // Set the user-supplied Jacobian routine
-    if (mUseUserSuppJacMatrix) {
+    if (mSolverParams->mUseUserSuppJacMatrix) {
         ret = IDASetJacFn(mIDAMemoryBlock, &DAESolver::jacobianFunctionWrapper);
         if(check_retval(&ret, "IDASetJacFn", 1)) throw CPS::Exception();
     }
@@ -494,10 +495,10 @@ int DAESolver<VarType>::residualFunction(realtype current_time,
         residual[i] = 0;
 
     // Call all registered component residual functions
-    IDAGetCurrentStep(mIDAMemoryBlock, &mNextIntegrationStep);
-    IDAGetCurrentTime(mIDAMemoryBlock, &mCurrentInternalTime);
+    IDAGetCurrentStep(mIDAMemoryBlock, &(mSolverParams->mNextIntegrationStep));
+    IDAGetCurrentTime(mIDAMemoryBlock, &(mSolverParams->mCurrentInternalTime));
     for (auto resFn : mResidualFunctions)
-        resFn(mCurrentInternalTime, NV_DATA_S(state), NV_DATA_S(dstate_dt), NV_DATA_S(resid), mOffsets);
+        resFn(mSolverParams->mCurrentInternalTime, NV_DATA_S(state), NV_DATA_S(dstate_dt), NV_DATA_S(resid), mOffsets);
 
     mSLog->flush();
     // If successful; positive value if recoverable error, negative if fatal error
@@ -533,7 +534,7 @@ Real DAESolver<VarType>::step(Real time) {
     int ret=0;
 
     //if (mSimTime == mInitTime)
-    //    PrintHeader(mRelativeTolerance, mAbsoluteTolerances, mStateVector);
+    //    PrintHeader(mSolverParams->mRelativeTolerance, mAbsoluteTolerances, mStateVector);
     //PrintOutput(mIDAMemoryBlock, mTimeReachedSolver, mStateVector);
     
     // update sim time
@@ -549,13 +550,13 @@ Real DAESolver<VarType>::step(Real time) {
     if (ret != IDA_SUCCESS) {
         logStatistics(Logger::Level::debug);
         std::string error_msg;
-        get_error_str(ret, mIDAMaxNumSteps, mIDAMaxErrTestFails, mIDAMaxConvFails, error_msg);
+        get_error_str(ret, mSolverParams->mIDAMaxNumSteps, mSolverParams->mIDAMaxErrTestFails, mSolverParams->mIDAMaxConvFails, error_msg);
         mSLog->info(
             "\nIDA Error: {}"   
             "\nCurrent internal time reached by the solver: {}"
             "\nSimulation finished!!",
             error_msg,
-            mCurrentInternalTime
+            mSolverParams->mCurrentInternalTime
         );
         mSLog->flush();
         throw CPS::Exception();
@@ -604,19 +605,19 @@ void DAESolver<VarType>::logStatistics(Logger::Level minLogLevel) {
 
     if (mLogLevel >= minLogLevel) {
         ///  Log sim statistics
-        IDAGetCurrentTime(mIDAMemoryBlock, &mCurrentInternalTime);
-        IDAGetNumSteps(mIDAMemoryBlock, &mNumberStepsIDA);
-        IDAGetNumResEvals(mIDAMemoryBlock, &mNumberCallsResidualFunctions);
-        IDAGetNumNonlinSolvIters(mIDAMemoryBlock, &mNonLinearIters);
-        IDAGetLastStep(mIDAMemoryBlock, &mLastIntegrationStep);
-        IDAGetCurrentStep(mIDAMemoryBlock, &mNextIntegrationStep);
-        IDAGetLastOrder(mIDAMemoryBlock, &mOrderLastStep);
-        IDAGetCurrentOrder(mIDAMemoryBlock, &mOrderNextStep);
-        IDAGetErrWeights(mIDAMemoryBlock, mErrorWeights);
-        IDAGetEstLocalErrors(mIDAMemoryBlock, mEstLocalErrors);
-        IDAGetNumLinSolvSetups(mIDAMemoryBlock, &mNumLinSolvSetups);
-        IDAGetNumErrTestFails(mIDAMemoryBlock, &mNumErrTestFails);
-        IDAGetNumStepSolveFails(mIDAMemoryBlock, &mNumStepSolveFails);
+        IDAGetCurrentTime(mIDAMemoryBlock, &(mSolverParams->mCurrentInternalTime));
+        IDAGetNumSteps(mIDAMemoryBlock, &(mSolverParams->mNumberStepsIDA));
+        IDAGetNumResEvals(mIDAMemoryBlock, &(mSolverParams->mNumberCallsResidualFunctions));
+        IDAGetNumNonlinSolvIters(mIDAMemoryBlock, &(mSolverParams->mNonLinearIters));
+        IDAGetLastStep(mIDAMemoryBlock, &(mSolverParams->mLastIntegrationStep));
+        IDAGetCurrentStep(mIDAMemoryBlock, &(mSolverParams->mNextIntegrationStep));
+        IDAGetLastOrder(mIDAMemoryBlock, &(mSolverParams->mOrderLastStep));
+        IDAGetCurrentOrder(mIDAMemoryBlock, &(mSolverParams->mOrderNextStep));
+        IDAGetErrWeights(mIDAMemoryBlock, mSolverParams->mErrorWeights);
+        IDAGetEstLocalErrors(mIDAMemoryBlock, mSolverParams->mEstLocalErrors);
+        IDAGetNumLinSolvSetups(mIDAMemoryBlock, &(mSolverParams->mNumLinSolvSetups));
+        IDAGetNumErrTestFails(mIDAMemoryBlock, &(mSolverParams->mNumErrTestFails));
+        IDAGetNumStepSolveFails(mIDAMemoryBlock, &(mSolverParams->mNumStepSolveFails));
         std::string estimatedAndWeightedErrors_str;
         printEstimatedAndWeightedErrors(estimatedAndWeightedErrors_str);
 
@@ -635,18 +636,18 @@ void DAESolver<VarType>::logStatistics(Logger::Level minLogLevel) {
             "\nIntegration step size taken on the last internal step: {}"
             "\nStep size to be attempted on the next step: {}"
             "{:s}",
-            mCurrentInternalTime, 
-            mNumberStepsIDA, 
-            mNumberCallsResidualFunctions,
-            mNonLinearIters,
-            mNumLinSolvSetups,
-            mNumErrTestFails,
-            mNumStepSolveFails,
+            mSolverParams->mCurrentInternalTime, 
+            mSolverParams->mNumberStepsIDA, 
+            mSolverParams->mNumberCallsResidualFunctions,
+            mSolverParams->mNonLinearIters,
+            mSolverParams->mNumLinSolvSetups,
+            mSolverParams->mNumErrTestFails,
+            mSolverParams->mNumStepSolveFails,
             mTimeReachedSolver,
-            mOrderLastStep,
-            mOrderNextStep,
-            mLastIntegrationStep,
-            mNextIntegrationStep,
+            mSolverParams->mOrderLastStep,
+            mSolverParams->mOrderNextStep,
+            mSolverParams->mLastIntegrationStep,
+            mSolverParams->mNextIntegrationStep,
             estimatedAndWeightedErrors_str
         );
     }
@@ -675,8 +676,8 @@ DAESolver<VarType>::~DAESolver() {
     N_VDestroy(mDerivativeStateVector);
     N_VDestroy(mStateIDsVector);
     N_VDestroy(mAbsoluteTolerances);
-    N_VDestroy(mErrorWeights);
-    N_VDestroy(mEstLocalErrors);
+    N_VDestroy(mSolverParams->mErrorWeights);
+    N_VDestroy(mSolverParams->mEstLocalErrors);
     SUNLinSolFree(mLinearSolver);
     SUNMatDestroy(mJacobianMatrix);
     SUNContext_Free(&mSunctx);
@@ -687,8 +688,8 @@ void DAESolver<VarType>::printEstimatedAndWeightedErrors(std::string& ret) {
     realtype *errorsWeight = NULL;
     realtype *estLocalErrors = NULL;
     Matrix weightedErrors= Matrix::Zero(mNEQ, 1);
-    errorsWeight  = N_VGetArrayPointer(mErrorWeights);
-    estLocalErrors = N_VGetArrayPointer_Serial(mEstLocalErrors);
+    errorsWeight  = N_VGetArrayPointer(mSolverParams->mErrorWeights);
+    estLocalErrors = N_VGetArrayPointer_Serial(mSolverParams->mEstLocalErrors);
     for (int i=0; i<mNEQ; i++) 
         weightedErrors(i,0) = errorsWeight[i]*estLocalErrors[i];
         
@@ -798,13 +799,13 @@ static void get_error_str(int error_code, int IDAMaxNumSteps, int IDAMaxErrTestF
     
     switch(error_code) {
         case IDA_TOO_MUCH_WORK:
-            ret = "The solver took mIDAMaxNumSteps (=" + std::to_string(IDAMaxNumSteps) + ") internal steps but could not reach tout";
+            ret = "The solver took mSolverParams->mIDAMaxNumSteps (=" + std::to_string(IDAMaxNumSteps) + ") internal steps but could not reach tout";
             break;
         case IDA_TOO_MUCH_ACC:
             ret = "The solver could not satisfy the accuracy demanded by the user for some internal step";
             break;
         case IDA_ERR_FAIL:
-            ret = "Error test failures occurred too many times (mIDAMaxErrTestFails = " + std::to_string(IDAMaxErrTestFails) + ") during one internal time step or occurred with integration_time = hmin";
+            ret = "Error test failures occurred too many times (mSolverParams->mIDAMaxErrTestFails = " + std::to_string(IDAMaxErrTestFails) + ") during one internal time step or occurred with integration_time = hmin";
             break;
         case IDA_CONV_FAIL:
             ret = "Convergence test failures occurred too many times (" + std::to_string(IDAMaxConvFails) + ") during one internal time step or occurred with integration_time = hmin";

@@ -4,7 +4,7 @@
 #include <dpsim/SolverParameters.h>
 
 namespace DPsim {
-	/// Solver class using Modified Nodal Analysis (MNA).
+	/// Parameter class for Modified Nodal Analysis (MNA) solver systems
 	class SolverParametersMNA : public SolverParameters {
 	public: 
 		// #### General simulation settings ####
