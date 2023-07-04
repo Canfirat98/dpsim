@@ -159,33 +159,33 @@ namespace Base {
 			/// Base omega mech
 			Real mBase_OmMech;
 			/// Inertia
-			Real mH;
+			const Attribute<Real>::Ptr mH;
 
 			// ### Operational Parameters  (p.u.) ###
 			/// d-axis inductance
-			Real mLd = 0;
+			const Attribute<Real>::Ptr mLd = 0;
 			/// d-axis inductance
-			Real mLq = 0;
+			const Attribute<Real>::Ptr mLq = 0;
 			/// 0-axis inductance
-			Real mL0 = 0;
+			const Attribute<Real>::Ptr mL0 = 0;
 			/// Subtransient d-axis inductance
-			Real mLd_t = 0;
+			const Attribute<Real>::Ptr mLd_t = 0;
 			/// Subtransient q-axis inductance
-			Real mLq_t = 0;
+			const Attribute<Real>::Ptr mLq_t = 0;
 			/// Subtransient d-axis inductance
-			Real mLd_s = 0;
+			const Attribute<Real>::Ptr mLd_s = 0;
 			/// Subtransient q-axis inductance
-			Real mLq_s = 0;
+			const Attribute<Real>::Ptr mLq_s = 0;
 			/// Transient time constant of d-axis
-			Real mTd0_t = 0;
+			const Attribute<Real>::Ptr mTd0_t = 0;
 			/// Transient time constant of q-axis
-			Real mTq0_t = 0;
+			const Attribute<Real>::Ptr mTq0_t = 0;
 			/// Subtransient time constant of d-axis
-			Real mTd0_s = 0;
+			const Attribute<Real>::Ptr mTd0_s = 0;
 			/// Subtransient time constant of q-axis
-			Real mTq0_s = 0;
+			const Attribute<Real>::Ptr mTq0_s = 0;
 			/// d-axis additional leakage time constant
-			Real mTaa = 0;
+			const Attribute<Real>::Ptr mTaa = 0;
 
 			// ### VBR constants ###
 			///
@@ -229,7 +229,7 @@ namespace Base {
 			/// Complex interface voltage
 			Complex mIntfVoltageComplex;
 			/// initial electrical power
-			Complex mInitElecPower;
+			const Attribute<Complex>::Ptr mInitElecPower;
 			/// initial mechanical power
 			Real mInitMechPower;
 			/// initial terminal voltage phase a (p.u.)

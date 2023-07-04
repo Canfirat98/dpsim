@@ -33,12 +33,12 @@ EMT::Ph3::SynchronGenerator6bOrderVBR::SynchronGenerator6bOrderVBR
 
 void EMT::Ph3::SynchronGenerator6bOrderVBR::specificInitialization() {
 	// initial voltage behind the transient reactance in the dq reference frame
-	(**mEdq0_t)(0,0) = (mLq - mLq_t) * (**mIdq0)(1,0);
-	(**mEdq0_t)(1,0) = **mEf - (mLd - mLd_t) * (**mIdq0)(0,0);
+	(**mEdq0_t)(0,0) = (**mLq - **mLq_t) * (**mIdq0)(1,0);
+	(**mEdq0_t)(1,0) = **mEf - (**mLd - **mLd_t) * (**mIdq0)(0,0);
 
 	// initial dq behind the subtransient reactance in the dq reference frame
-	(**mEdq0_s)(0,0) = (**mVdq0)(0,0) - mLq_s * (**mIdq0)(1,0);
-	(**mEdq0_s)(1,0) = (**mVdq0)(1,0) + mLd_s * (**mIdq0)(0,0);
+	(**mEdq0_s)(0,0) = (**mVdq0)(0,0) - **mLq_s * (**mIdq0)(1,0);
+	(**mEdq0_s)(1,0) = (**mVdq0)(1,0) + **mLd_s * (**mIdq0)(0,0);
 
 	SPDLOG_LOGGER_INFO(mSLog,
 		"\n--- Model specific initialization  ---"
@@ -66,8 +66,8 @@ void EMT::Ph3::SynchronGenerator6bOrderVBR::stepInPerUnit() {
 		(**mEdq0_t)(2,0) = 0.0;
 
 		// calculate Edq_s at t=k
-		(**mEdq0_s)(0,0) = -(**mIdq0)(1,0) * mLq_s + (**mVdq0)(0,0);
-		(**mEdq0_s)(1,0) = (**mIdq0)(0,0) * mLd_s + (**mVdq0)(1,0);
+		(**mEdq0_s)(0,0) = -(**mIdq0)(1,0) * **mLq_s + (**mVdq0)(0,0);
+		(**mEdq0_s)(1,0) = (**mIdq0)(0,0) * **mLd_s + (**mVdq0)(1,0);
 	}
 
 	// get transformation matrix
