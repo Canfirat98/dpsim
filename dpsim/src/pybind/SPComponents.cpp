@@ -130,13 +130,13 @@ void addSPPh1Components(py::module_ mSPPh1) {
 		.def("set_model_as_norton_source", &CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::setModelAsNortonSource, "model_as_norton_source"_a)
 		.def("add_exciter", py::overload_cast<CPS::Base::ExciterParameters, CPS::ExciterType>(&CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::addExciter), "exciter_parameters"_a, "exciter_type"_a=CPS::ExciterType::DC1Simp)
 		.def("add_pss", py::overload_cast<CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real>(&CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::addPSS), "Kp"_a, "Kv"_a, "Kw"_a, "T1"_a, "T2"_a, "T3"_a, "T4"_a, "Vs_max"_a, "Vs_min"_a, "Tw"_a)
-		.def("add_governor", py::overload_cast<CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real>(&CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::addGovernor), "T3"_a, "T4"_a, "T5"_a, "Tc"_a, "Ts"_a, "R"_a, "Tmin"_a, "Tmax"_a, "OmRef"_a);
+		.def("add_governor", py::overload_cast<CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real>(&CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::addGovernor), "T3"_a, "T4"_a, "T5"_a, "Tc"_a, "Ts"_a, "R"_a, "Tmin"_a, "Tmax"_a, "OmRef"_a)
+		.def_property("Ef", createAttributeGetter<CPS::Real>("Ef"), createAttributeSetter<CPS::Real>("Ef"));
 
 	py::class_<CPS::SP::Ph1::SynchronGenerator3OrderVBR, std::shared_ptr<CPS::SP::Ph1::SynchronGenerator3OrderVBR>, CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR>(mSPPh1, "SynchronGenerator3OrderVBR", py::multiple_inheritance())
 		.def(py::init<std::string, CPS::Logger::Level>(), "name"_a, "loglevel"_a = CPS::Logger::Level::off)
 		.def("set_operational_parameters_per_unit", py::overload_cast<CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real>(&CPS::SP::Ph1::SynchronGenerator3OrderVBR::setOperationalParametersPerUnit), "nom_power"_a, "nom_voltage"_a, "nom_frequency"_a, "H"_a, "Ld"_a, "Lq"_a, "L0"_a, "Ld_t"_a, "Td0_t"_a)
-		.def("connect", &CPS::SP::Ph1::SynchronGenerator3OrderVBR::connect)
-		.def_property("Ef", createAttributeGetter<CPS::Real>("Ef"), createAttributeSetter<CPS::Real>("Ef"));;
+		.def("connect", &CPS::SP::Ph1::SynchronGenerator3OrderVBR::connect);
 
 	py::class_<CPS::SP::Ph1::SynchronGenerator4OrderVBR, std::shared_ptr<CPS::SP::Ph1::SynchronGenerator4OrderVBR>, CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR>(mSPPh1, "SynchronGenerator4OrderVBR", py::multiple_inheritance())
 		.def(py::init<std::string, CPS::Logger::Level>(), "name"_a, "loglevel"_a = CPS::Logger::Level::off)
