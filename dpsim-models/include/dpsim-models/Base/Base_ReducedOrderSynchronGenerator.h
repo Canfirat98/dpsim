@@ -94,7 +94,7 @@ namespace Base {
 			/// ### Setters ###
 			void scaleInertiaConstant(Real scalingFactor);
 
-		protected:
+		public:
 
 			using MNASimPowerComp<VarType>::mRightVector;
 			using MNASimPowerComp<VarType>::mIntfVoltage;
