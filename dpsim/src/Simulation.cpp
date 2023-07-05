@@ -54,21 +54,50 @@ Simulation::Simulation(String name, CommandLineArgs& args) :
 void Simulation::setSolverParameters(CPS::Domain domain, Solver::Type type, std::shared_ptr<SolverParameters> solverParameters)
 {
 	mDomain = domain;
-	if (std::dynamic_pointer_cast<DPsim::SolverParametersMNA>(solverParameters) && (type == Solver::Type::MNA)) {
-		mSolverParams = solverParameters;
-		mSolverType = Solver::Type::MNA;
+	mSolverType = Solver::Type::MNA;
+	if (mSolverType == Solver::Type::MNA) {
+		if (solverParameters==nullptr) {
+			mSolverParams = std::make_shared<SolverParametersMNA>();
+			return;
+		} else if (std::dynamic_pointer_cast<DPsim::SolverParametersMNA>(solverParameters)) {
+			mSolverParams = solverParameters;
+			return;
+		}
+		else {
+			std::stringstream ss;
+			ss << "Type of SolverParameters has to be SolverParametersMNA!!";
+			throw std::invalid_argument(ss.str());
+		}
 	}
-	else if (std::dynamic_pointer_cast<DPsim::SolverParametersDAE>(solverParameters) && (type == Solver::Type::DAE)) {
-		mSolverParams = solverParameters;
-		mSolverType = Solver::Type::DAE;
+
+	if (mSolverType == Solver::Type::DAE) {
+		if (solverParameters==nullptr) {
+			mSolverParams = std::make_shared<SolverParametersDAE>();
+			return;
+		} else if (std::dynamic_pointer_cast<DPsim::SolverParametersDAE>(solverParameters)) {
+			mSolverParams = solverParameters;
+			return;
+		}
+		else {
+			std::stringstream ss;
+			ss << "Type of SolverParameters has to be SolverParametersDAE!!";
+			throw std::invalid_argument(ss.str());
+		}
 	}
-	else if (std::dynamic_pointer_cast<DPsim::SolverParametersNRP>(solverParameters) && (type == Solver::Type::NRP)) {
-		mSolverParams = solverParameters;
-		mSolverType = Solver::Type::NRP;
-	}
-	else {
-		std::cout << "Object is of unknown type" << endl;
-		mSolverParams = solverParameters;
+
+	if (mSolverType == Solver::Type::NRP) {
+		if (solverParameters==nullptr) {
+			mSolverParams = std::make_shared<SolverParametersNRP>();
+			return;
+		} else if (std::dynamic_pointer_cast<DPsim::SolverParametersNRP>(solverParameters)) {
+			mSolverParams = solverParameters;
+			return;
+		}
+		else {
+			std::stringstream ss;
+			ss << "Type of SolverParameters has to be SolverParametersNRP!!";
+			throw std::invalid_argument(ss.str());
+		}
 	}
 }
 
@@ -149,40 +178,33 @@ void Simulation::createMNASolver() {
 	std::vector<SystemTopology> subnets;
 	// The Diakoptics solver splits the system at a later point.
 	// That is why the system is not split here if tear components exist.
-	if (std::dynamic_pointer_cast<SolverParametersMNA>(mSolverParams)) {
-		if ( std::dynamic_pointer_cast<SolverParametersMNA>(mSolverParams)->getSplitSubnets() && mTearComponents.size() == 0)
-			mSystem.splitSubnets<VarType>(subnets);
-		else
-			subnets.push_back(mSystem);
+	if ( std::dynamic_pointer_cast<SolverParametersMNA>(mSolverParams)->getSplitSubnets() && mTearComponents.size() == 0)
+		mSystem.splitSubnets<VarType>(subnets);
+	else
+		subnets.push_back(mSystem);
 
-		for (UInt net = 0; net < subnets.size(); ++net) {
-			String copySuffix;
-			if (subnets.size() > 1)
-				copySuffix = "_" + std::to_string(net);
+	for (UInt net = 0; net < subnets.size(); ++net) {
+		String copySuffix;
+		if (subnets.size() > 1)
+			copySuffix = "_" + std::to_string(net);
 
-			// TODO: In the future, here we could possibly even use different
-			// solvers for different subnets if deemed useful
-			if (mTearComponents.size() > 0) {
-				// Tear components available, use diakoptics
-				solver = std::make_shared<DiakopticsSolver<VarType>>(**mName,
-					subnets[net], mTearComponents, **mTimeStep, mLogLevel);
-			} else {
-				// Default case with lu decomposition from mna factory
-				solver = MnaSolverFactory::factory<VarType>(**mName + copySuffix, 
-							std::dynamic_pointer_cast<SolverParametersMNA>(mSolverParams), mDomain, 
-							mLogLevel, mSolverPluginName);
-				solver->setTimeStep(**mTimeStep);
-				solver->setSystem(subnets[net]);
-				solver->initialize();
-				solver->setMaxNumberOfIterations(mMaxIterations);
-			}
-			mSolvers.push_back(solver);
+		// TODO: In the future, here we could possibly even use different
+		// solvers for different subnets if deemed useful
+		if (mTearComponents.size() > 0) {
+			// Tear components available, use diakoptics
+			solver = std::make_shared<DiakopticsSolver<VarType>>(**mName,
+				subnets[net], mTearComponents, **mTimeStep, mLogLevel);
+		} else {
+			// Default case with lu decomposition from mna factory
+			solver = MnaSolverFactory::factory<VarType>(**mName + copySuffix, 
+						mDomain, std::dynamic_pointer_cast<SolverParametersMNA>(mSolverParams),
+						mLogLevel, mSolverPluginName);
+			solver->setTimeStep(**mTimeStep);
+			solver->setSystem(subnets[net]);
+			solver->initialize();
+			solver->setMaxNumberOfIterations(mMaxIterations);
 		}
-	}
-	else {
-		std::stringstream ss;
-		ss << "type of SolverParameters has to be SolverParametersMNA!!";
-		throw std::invalid_argument(ss.str());
+		mSolvers.push_back(solver);
 	}
 }
 

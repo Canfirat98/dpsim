@@ -112,7 +112,7 @@ PYBIND11_MODULE(dpsimpy, m) {
 		.def("run", &DPsim::Simulation::run)
 		.def("set_solver", &DPsim::Simulation::setSolverType)
 		.def("set_domain", &DPsim::Simulation::setDomain)
-		.def("set_solver_parameters", &DPsim::Simulation::setSolverParameters, "domain"_a, "type"_a, "solverParameters"_a)
+		.def("set_solver_parameters", &DPsim::Simulation::setSolverParameters, "domain"_a, "type"_a, "solverParameters"_a=nullptr)
 		.def("start", &DPsim::Simulation::start)
 		.def("next", &DPsim::Simulation::next)
 		.def("get_idobj_attr", &DPsim::Simulation::getIdObjAttribute, "comp"_a, "attr"_a)

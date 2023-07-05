@@ -37,6 +37,5 @@ namespace DPsim {
 		// #### Getter ####
 		/// 
 		Bool getInitFromNodesAndTerminals() {return mInitFromNodesAndTerminals;}
- 		
 	};
 }

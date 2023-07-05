@@ -156,22 +156,19 @@ namespace DPsim {
 		///
 		void setSolverType(Solver::Type solverType = Solver::Type::MNA) { mSolverType = solverType; }
 		///
-		void setSolverParameters(CPS::Domain domain, Solver::Type type, std::shared_ptr<SolverParameters> solverParameters);
+		void setSolverParameters(CPS::Domain domain = CPS::Domain::DP, Solver::Type type = Solver::Type::MNA, 
+			std::shared_ptr<SolverParameters> solverParameters = nullptr);
 		///
-		void setDirectLinearSolverConfiguration(const DirectLinearSolverConfiguration& configuration) { mDirectLinearSolverConfiguration = configuration;	}
+		void setDirectLinearSolverConfiguration(const DirectLinearSolverConfiguration& configuration) { mDirectLinearSolverConfiguration = configuration; }
 		///
 		void setTearingComponents(CPS::IdentifiedObject::List tearComponents = CPS::IdentifiedObject::List()) {
 			mTearComponents = tearComponents;
 		}
 		
-
-
 		/// Set the scheduling method
 		void setScheduler(const std::shared_ptr<Scheduler> &scheduler) {
 			mScheduler = scheduler;
 		}
-
-
 		
 
 		// #### Simulation Control ####

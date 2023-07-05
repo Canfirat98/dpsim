@@ -19,8 +19,8 @@ namespace DPsim {
 
 
 template <typename VarType>
-MnaSolver<VarType>::MnaSolver(String name, std::shared_ptr<SolverParametersMNA> solverParams,
-	CPS::Domain domain, CPS::Logger::Level logLevel) :
+MnaSolver<VarType>::MnaSolver(String name, CPS::Domain domain, 
+	std::shared_ptr<SolverParametersMNA> solverParams, CPS::Logger::Level logLevel) :
 	Solver(name, logLevel), mDomain(domain) {
 	
 	//
