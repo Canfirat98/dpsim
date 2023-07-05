@@ -15,9 +15,9 @@ using namespace CPS;
 namespace DPsim {
 
 template <typename VarType>
-MnaSolverDirect<VarType>::MnaSolverDirect(String name, std::shared_ptr<SolverParametersMNA> solverParams, 
-	CPS::Domain domain, CPS::Logger::Level logLevel) :	
-	MnaSolver<VarType>(name, solverParams, domain, logLevel) {
+MnaSolverDirect<VarType>::MnaSolverDirect(String name, CPS::Domain domain, 
+	std::shared_ptr<SolverParametersMNA> solverParams, CPS::Logger::Level logLevel) :	
+	MnaSolver<VarType>(name, domain, solverParams, logLevel) {
 
 	mImplementationInUse = DirectLinearSolverImpl::SparseLU;
 }

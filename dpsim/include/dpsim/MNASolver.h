@@ -126,8 +126,8 @@ namespace DPsim {
 
 		/// Constructor should not be called by users but by Simulation
 		MnaSolver(String name,
-			std::shared_ptr<SolverParametersMNA> solverParams,
 			CPS::Domain domain = CPS::Domain::DP,
+			std::shared_ptr<SolverParametersMNA> solverParams = SolverParametersMNA(),
 			CPS::Logger::Level logLevel = CPS::Logger::Level::info);
 
 		/// Initialization of individual components

@@ -11,6 +11,7 @@ namespace DPsim {
 		/// Simulation domain, which can be dynamic phasor (DP) or EMT
 		CPS::Domain mDomain;
 		
+		//
         Solver::Behaviour mSolverBehaviour = Solver::Behaviour::Simulation;
 
 		/// Determines if the network should be split
