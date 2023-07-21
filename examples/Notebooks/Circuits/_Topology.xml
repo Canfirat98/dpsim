@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+<md:FullModel rdf:about="./">
+    <md:Model.created>19/07/2023 11:34:13</md:Model.created>
+    <md:Model.modelingAuthoritySet>www.sogno.energy</md:Model.modelingAuthoritySet>
+    <md:Model.profile>Topology</md:Model.profile>
+</md:FullModel>
+<cim:TopologicalNode rdf:about="#Node1">
+    <cim:IdentifiedObject.name>Node1</cim:IdentifiedObject.name>
+    <cim:TopologicalNode.BaseVoltage rdf:resource="#"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#Node2">
+    <cim:IdentifiedObject.name>Node2</cim:IdentifiedObject.name>
+    <cim:TopologicalNode.BaseVoltage rdf:resource="#"/>
+</cim:TopologicalNode>
+<cim:Terminal rdf:about="#Terminal_1_PiLine">
+    <cim:IdentifiedObject.name>Terminal_1_PiLine</cim:IdentifiedObject.name>
+    <cim:Terminal.TopologicalNode rdf:resource="#Node1"/>
+</cim:Terminal>
+<cim:Terminal rdf:about="#Terminal_2_PiLine">
+    <cim:IdentifiedObject.name>Terminal_2_PiLine</cim:IdentifiedObject.name>
+    <cim:Terminal.TopologicalNode rdf:resource="#Node2"/>
+</cim:Terminal>
+<cim:Terminal rdf:about="#Terminal Injection 1">
+    <cim:IdentifiedObject.name>Terminal Injection 1</cim:IdentifiedObject.name>
+    <cim:Terminal.TopologicalNode rdf:resource="#Node2"/>
+</cim:Terminal>
+<cim:Terminal rdf:about="#Terminal_gen">
+    <cim:IdentifiedObject.name>Terminal_gen</cim:IdentifiedObject.name>
+    <cim:Terminal.TopologicalNode rdf:resource="#Node1"/>
+</cim:Terminal>
+</rdf:RDF>
