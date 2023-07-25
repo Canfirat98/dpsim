@@ -134,7 +134,8 @@ PYBIND11_MODULE(dpsimpy, m) {
 		.def_readwrite("components", &DPsim::SystemTopology::mComponents)
 		.def_readonly("tear_components", &DPsim::SystemTopology::mTearComponents)
 		.def("list_idobjects", &DPsim::SystemTopology::listIdObjects)
-		.def("init_with_powerflow", &DPsim::SystemTopology::initWithPowerflow);
+		.def("init_with_powerflow", &DPsim::SystemTopology::initWithPowerflow)
+		.def_readonly("components_at_node", &DPsim::SystemTopology::mComponentsAtNode);
 
 	py::class_<DPsim::Interface, std::shared_ptr<DPsim::Interface>>(m, "Interface");
 
