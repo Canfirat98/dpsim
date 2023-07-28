@@ -66,7 +66,6 @@ Base::ReducedOrderSynchronGenerator<Complex>::ReducedOrderSynchronGenerator(
 	mTq0_s(mAttributes->create<Real>("Tq0_s")),
 	mTaa(mAttributes->create<Real>("Taa")),
 	mInitElecPower(mAttributes->create<Complex>("initElecPower")),
-	// mNomVolt(mAttributes->create<Real>("NomVolt")),
 	mVdq(mAttributes->create<Matrix>("Vdq0")),
 	mIdq(mAttributes->create<Matrix>("Idq0")),
 	mElecTorque(mAttributes->create<Real>("Te")),
