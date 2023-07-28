@@ -122,7 +122,9 @@ void addSPPh1Components(py::module_ mSPPh1) {
 		.def("set_initial_values", &CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::setInitialValues, "init_complex_electrical_power"_a, "init_mechanical_power"_a, "init_complex_terminal_voltage"_a)
 		.def("scale_inertia_constant", &CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::scaleInertiaConstant, "scaling_factor"_a)
 		.def("set_model_as_current_source", &CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::setModelAsCurrentSource, "model_as_current_source"_a)
-		.def_property("Ef", createAttributeGetter<CPS::Real>("Ef"), createAttributeSetter<CPS::Real>("Ef"));
+		.def_property("Ef", createAttributeGetter<CPS::Real>("Ef"), createAttributeSetter<CPS::Real>("Ef"))
+		.def_readwrite("Vnom", &CPS::DP::Ph1::ReducedOrderSynchronGeneratorVBR::mNomVolt)
+		.def_readwrite("InitVoltage", &CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR::mInitVoltage);
 
 	py::class_<CPS::SP::Ph1::SynchronGenerator3OrderVBR, std::shared_ptr<CPS::SP::Ph1::SynchronGenerator3OrderVBR>, CPS::SP::Ph1::ReducedOrderSynchronGeneratorVBR>(mSPPh1, "SynchronGenerator3OrderVBR", py::multiple_inheritance())
 		.def(py::init<std::string, CPS::Logger::Level>(), "name"_a, "loglevel"_a = CPS::Logger::Level::off)
