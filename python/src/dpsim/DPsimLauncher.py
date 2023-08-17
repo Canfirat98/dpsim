@@ -46,8 +46,8 @@ def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.js
                 switch.set_parameters(event_param['FaultOpenResistance'], event_param['FaultClosedResistance'])
                 switch.open()
 
-                #switch.connect([gnd, node])
-                #system.add(switch)
+                switch.connect([gnd, node])
+                system.add(switch)
                 
                 ### DPsim SP simulation
                 name = "IEEE14"
