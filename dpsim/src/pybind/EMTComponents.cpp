@@ -167,7 +167,8 @@ void addEMTPh3Components(py::module_ mEMTPh3) {
 		.def("add_exciter", py::overload_cast<CPS::Base::ExciterParameters, CPS::ExciterType>(&CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::addExciter), "exciter_parameters"_a, "exciter_type"_a=CPS::ExciterType::DC1Simp)
 		.def("add_pss", py::overload_cast<CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real>(&CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::addPSS), "Kp"_a, "Kv"_a, "Kw"_a, "T1"_a, "T2"_a, "T3"_a, "T4"_a, "Vs_max"_a, "Vs_min"_a, "Tw"_a)
 		.def("add_governor", py::overload_cast<CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real, CPS::Real>(&CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::addGovernor), "T3"_a, "T4"_a, "T5"_a, "Tc"_a, "Ts"_a, "R"_a, "Tmin"_a, "Tmax"_a, "OmRef"_a)
-		.def_property("Vnom", createAttributeGetter<CPS::Real>("mNomVolt"), createAttributeSetter<CPS::Real>("mNomVolt"));
+		.def_readwrite("Vnom", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::mNomVolt)
+		.def_readwrite("InitVoltage", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::mInitVoltage);
 
 	py::class_<CPS::EMT::Ph3::SynchronGenerator3OrderVBR, std::shared_ptr<CPS::EMT::Ph3::SynchronGenerator3OrderVBR>, CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR>(mEMTPh3, "SynchronGenerator3OrderVBR", py::multiple_inheritance())
 		.def(py::init<std::string, CPS::Logger::Level>(), "name"_a, "loglevel"_a = CPS::Logger::Level::off)
