@@ -61,19 +61,19 @@ void DP::Ph1::SynchronGenerator4OrderTPM::setOperationalParametersPerUnit(Real n
 };
 
 void DP::Ph1::SynchronGenerator4OrderTPM::calculateStateSpaceMatrices() {
-	mAStateSpace <<	-mLq / mTq0_t / mLq_t,	0,
-              		0,						-mLd / mTd0_t / mLd_t;
-	mBStateSpace <<	(mLq-mLq_t) / mTq0_t / mLq_t,	0.0,
-					0.0,							(mLd-mLd_t) / mTd0_t / mLd_t;
+	mAStateSpace <<	-**mLq / **mTq0_t / **mLq_t,	0,
+              		0,						-**mLd / **mTd0_t / **mLd_t;
+	mBStateSpace <<	(**mLq-**mLq_t) / **mTq0_t / **mLq_t,	0.0,
+					0.0,							(**mLd-**mLd_t) / **mTd0_t / **mLd_t;
 	mCStateSpace <<	0,
-					1 / mTd0_t;
+					1 / **mTd0_t;
 	Math::calculateStateSpaceTrapezoidalMatrices(mAStateSpace, mBStateSpace, mCStateSpace, mTimeStep, mAdStateSpace, mBdStateSpace, mCdStateSpace);
 }
 
 void DP::Ph1::SynchronGenerator4OrderTPM::specificInitialization() {
 	// initial emf in the dq reference frame
-	(**mEdq_t)(0,0) = (**mVdq)(0,0) - (**mIdq)(1,0) * mLq_t;
-	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * mLd_t;
+	(**mEdq_t)(0,0) = (**mVdq)(0,0) - (**mIdq)(1,0) * **mLq_t;
+	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * **mLd_t;
 	SPDLOG_LOGGER_INFO(mSLog,
 		"\n--- Model specific initialization  ---"
 		"\nInitial Ed_t (per unit): {:f}"
@@ -150,7 +150,7 @@ void DP::Ph1::SynchronGenerator4OrderTPM::stepInPerUnit() {
 	// predict electrical vars
 	// set previous values of stator current at simulation start
 	if (mSimTime == 0.0) {
-		(**mIntfCurrent)(0,0) = std::conj(mInitElecPower / (mInitVoltage * mBase_V_RMS));
+		(**mIntfCurrent)(0,0) = std::conj(**mInitElecPower / (mInitVoltage * mBase_V_RMS));
 		mIdpTwoPrevStep = **mIntfCurrent;
 	}
 
@@ -160,8 +160,8 @@ void DP::Ph1::SynchronGenerator4OrderTPM::stepInPerUnit() {
 	IdpPrediction(1,0) = 2 * (**mIntfCurrent)(0,0).imag() - mIdpTwoPrevStep(0,0).imag();
 
 	// calculate emf at t=k
-	(**mEdq_t)(0,0) = (**mVdq)(0,0) - (**mIdq)(1,0) * mLq_t;
-	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * mLd_t;
+	(**mEdq_t)(0,0) = (**mVdq)(0,0) - (**mIdq)(1,0) * **mLq_t;
+	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * **mLd_t;
 
 	// calculate original history voltage of VBR model (trapezoidal rule)
 	mEh(0,0) = mAd_t * (**mIdq)(1,0) + mBd_t * (**mEdq_t)(0,0);
@@ -202,8 +202,8 @@ void DP::Ph1::SynchronGenerator4OrderTPM::correctorStep() {
 	(**mEdq_t) = Math::applyStateSpaceTrapezoidalMatrices(mAdStateSpace, mBdStateSpace, mCdStateSpace * **mEf, mEdqtPrevStep, **mVdq, mVdqPrevStep);
 
 	// calculate stator currents at j and k+1
-	(**mIdq)(0,0) = ((**mEdq_t)(1,0) - (**mVdq)(1,0) ) / mLd_t;
-	(**mIdq)(1,0) = ((**mVdq)(0,0) - (**mEdq_t)(0,0) ) / mLq_t;
+	(**mIdq)(0,0) = ((**mEdq_t)(1,0) - (**mVdq)(1,0) ) / **mLd_t;
+	(**mIdq)(1,0) = ((**mVdq)(0,0) - (**mEdq_t)(0,0) ) / **mLq_t;
 
 	// convert corrected currents to dp domain
 	Complex IdpCorrectionComplex = mDomainInterface.applyDQToDPTransform(**mIdq) * mBase_I_RMS;

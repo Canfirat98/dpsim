@@ -156,8 +156,9 @@ void addEMTPh3Components(py::module_ mEMTPh3) {
 		.def("set_base_parameters", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::setBaseParameters, "nom_power"_a, "nom_voltage"_a, "nom_frequency"_a)
 		.def("set_initial_values", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::setInitialValues, "init_complex_electrical_power"_a, "init_mechanical_power"_a, "init_complex_terminal_voltage"_a)
 		.def("scale_inertia_constant", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::scaleInertiaConstant, "scaling_factor"_a)
-		.def("set_model_as_current_source", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::setModelAsCurrentSource, "model_as_current_source"_a)
-		.def_property("Vnom", createAttributeGetter<CPS::Real>("mNomVolt"), createAttributeSetter<CPS::Real>("mNomVolt"));
+		.def("set_model_as_norton_source", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::setModelAsNortonSource, "model_as_norton_source"_a)
+		.def_readwrite("Vnom", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::mNomVolt)
+		.def_readwrite("InitVoltage", &CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR::mInitVoltage);
 
 	py::class_<CPS::EMT::Ph3::SynchronGenerator3OrderVBR, std::shared_ptr<CPS::EMT::Ph3::SynchronGenerator3OrderVBR>, CPS::EMT::Ph3::ReducedOrderSynchronGeneratorVBR>(mEMTPh3, "SynchronGenerator3OrderVBR", py::multiple_inheritance())
 		.def(py::init<std::string, CPS::Logger::Level>(), "name"_a, "loglevel"_a = CPS::Logger::Level::off)

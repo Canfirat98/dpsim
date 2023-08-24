@@ -53,7 +53,7 @@ void DP::Ph1::SynchronGenerator3OrderVBR::stepInPerUnit() {
 	mDomainInterface.updateDPToDQTransform(**mThetaMech, mSimTime);
 
 	// update Edq_t
-	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * mLd_t;
+	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * **mLd_t;
 
 	// Update time-varying reactance matrix
 	calculateConductanceMatrix();
