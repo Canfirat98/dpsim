@@ -243,7 +243,9 @@ PYBIND11_MODULE(dpsimpy, m) {
 		});
 
 	py::class_<CPS::IdentifiedObject, std::shared_ptr<CPS::IdentifiedObject>>(m, "IdentifiedObject")
-		.def("name", &CPS::IdentifiedObject::name)
+		.def("get_name", &CPS::IdentifiedObject::name)
+		.def_property("name", createAttributeGetter<CPS::String>("name"), createAttributeSetter<CPS::String>("name"))
+		.def_property("uid", createAttributeGetter<CPS::String>("uid"), createAttributeSetter<CPS::String>("uid"))
 		/// CHECK: It would be nicer if all the attributes of an IdObject were bound as properties so they show up in the documentation and auto-completion.
 		/// I don't know if this is possible to do because it depends on if the attribute map is filled before or after the code in this file is run.
 		/// Manually adding the attributes would of course be possible but very tedious to do for all existing components / attributes

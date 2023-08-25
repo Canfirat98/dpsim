@@ -3,8 +3,8 @@ sys.path.insert(0,'/home/mmo-cya/dpsim/build')
 import dpsimpy
 import json
 import cimpy
-from cimpy import CIMpyToDPsim
-from cimpy.CIMpyToDPsim import Domain
+from cimpy import CIM2DPsim
+from cimpy.CIM2DPsim import Domain
 
 def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.json' ):
     """
@@ -28,7 +28,7 @@ def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.js
     imported_result = cimpy.cim_import(data['CIMFiles'], 'cgmes_v2_4_15')
 
     # Übersetzen der cimpy-Topologie in die DPsim-Topologie
-    system , K = CIMpyToDPsim.CIMpyToDPsim(imported_result, Domain.PF)
+    system = CIM2DPsim.CIM2DPsim(imported_result, Domain.PF)
    
     # Füge der Topologie den gewünschten Event hinzu
     event = data['Events'] 
