@@ -6,6 +6,7 @@ import cimpy
 from cimpy import CIM2DPsim
 from cimpy.CIM2DPsim import Domain
 
+
 def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.json' ):
     """
     Diese Funktion liest eine Konfiguartions Datei im JSON Format ein, in der der Dateipfad zu dem CIM-Netzwerk und deren Parameter zur Simulation
@@ -50,11 +51,11 @@ def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.js
                 system.add(switch)
                 
                 ### DPsim SP simulation
-                name = "IEEE14"
+                sim_parameters = data['SimulationParameters']
+                name = sim_parameters['SimulationName']
                 dpsimpy.Logger.set_log_dir("logs/" + name)
 
                     ### Simulation
-                sim_parameters = data['SimulationParameters']
                 sim = dpsimpy.Simulation(name, dpsimpy.LogLevel.debug)
                 sim.set_system(system)
                 sim.set_domain(dpsimpy.Domain.SP)
@@ -74,6 +75,44 @@ def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.js
                 return system
         
         print(f"Der gewünschte Knoten '{event_param['NodeName']}' ist nicht in der Topologie enthalten.")
+        return system
+    
+    elif event['EventType'] == "LineDisconnection":
+        event_param = event['EventParameters']
+
+        for comp in system.components:
+            if event_param['LineName'] == comp.name:
+                # comp ist die zu entfernende Freileitung
+                
+                # Entferne Freileitung aus den Knoten-Listen
+                for key, value in system.components_at_node.items():
+                    if comp in value:
+                        obj_dict = system.components_at_node
+                        obj_dict[key] = [c for c in obj_dict[key] if c != comp]
+                        system.components_at_node = obj_dict
+
+                # Entferne Freileitung aus Komponentenliste    
+                system.components = [x for x in system.components if x != comp]
+
+                ### DPsim SP simulation
+                sim_parameters = data['SimulationParameters']
+                name = sim_parameters['SimulationName']
+                dpsimpy.Logger.set_log_dir("logs/" + name)
+
+                    ### Simulation
+                sim = dpsimpy.Simulation(name, dpsimpy.LogLevel.debug)
+                sim.set_system(system)
+                sim.set_domain(dpsimpy.Domain.SP)
+                sim.set_solver(dpsimpy.Solver.NRP)
+                sim.set_solver_component_behaviour(dpsimpy.SolverBehaviour.Initialization)
+                sim.set_time_step(sim_parameters['TimeStep'])
+                sim.set_final_time(sim_parameters['EndTime'])
+              
+                #sim.run()
+            
+                return system
+            
+        print(f"Die gewünschte Freileitung '{event_param['LineName']}' ist nicht in der Topologie enthalten.")
         return system
     
     print("Bitte gebe einen gültigen Fehlerfall an. Zum Beispiel <ThreePhaseFault>.")
