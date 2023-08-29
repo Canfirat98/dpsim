@@ -108,7 +108,7 @@ def DPsimLauncher(path = '/home/mmo-cya/dpsim/python/src/dpsim/Config_network.js
                 sim.set_time_step(sim_parameters['TimeStep'])
                 sim.set_final_time(sim_parameters['EndTime'])
               
-                #sim.run()
+                sim.run()
             
                 return system
             
