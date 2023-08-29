@@ -58,7 +58,7 @@ void PFSolver::assignMatrixNodeIndices() {
 	UInt matrixNodeIndexIdx = 0;
 	for (UInt idx = 0; idx < mSystem.mNodes.size(); ++idx) {
 		mSystem.mNodes[idx]->setMatrixNodeIndex(0, matrixNodeIndexIdx);
-		SPDLOG_LOGGER_INFO(mSLog, "Node {}: MatrixNodeIndex {}", mSystem.mNodes[idx]->uid(), mSystem.mNodes[idx]->matrixNodeIndex());
+		SPDLOG_LOGGER_INFO(mSLog, "Node {}: MatrixNodeIndex {}", mSystem.mNodes[idx]->name(), mSystem.mNodes[idx]->matrixNodeIndex());
 		++matrixNodeIndexIdx;
 	}
 	SPDLOG_LOGGER_INFO(mSLog, "Number of simulation nodes: {:d}", matrixNodeIndexIdx);
@@ -193,7 +193,7 @@ void PFSolver::determinePFBusType() {
 			mVDBusIndices.push_back(node->matrixNodeIndex());
 			mVDBuses.push_back(node);
 		} // VD, PV and PQ type component connect -> set as VD bus
-		else if (connectedPV && connectedPQ && connectedVD) {
+		else if (!connectedPV && connectedPQ && connectedVD) {
 			SPDLOG_LOGGER_INFO(mSLog, "{}: VD, PV and PQ type component connect -> set as VD bus", node->name());
 			mVDBusIndices.push_back(node->matrixNodeIndex());
 			mVDBuses.push_back(node);
