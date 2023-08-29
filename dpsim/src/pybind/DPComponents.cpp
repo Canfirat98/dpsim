@@ -100,7 +100,8 @@ void addDPPh1Components(py::module_ mDPPh1) {
 	py::class_<CPS::DP::Ph1::PiLine, std::shared_ptr<CPS::DP::Ph1::PiLine>, CPS::SimPowerComp<CPS::Complex>>(mDPPh1, "PiLine", py::multiple_inheritance())
         .def(py::init<std::string, CPS::Logger::Level>(), "name"_a, "loglevel"_a = CPS::Logger::Level::off)
 		.def(py::init<std::string, std::string, CPS::Logger::Level>(), "uuid"_a, "name"_a, "loglevel"_a = CPS::Logger::Level::off)
-        .def("set_parameters", &CPS::DP::Ph1::PiLine::setParameters, "series_resistance"_a, "series_inductance"_a, "parallel_capacitance"_a=0, "parallel_conductance"_a=0)
+         //#.def("set_parameters", &CPS::DP::Ph1::PiLine::setParameters, "series_resistance"_a, "series_inductance"_a, "parallel_capacitance"_a=0, "parallel_conductance"_a=0)
+		.def("set_parameters", &CPS::DP::Ph1::PiLine::setParameters, "R"_a, "L"_a, "C"_a=0, "G"_a=0)
 		.def("connect", &CPS::DP::Ph1::PiLine::connect);
 
 	py::class_<CPS::DP::Ph1::RXLoad, std::shared_ptr<CPS::DP::Ph1::RXLoad>, CPS::SimPowerComp<CPS::Complex>>(mDPPh1, "RXLoad", py::multiple_inheritance())

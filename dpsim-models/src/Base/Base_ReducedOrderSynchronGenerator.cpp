@@ -319,8 +319,8 @@ void Base::ReducedOrderSynchronGenerator<VarType>::setInitialValues(
 		"\nInitial current magnitude: {:} p.u."
 		"\nInitial current phase: {:} rad = ({:}°)"
 		"\n--- Set initial values finished ---\n",
-		mInitElecPower.real(), mInitElecPower.real() / mNomPower,
-		mInitElecPower.imag(), mInitElecPower.imag() / mNomPower,
+		(**mInitElecPower).real(), (**mInitElecPower).real() / mNomPower,
+		(**mInitElecPower).imag(), (**mInitElecPower).imag() / mNomPower,
 		Math::abs(mInitVoltage),
 		Math::phase(mInitVoltage), Math::phaseDeg(mInitVoltage),
 		Math::abs(mInitCurrent),
@@ -537,7 +537,6 @@ void Base::ReducedOrderSynchronGenerator<Complex>::mnaCompPreStep(Real time, Int
 template <>
 void Base::ReducedOrderSynchronGenerator<Real>::mnaCompPreStep(Real time, Int timeStepCount) {
 	mSimTime = time;
-	
 	// update governor variables
 	if (mHasTurbineGovernor) {
 		mMechTorque_prev = **mMechTorque;
