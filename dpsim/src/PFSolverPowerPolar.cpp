@@ -385,18 +385,19 @@ void PFSolverPowerPolar::calculatePAndQAtSlackBus() {
         CPS::Complex S = sol_Vcx(node_idx) * conj(I);
         
         // GenPower = Power flowing out of node + PQLoadsPower
+        auto Sgen = S;
         for(auto comp : mSystem.mComponentsAtNode[topoNode])
             if (auto loadPtr = std::dynamic_pointer_cast<CPS::SP::Ph1::Load>(comp))
-                S += Complex(**(loadPtr->mActivePowerPerUnit), **(loadPtr->mReactivePowerPerUnit));
-     
+                Sgen += Complex(**(loadPtr->mActivePowerPerUnit), **(loadPtr->mReactivePowerPerUnit));
+
         // Set power of external network injections of SG (VD)
         for(auto comp : mSystem.mComponentsAtNode[topoNode]) {
             if(auto extnetPtr = std::dynamic_pointer_cast<CPS::SP::Ph1::NetworkInjection>(comp)) {
-                extnetPtr->updatePowerInjection(S*mBaseApparentPower);
+                extnetPtr->updatePowerInjection(Sgen*mBaseApparentPower);
                 break;
             }
             if(auto sgPtr = std::dynamic_pointer_cast<CPS::SP::Ph1::SynchronGenerator>(comp)) {
-                sgPtr->updatePowerInjection(S*mBaseApparentPower);
+                sgPtr->updatePowerInjection(Sgen*mBaseApparentPower);
                 break;
             }
         }
