@@ -1,0 +1,37 @@
+{
+	"CIMFiles": [
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml",
+		"/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml",
+		"/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+    ],
+	"SolverParameters": {
+		"Domain": "RMS",	
+		"Solver": "MNA" 	
+	},
+	"SimulationParameters": {
+		"SimulationName": "IEEE14_LD",
+		"StartTime": 0,
+		"EndTime" : 1.5,
+		"TimeStep": 0.1, 
+		"InitFromPF": true
+	},
+	"Events": {
+		"EventType": "LineDisconnection",
+		"EventStartTime": 0,
+		"EventEndTime": 10,
+		"EventParameters": {
+			"BreakerClosedResistance": 0.0001,
+			"BreakerOpenResistance": 10e4,
+			"LineName": "Line_0006_0013",
+			"LineTermina": "str"
+		}
+		
+	},
+	"LoggerVariable":{
+		"Voltages": ["N14"],
+        "Power": []
+	}
+}
