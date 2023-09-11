@@ -616,3 +616,37 @@ DEBUG:root:Created Node: name=n1
 DEBUG:root:Created Node: name=n2
 INFO:cimpy.cimexport:Start export procedure.
 ERROR:cimpy.cimexport:File ./_Topology.xml already exists. Delete file or change file name to serialize CGMES classes.
+DEBUG:root:Created SynchronGenerator: name=gen_pf, rated_apparent_power=303124718037001.2[VA], rated_voltage=24000000.0[V], set_point_active_power=300000.0[W], set_point_voltage=25200000.0[V], set_point_reactive_power=43411918697748.0[VAR]
+DEBUG:root:Created ACLineSegment: name=Pi_Line_pf, L=0.073152, R=0.001383, C=8.3e-05, G=0.0
+DEBUG:root:Created ExternalNetworkInjection: name=Injection 1, baseVoltage=24000000.0[V], voltageSetPoint=24000000.0[V]
+DEBUG:root:Created Node: name=n1_pf
+DEBUG:root:Created Node: name=n2_pf
+DEBUG:root:Created ACLineSegment: name=Pi_Line_pf, L=0.073152, R=0.001383, C=8.3e-05, G=0.0
+DEBUG:root:Created ExternalNetworkInjection: name=Injection 1, baseVoltage=24000000.0[V], voltageSetPoint=24000000.0[V]
+DEBUG:root:Created SynchronGenerator: name=gen_pf, rated_apparent_power=303124718037001.2[VA], rated_voltage=24000000.0[V], set_point_active_power=300000.0[W], set_point_voltage=25200000.0[V], set_point_reactive_power=43411918697748.0[VAR]
+DEBUG:root:Created Node: name=n1_pf
+DEBUG:root:Created Node: name=n2_pf
+DEBUG:root:Created 3Order VBR SynchronGenerator: name=gen, nom_power=303124718037001.0[VA], nom_voltage=24000000.0[W], nom_frequency=60[Hz], H=3.7, Ld=1.8099, Lq=1.76, L0=0.15, Ld_t=0.2999, Td0_t=8.0669
+DEBUG:root:Created ACLineSegment: name=PiLine, L=0.073152, R=0.001383, C=8.3e-05, G=0.0
+DEBUG:root:Created ExternalNetworkInjection: name=Injection 1, baseVoltage=24000000.0[V], voltageRef=24000000.0[V]
+DEBUG:root:Created Node: name=n1
+DEBUG:root:Created Node: name=n2
+INFO:cimpy.cimexport:Start export procedure.
+ERROR:cimpy.cimexport:File ./_Topology.xml already exists. Delete file or change file name to serialize CGMES classes.
+DEBUG:root:Created SynchronGenerator: name=gen_pf, rated_apparent_power=303124718037001.2[VA], rated_voltage=24000000.0[V], set_point_active_power=300000.0[W], set_point_voltage=25200000.0[V], set_point_reactive_power=43411918697748.0[VAR]
+DEBUG:root:Created ACLineSegment: name=Pi_Line_pf, L=0.073152, R=0.001383, C=8.3e-05, G=0.0
+DEBUG:root:Created ExternalNetworkInjection: name=Injection 1, baseVoltage=24000000.0[V], voltageSetPoint=24000000.0[V]
+DEBUG:root:Created Node: name=n1_pf
+DEBUG:root:Created Node: name=n2_pf
+DEBUG:root:Created ACLineSegment: name=Pi_Line_pf, L=0.073152, R=0.001383, C=8.3e-05, G=0.0
+DEBUG:root:Created ExternalNetworkInjection: name=Injection 1, baseVoltage=24000000.0[V], voltageSetPoint=24000000.0[V]
+DEBUG:root:Created SynchronGenerator: name=gen_pf, rated_apparent_power=303124718037001.2[VA], rated_voltage=24000000.0[V], set_point_active_power=300000.0[W], set_point_voltage=25200000.0[V], set_point_reactive_power=43411918697748.0[VAR]
+DEBUG:root:Created Node: name=n1_pf
+DEBUG:root:Created Node: name=n2_pf
+DEBUG:root:Created 3Order VBR SynchronGenerator: name=gen, nom_power=303124718037001.0[VA], nom_voltage=24000000.0[W], nom_frequency=60[Hz], H=3.7, Ld=1.8099, Lq=1.76, L0=0.15, Ld_t=0.2999, Td0_t=8.0669
+DEBUG:root:Created ACLineSegment: name=PiLine, L=0.073152, R=0.001383, C=8.3e-05, G=0.0
+DEBUG:root:Created ExternalNetworkInjection: name=Injection 1, baseVoltage=24000000.0[V], voltageRef=24000000.0[V]
+DEBUG:root:Created Node: name=n1
+DEBUG:root:Created Node: name=n2
+INFO:cimpy.cimexport:Start export procedure.
+ERROR:cimpy.cimexport:File ./_Topology.xml already exists. Delete file or change file name to serialize CGMES classes.

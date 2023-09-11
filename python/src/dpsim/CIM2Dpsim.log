@@ -14967,3 +14967,991 @@ DEBUG:root:Created Node: name=Bus_0005
 DEBUG:root:Created Node: name=Bus_0012
 DEBUG:root:Created Node: name=Bus_0003
 DEBUG:root:Created Node: name=Bus_0013
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:CIM object Diagram created : 1 times
+INFO:cimpy.cimimport:CIM object DiagramObjectPoint created : 168 times
+INFO:cimpy.cimimport:CIM object DiagramObject created : 77 times
+INFO:cimpy.cimimport:CIM object SvPowerFlow created : 16 times
+INFO:cimpy.cimimport:CIM object SvVoltage created : 14 times
+INFO:cimpy.cimimport:CIM object SvTapStep created : 5 times
+INFO:cimpy.cimimport:CIM object TopologicalIsland created : 1 times
+INFO:cimpy.cimimport:CIM object TopologicalNode created : 14 times
+INFO:cimpy.cimimport:CIM object VoltageLimit created : 14 times
+INFO:cimpy.cimimport:CIM object Terminal created : 58 times
+INFO:cimpy.cimimport:CIM object VoltageLevel created : 14 times
+INFO:cimpy.cimimport:CIM object OperationalLimitSet created : 56 times
+INFO:cimpy.cimimport:CIM object PowerTransformer created : 5 times
+INFO:cimpy.cimimport:CIM object ConformLoad created : 11 times
+INFO:cimpy.cimimport:CIM object SubGeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object RegulatingControl created : 5 times
+INFO:cimpy.cimimport:CIM object BaseVoltage created : 4 times
+INFO:cimpy.cimimport:CIM object PowerTransformerEnd created : 10 times
+INFO:cimpy.cimimport:CIM object CurrentLimit created : 42 times
+INFO:cimpy.cimimport:CIM object LoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object ConformLoadGroup created : 1 times
+INFO:cimpy.cimimport:CIM object OperationalLimitType created : 2 times
+INFO:cimpy.cimimport:CIM object RatioTapChanger created : 5 times
+INFO:cimpy.cimimport:CIM object SynchronousMachine created : 5 times
+INFO:cimpy.cimimport:CIM object ACLineSegment created : 16 times
+INFO:cimpy.cimimport:CIM object LoadResponseCharacteristic created : 1 times
+INFO:cimpy.cimimport:CIM object SubLoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object GeneratingUnit created : 5 times
+INFO:cimpy.cimimport:CIM object GeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object Substation created : 1 times
+INFO:cimpy.cimimport:CIM object SynchronousMachineTimeConstantReactance created : 5 times
+INFO:cimpy.cimimport:Created totally 560 CIM objects in 0.037557125091552734s
+
+
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created SynchronGenerator: name=Gen_0008, rated_apparent_power=100000000.0[VA], rated_voltage=11000.0[V], set_point_active_power=0.0[W], set_point_voltage=11990.0[pu], set_point_reactive_power=-17400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0001, rated_apparent_power=400000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=232400000.0[W], set_point_voltage=139920.0[pu], set_point_reactive_power=16900000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0006, rated_apparent_power=100000000.0[VA], rated_voltage=33000.0[V], set_point_active_power=0.0[W], set_point_voltage=35310.0[pu], set_point_reactive_power=-12200000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0003, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=0.0[W], set_point_voltage=133320.0[pu], set_point_reactive_power=-23400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0002, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=40000000.0[W], set_point_voltage=137940.0[pu], set_point_reactive_power=-42400000.0[VAR]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0008, nom_power=100000000.0[VA], nom_voltage=11000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0001, nom_power=400000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0006, nom_power=100000000.0[VA], nom_voltage=33000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0002, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0003, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:CIM object Diagram created : 1 times
+INFO:cimpy.cimimport:CIM object DiagramObjectPoint created : 168 times
+INFO:cimpy.cimimport:CIM object DiagramObject created : 77 times
+INFO:cimpy.cimimport:CIM object SvPowerFlow created : 16 times
+INFO:cimpy.cimimport:CIM object SvVoltage created : 14 times
+INFO:cimpy.cimimport:CIM object SvTapStep created : 5 times
+INFO:cimpy.cimimport:CIM object TopologicalIsland created : 1 times
+INFO:cimpy.cimimport:CIM object TopologicalNode created : 14 times
+INFO:cimpy.cimimport:CIM object VoltageLimit created : 14 times
+INFO:cimpy.cimimport:CIM object Terminal created : 58 times
+INFO:cimpy.cimimport:CIM object VoltageLevel created : 14 times
+INFO:cimpy.cimimport:CIM object OperationalLimitSet created : 56 times
+INFO:cimpy.cimimport:CIM object PowerTransformer created : 5 times
+INFO:cimpy.cimimport:CIM object ConformLoad created : 11 times
+INFO:cimpy.cimimport:CIM object SubGeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object RegulatingControl created : 5 times
+INFO:cimpy.cimimport:CIM object BaseVoltage created : 4 times
+INFO:cimpy.cimimport:CIM object PowerTransformerEnd created : 10 times
+INFO:cimpy.cimimport:CIM object CurrentLimit created : 42 times
+INFO:cimpy.cimimport:CIM object LoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object ConformLoadGroup created : 1 times
+INFO:cimpy.cimimport:CIM object OperationalLimitType created : 2 times
+INFO:cimpy.cimimport:CIM object RatioTapChanger created : 5 times
+INFO:cimpy.cimimport:CIM object SynchronousMachine created : 5 times
+INFO:cimpy.cimimport:CIM object ACLineSegment created : 16 times
+INFO:cimpy.cimimport:CIM object LoadResponseCharacteristic created : 1 times
+INFO:cimpy.cimimport:CIM object SubLoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object GeneratingUnit created : 5 times
+INFO:cimpy.cimimport:CIM object GeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object Substation created : 1 times
+INFO:cimpy.cimimport:CIM object SynchronousMachineTimeConstantReactance created : 5 times
+INFO:cimpy.cimimport:Created totally 560 CIM objects in 0.04103827476501465s
+
+
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created SynchronGenerator: name=Gen_0008, rated_apparent_power=100000000.0[VA], rated_voltage=11000.0[V], set_point_active_power=0.0[W], set_point_voltage=11990.0[pu], set_point_reactive_power=-17400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0001, rated_apparent_power=400000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=232400000.0[W], set_point_voltage=139920.0[pu], set_point_reactive_power=16900000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0006, rated_apparent_power=100000000.0[VA], rated_voltage=33000.0[V], set_point_active_power=0.0[W], set_point_voltage=35310.0[pu], set_point_reactive_power=-12200000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0003, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=0.0[W], set_point_voltage=133320.0[pu], set_point_reactive_power=-23400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0002, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=40000000.0[W], set_point_voltage=137940.0[pu], set_point_reactive_power=-42400000.0[VAR]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0008, nom_power=100000000.0[VA], nom_voltage=11000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0001, nom_power=400000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0006, nom_power=100000000.0[VA], nom_voltage=33000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0002, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0003, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_DI.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_EQ.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_SV.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_TP.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_DI.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_EQ.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_SV.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_TP.xml"
+WARNING:cimpy.cimimport:Module NameType not implemented : 2 times
+WARNING:cimpy.cimimport:Module Name not implemented : 65 times
+WARNING:cimpy.cimimport:Missing NameType object with uuid: _d2995e50-380e-4f1b-beca-45ef75624ec5 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _cbd79f33-9050-471d-baf8-330af085808e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _42e42a88-94d6-431c-b0d8-f5ee1e1dc978 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _87bfc15b-493d-4aec-ab02-75febd40a759 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ab4d5d67-276c-48cd-9ce0-227601ed2c7c : 1 times
+WARNING:cimpy.cimimport:Referenced CurrentLimit [_32d6d32e-c3f0-43d4-8103-079a15594fc6] object missing. : 16 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ecea3b2d-e6c7-4850-9196-b7eae0d23775 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _99244cd7-53a2-46df-99eb-6db15311a924 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _14e6eb36-73d3-4cd3-8fe9-cd9e62dc50ce : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _35ec16e2-c578-4845-8d8a-83c2225be38e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b2aa8671-23cb-4b49-a3f6-b5be8b50c104 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _5f5233dd-d7ec-4fbf-85f9-7290557ec0d3 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _dc4cc669-af2a-42f9-9dcd-bdbadf5cfb75 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _e10032ed-5c48-47db-bad8-91c80b2f10aa : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ace32512-0a1c-4683-9fbc-6e2c39cc2a3f : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _804f450b-6a25-4458-aa13-4345b34523df : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _092f89de-0e82-49ab-9209-0f65b5fbdc29 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _194288db-296e-4e91-97e3-cf78db8db04e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _160428fc-6575-486c-a3fe-832fb09a0b43 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _689dec99-3f73-4d5d-b0ad-ae327c2a0244 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _4d10e296-6837-4211-b4db-d56fd0f2d6db : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _2fcee2f4-5ec2-4245-b837-5e94dbf4391e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _eceafa25-f29a-40af-ac10-f2ea4bf3f728 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _03a51b37-8384-49a1-80d0-71300f3ec061 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _1b25df43-ef93-489b-8111-8cd41238b2ef : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _7eab8462-3f48-4f2d-9364-dfad57f32d4b : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _0717225b-10b7-411f-a6e9-ed52228c72da : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b79caded-b000-41f5-8819-3ed537de80d2 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _f69ebe62-bf8f-446d-88fc-bd1bf1fa337a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _a1ffb35b-6a6d-4e74-9cc8-80e8b8df6b08 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b082f077-9bea-4937-b158-93bd2b2cecdc : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ac8232f1-f3c9-497a-8649-fc90ecd6895d : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _fffc0c14-fe5a-4872-88f9-fe7377580fc5 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _a4923a1c-e669-481c-8d52-988c84855376 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _5f58fca6-c9b8-4a48-89a0-5e3b5f09d650 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _cb436e95-45fa-4d84-bed8-b3b8975352ab : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _9ee79681-9732-43e7-b91d-dfa89b19eb58 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _2845a305-ad4f-4afd-904c-cd7704c389b3 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _27bb80f8-4acf-4e17-9ff0-8b43ea1ce826 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _647bc1e0-011a-4f15-90c8-c1e6fa58817f : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _faa5ae1f-b7e1-4951-a2ce-45e03897f83a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b7aed28d-2c2d-47dc-9876-3a81bf9d1529 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _af72eba9-7af2-4808-9da4-432ff0849ea7 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _41842f31-4adc-4b71-b50c-fc08a608ea29 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _eb0a39a3-c2e0-41e9-8b68-527b1ef64493 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _5285090f-646b-4562-ac11-cd1e66b4a97e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _bd2862ac-da6e-4fca-89e2-ab793bf46e8a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _0cfb3a99-5ddd-4cca-84d8-4d27bce35f12 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _55cd4b1d-86ca-4dbb-a114-9354f5dc5c04 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _6bdd0483-21e7-4327-90b3-d024b41b8528 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _4881cf2a-f906-402d-a413-8a81215bd614 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _80b08db8-7624-4c3d-abd8-7bcd195a605f : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _9d9a632c-94e9-458d-9e17-cceedd7098be : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _2afef3f8-920d-43b2-9fbd-74f64b0959bf : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _03306aa5-d343-442b-8772-078802df53e8 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _01fbc78e-84af-40b8-95ab-dfcf3229d9af : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _c32fc9a9-36d9-4e4b-acf4-45632379377e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _4088ebe7-3c1f-4595-89d5-c630c4433202 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b0908a9d-ef41-4d5d-b48a-88e7622a6946 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _408c391a-669a-4c14-b542-602673840a7a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _32fc99f8-3df6-4b76-8a77-b2ed42c91de6 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _08968764-bbcb-4f6f-b584-45fb39faf065 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _7f46d992-6ce4-4ff1-b3ae-d94e1ed16610 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _f2078bfb-5199-43ab-8fd8-5b71e17b5389 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _45609fd5-85e4-43c4-94a4-a4ea57953170 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _cd6e35d8-2393-48aa-bb34-dda99137f2f9 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _8adc495a-f580-4773-a65d-795a40ab5fb3 : 1 times
+WARNING:cimpy.cimimport:Missing NameType object with uuid: _9ab60b89-1c09-4ded-a42f-0ebd0eef8930 : 1 times
+INFO:cimpy.cimimport:CIM object Diagram created : 1 times
+INFO:cimpy.cimimport:CIM object DiagramObject created : 71 times
+INFO:cimpy.cimimport:CIM object DiagramObjectPoint created : 126 times
+INFO:cimpy.cimimport:CIM object BaseVoltage created : 2 times
+INFO:cimpy.cimimport:CIM object VoltageLevel created : 15 times
+INFO:cimpy.cimimport:CIM object Substation created : 15 times
+INFO:cimpy.cimimport:CIM object GeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object SubGeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object OperationalLimitType created : 2 times
+INFO:cimpy.cimimport:CIM object EnergyConsumer created : 18 times
+INFO:cimpy.cimimport:CIM object Terminal created : 47 times
+INFO:cimpy.cimimport:CIM object ExternalNetworkInjection created : 1 times
+INFO:cimpy.cimimport:CIM object ACLineSegment created : 12 times
+INFO:cimpy.cimimport:CIM object OperationalLimitSet created : 16 times
+INFO:cimpy.cimimport:CIM object CurrentLimit created : 48 times
+INFO:cimpy.cimimport:CIM object PowerTransformer created : 2 times
+INFO:cimpy.cimimport:CIM object PowerTransformerEnd created : 4 times
+INFO:cimpy.cimimport:CIM object SvVoltage created : 15 times
+INFO:cimpy.cimimport:CIM object SvPowerFlow created : 18 times
+INFO:cimpy.cimimport:CIM object TopologicalNode created : 15 times
+INFO:cimpy.cimimport:Created totally 430 CIM objects in 0.037152767181396484s
+
+
+DEBUG:root:Created EnergyConsumer: name=Load7-I, p=77000.0[W], q=48000.0[VAR], nom_voltage=18850663.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-H, p=207000.0[W], q=52000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load13-I, p=32000.0[W], q=20000.0[VAR], nom_voltage=19552150.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-H, p=15000000.0[W], q=3000000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-I, p=5000000.0[W], q=1000000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-H, p=276000.0[W], q=690000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-I, p=224000.0[W], q=139000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-I, p=68000.0[W], q=42000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-H, p=15000000.0[W], q=3100000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-I, p=5000000.0[W], q=1700000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-I, p=330000.0[W], q=205000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load5_H, p=725000.0[W], q=182000.0[VAR], nom_voltage=18852447.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load4-H, p=432000.0[W], q=108000.0[VAR], nom_voltage=18866670.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load11-H, p=331000.0[W], q=83000.0[VAR], nom_voltage=18825361.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-H, p=477000.0[W], q=120000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load9-I, p=574000.0[W], q=356000.0[VAR], nom_voltage=18843089.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load6-H, p=550000.0[W], q=138000.0[VAR], nom_voltage=18836402.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load8-H, p=588000.0[W], q=147000.0[VAR], nom_voltage=18852622.0[V]
+WARNING:root:No voltage set-point defined in ExternalNetworkInjection "HV-Netz". Using 1 per unit.
+DEBUG:root:Created ExternalNetworkInjection: name=HV-Netz, baseVoltage=110000.0[V], voltageSetPoint=110000.0[V]
+DEBUG:root:Created ACLineSegment: name=L12-13, L=1.64793, R=0.004643663774592231, C=6.637318169232858e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L13-14, L=0.60398, R=0.0009676090023510264, C=1.192015880561168e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L1-2, L=1.63278, R=0.0027452636133921027, C=3.7337033452114735e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L2-3, L=0.72488, R=0.0013248587979446344, C=2.4339541573802093e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-4, L=0.15982, R=0.00019578710582687995, C=3.2940139416786494e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L4-5, L=0.19824, R=0.000191622551482642, C=2.1280050398516507e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L5-6, L=0.51744, R=0.0005147070859591895, C=7.042945762361632e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-8, L=0.2236, R=0.0003965610665373059, C=7.124032553284567e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L10-11, L=0.12111, R=0.00011642184087172144, C=1.2540030172801222e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L9-10, L=0.30723, R=0.0002716509620340167, C=3.100539887691371e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L8-9, L=0.10848, R=0.00011034742721038078, C=1.1648019768418849e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L7-8, L=0.49098, R=0.0005448669476751037, C=7.793374581951844e-07, G=0.0
+DEBUG:root:Created PowerTransformer: name=TR1, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created PowerTransformer: name=TR2, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created Node: name=N12
+DEBUG:root:Created Node: name=N13
+DEBUG:root:Created Node: name=N14
+DEBUG:root:Created Node: name=N0
+DEBUG:root:Created Node: name=N1
+DEBUG:root:Created Node: name=N2
+DEBUG:root:Created Node: name=N3
+DEBUG:root:Created Node: name=N4
+DEBUG:root:Created Node: name=N5
+DEBUG:root:Created Node: name=N11
+DEBUG:root:Created Node: name=N10
+DEBUG:root:Created Node: name=N8
+DEBUG:root:Created Node: name=N7
+DEBUG:root:Created Node: name=N6
+DEBUG:root:Created Node: name=N9
+DEBUG:root:Created EnergyConsumer: name=Load7-I, p=77000.0[W], q=48000.0[VAR], nom_voltage=18850663.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-H, p=207000.0[W], q=52000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load13-I, p=32000.0[W], q=20000.0[VAR], nom_voltage=19552150.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-H, p=15000000.0[W], q=3000000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-I, p=5000000.0[W], q=1000000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-H, p=276000.0[W], q=690000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-I, p=224000.0[W], q=139000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-I, p=68000.0[W], q=42000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-H, p=15000000.0[W], q=3100000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-I, p=5000000.0[W], q=1700000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-I, p=330000.0[W], q=205000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load5_H, p=725000.0[W], q=182000.0[VAR], nom_voltage=18852447.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load4-H, p=432000.0[W], q=108000.0[VAR], nom_voltage=18866670.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load11-H, p=331000.0[W], q=83000.0[VAR], nom_voltage=18825361.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-H, p=477000.0[W], q=120000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load9-I, p=574000.0[W], q=356000.0[VAR], nom_voltage=18843089.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load6-H, p=550000.0[W], q=138000.0[VAR], nom_voltage=18836402.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load8-H, p=588000.0[W], q=147000.0[VAR], nom_voltage=18852622.0[V]
+DEBUG:root:Created ExternalNetworkInjection: name=HV-Netz, baseVoltage=110000.0[V], voltageRef=0[V]
+DEBUG:root:Created ACLineSegment: name=L12-13, L=1.64793, R=0.004643663774592231, C=6.637318169232858e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L13-14, L=0.60398, R=0.0009676090023510264, C=1.192015880561168e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L1-2, L=1.63278, R=0.0027452636133921027, C=3.7337033452114735e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L2-3, L=0.72488, R=0.0013248587979446344, C=2.4339541573802093e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-4, L=0.15982, R=0.00019578710582687995, C=3.2940139416786494e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L4-5, L=0.19824, R=0.000191622551482642, C=2.1280050398516507e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L5-6, L=0.51744, R=0.0005147070859591895, C=7.042945762361632e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-8, L=0.2236, R=0.0003965610665373059, C=7.124032553284567e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L10-11, L=0.12111, R=0.00011642184087172144, C=1.2540030172801222e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L9-10, L=0.30723, R=0.0002716509620340167, C=3.100539887691371e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L8-9, L=0.10848, R=0.00011034742721038078, C=1.1648019768418849e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L7-8, L=0.49098, R=0.0005448669476751037, C=7.793374581951844e-07, G=0.0
+DEBUG:root:Created PowerTransformer: name=TR1, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created PowerTransformer: name=TR2, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created Node: name=N12
+DEBUG:root:Created Node: name=N13
+DEBUG:root:Created Node: name=N14
+DEBUG:root:Created Node: name=N0
+DEBUG:root:Created Node: name=N1
+DEBUG:root:Created Node: name=N2
+DEBUG:root:Created Node: name=N3
+DEBUG:root:Created Node: name=N4
+DEBUG:root:Created Node: name=N5
+DEBUG:root:Created Node: name=N11
+DEBUG:root:Created Node: name=N10
+DEBUG:root:Created Node: name=N8
+DEBUG:root:Created Node: name=N7
+DEBUG:root:Created Node: name=N6
+DEBUG:root:Created Node: name=N9
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_DI.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_EQ.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_SV.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_TP.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_DI.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_EQ.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_SV.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_TP.xml"
+WARNING:cimpy.cimimport:Module NameType not implemented : 2 times
+WARNING:cimpy.cimimport:Module Name not implemented : 65 times
+WARNING:cimpy.cimimport:Missing NameType object with uuid: _d2995e50-380e-4f1b-beca-45ef75624ec5 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _cbd79f33-9050-471d-baf8-330af085808e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _42e42a88-94d6-431c-b0d8-f5ee1e1dc978 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _87bfc15b-493d-4aec-ab02-75febd40a759 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ab4d5d67-276c-48cd-9ce0-227601ed2c7c : 1 times
+WARNING:cimpy.cimimport:Referenced CurrentLimit [_32d6d32e-c3f0-43d4-8103-079a15594fc6] object missing. : 16 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ecea3b2d-e6c7-4850-9196-b7eae0d23775 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _99244cd7-53a2-46df-99eb-6db15311a924 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _14e6eb36-73d3-4cd3-8fe9-cd9e62dc50ce : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _35ec16e2-c578-4845-8d8a-83c2225be38e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b2aa8671-23cb-4b49-a3f6-b5be8b50c104 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _5f5233dd-d7ec-4fbf-85f9-7290557ec0d3 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _dc4cc669-af2a-42f9-9dcd-bdbadf5cfb75 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _e10032ed-5c48-47db-bad8-91c80b2f10aa : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ace32512-0a1c-4683-9fbc-6e2c39cc2a3f : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _804f450b-6a25-4458-aa13-4345b34523df : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _092f89de-0e82-49ab-9209-0f65b5fbdc29 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _194288db-296e-4e91-97e3-cf78db8db04e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _160428fc-6575-486c-a3fe-832fb09a0b43 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _689dec99-3f73-4d5d-b0ad-ae327c2a0244 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _4d10e296-6837-4211-b4db-d56fd0f2d6db : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _2fcee2f4-5ec2-4245-b837-5e94dbf4391e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _eceafa25-f29a-40af-ac10-f2ea4bf3f728 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _03a51b37-8384-49a1-80d0-71300f3ec061 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _1b25df43-ef93-489b-8111-8cd41238b2ef : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _7eab8462-3f48-4f2d-9364-dfad57f32d4b : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _0717225b-10b7-411f-a6e9-ed52228c72da : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b79caded-b000-41f5-8819-3ed537de80d2 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _f69ebe62-bf8f-446d-88fc-bd1bf1fa337a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _a1ffb35b-6a6d-4e74-9cc8-80e8b8df6b08 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b082f077-9bea-4937-b158-93bd2b2cecdc : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _ac8232f1-f3c9-497a-8649-fc90ecd6895d : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _fffc0c14-fe5a-4872-88f9-fe7377580fc5 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _a4923a1c-e669-481c-8d52-988c84855376 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _5f58fca6-c9b8-4a48-89a0-5e3b5f09d650 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _cb436e95-45fa-4d84-bed8-b3b8975352ab : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _9ee79681-9732-43e7-b91d-dfa89b19eb58 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _2845a305-ad4f-4afd-904c-cd7704c389b3 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _27bb80f8-4acf-4e17-9ff0-8b43ea1ce826 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _647bc1e0-011a-4f15-90c8-c1e6fa58817f : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _faa5ae1f-b7e1-4951-a2ce-45e03897f83a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b7aed28d-2c2d-47dc-9876-3a81bf9d1529 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _af72eba9-7af2-4808-9da4-432ff0849ea7 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _41842f31-4adc-4b71-b50c-fc08a608ea29 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _eb0a39a3-c2e0-41e9-8b68-527b1ef64493 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _5285090f-646b-4562-ac11-cd1e66b4a97e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _bd2862ac-da6e-4fca-89e2-ab793bf46e8a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _0cfb3a99-5ddd-4cca-84d8-4d27bce35f12 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _55cd4b1d-86ca-4dbb-a114-9354f5dc5c04 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _6bdd0483-21e7-4327-90b3-d024b41b8528 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _4881cf2a-f906-402d-a413-8a81215bd614 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _80b08db8-7624-4c3d-abd8-7bcd195a605f : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _9d9a632c-94e9-458d-9e17-cceedd7098be : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _2afef3f8-920d-43b2-9fbd-74f64b0959bf : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _03306aa5-d343-442b-8772-078802df53e8 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _01fbc78e-84af-40b8-95ab-dfcf3229d9af : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _c32fc9a9-36d9-4e4b-acf4-45632379377e : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _4088ebe7-3c1f-4595-89d5-c630c4433202 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _b0908a9d-ef41-4d5d-b48a-88e7622a6946 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _408c391a-669a-4c14-b542-602673840a7a : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _32fc99f8-3df6-4b76-8a77-b2ed42c91de6 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _08968764-bbcb-4f6f-b584-45fb39faf065 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _7f46d992-6ce4-4ff1-b3ae-d94e1ed16610 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _f2078bfb-5199-43ab-8fd8-5b71e17b5389 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _45609fd5-85e4-43c4-94a4-a4ea57953170 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _cd6e35d8-2393-48aa-bb34-dda99137f2f9 : 1 times
+WARNING:cimpy.cimimport:Missing Name object with uuid: _8adc495a-f580-4773-a65d-795a40ab5fb3 : 1 times
+WARNING:cimpy.cimimport:Missing NameType object with uuid: _9ab60b89-1c09-4ded-a42f-0ebd0eef8930 : 1 times
+INFO:cimpy.cimimport:CIM object Diagram created : 1 times
+INFO:cimpy.cimimport:CIM object DiagramObject created : 71 times
+INFO:cimpy.cimimport:CIM object DiagramObjectPoint created : 126 times
+INFO:cimpy.cimimport:CIM object BaseVoltage created : 2 times
+INFO:cimpy.cimimport:CIM object VoltageLevel created : 15 times
+INFO:cimpy.cimimport:CIM object Substation created : 15 times
+INFO:cimpy.cimimport:CIM object GeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object SubGeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object OperationalLimitType created : 2 times
+INFO:cimpy.cimimport:CIM object EnergyConsumer created : 18 times
+INFO:cimpy.cimimport:CIM object Terminal created : 47 times
+INFO:cimpy.cimimport:CIM object ExternalNetworkInjection created : 1 times
+INFO:cimpy.cimimport:CIM object ACLineSegment created : 12 times
+INFO:cimpy.cimimport:CIM object OperationalLimitSet created : 16 times
+INFO:cimpy.cimimport:CIM object CurrentLimit created : 48 times
+INFO:cimpy.cimimport:CIM object PowerTransformer created : 2 times
+INFO:cimpy.cimimport:CIM object PowerTransformerEnd created : 4 times
+INFO:cimpy.cimimport:CIM object SvVoltage created : 15 times
+INFO:cimpy.cimimport:CIM object SvPowerFlow created : 18 times
+INFO:cimpy.cimimport:CIM object TopologicalNode created : 15 times
+INFO:cimpy.cimimport:Created totally 430 CIM objects in 0.03305959701538086s
+
+
+DEBUG:root:Created EnergyConsumer: name=Load7-I, p=77000.0[W], q=48000.0[VAR], nom_voltage=18850663.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-H, p=207000.0[W], q=52000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load13-I, p=32000.0[W], q=20000.0[VAR], nom_voltage=19552150.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-H, p=15000000.0[W], q=3000000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-I, p=5000000.0[W], q=1000000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-H, p=276000.0[W], q=690000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-I, p=224000.0[W], q=139000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-I, p=68000.0[W], q=42000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-H, p=15000000.0[W], q=3100000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-I, p=5000000.0[W], q=1700000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-I, p=330000.0[W], q=205000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load5_H, p=725000.0[W], q=182000.0[VAR], nom_voltage=18852447.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load4-H, p=432000.0[W], q=108000.0[VAR], nom_voltage=18866670.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load11-H, p=331000.0[W], q=83000.0[VAR], nom_voltage=18825361.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-H, p=477000.0[W], q=120000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load9-I, p=574000.0[W], q=356000.0[VAR], nom_voltage=18843089.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load6-H, p=550000.0[W], q=138000.0[VAR], nom_voltage=18836402.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load8-H, p=588000.0[W], q=147000.0[VAR], nom_voltage=18852622.0[V]
+WARNING:root:No voltage set-point defined in ExternalNetworkInjection "HV-Netz". Using 1 per unit.
+DEBUG:root:Created ExternalNetworkInjection: name=HV-Netz, baseVoltage=110000.0[V], voltageSetPoint=110000.0[V]
+DEBUG:root:Created ACLineSegment: name=L12-13, L=1.64793, R=0.004643663774592231, C=6.637318169232858e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L13-14, L=0.60398, R=0.0009676090023510264, C=1.192015880561168e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L1-2, L=1.63278, R=0.0027452636133921027, C=3.7337033452114735e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L2-3, L=0.72488, R=0.0013248587979446344, C=2.4339541573802093e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-4, L=0.15982, R=0.00019578710582687995, C=3.2940139416786494e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L4-5, L=0.19824, R=0.000191622551482642, C=2.1280050398516507e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L5-6, L=0.51744, R=0.0005147070859591895, C=7.042945762361632e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-8, L=0.2236, R=0.0003965610665373059, C=7.124032553284567e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L10-11, L=0.12111, R=0.00011642184087172144, C=1.2540030172801222e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L9-10, L=0.30723, R=0.0002716509620340167, C=3.100539887691371e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L8-9, L=0.10848, R=0.00011034742721038078, C=1.1648019768418849e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L7-8, L=0.49098, R=0.0005448669476751037, C=7.793374581951844e-07, G=0.0
+DEBUG:root:Created PowerTransformer: name=TR1, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created PowerTransformer: name=TR2, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created Node: name=N12
+DEBUG:root:Created Node: name=N13
+DEBUG:root:Created Node: name=N14
+DEBUG:root:Created Node: name=N0
+DEBUG:root:Created Node: name=N1
+DEBUG:root:Created Node: name=N2
+DEBUG:root:Created Node: name=N3
+DEBUG:root:Created Node: name=N4
+DEBUG:root:Created Node: name=N5
+DEBUG:root:Created Node: name=N11
+DEBUG:root:Created Node: name=N10
+DEBUG:root:Created Node: name=N8
+DEBUG:root:Created Node: name=N7
+DEBUG:root:Created Node: name=N6
+DEBUG:root:Created Node: name=N9
+DEBUG:root:Created EnergyConsumer: name=Load7-I, p=77000.0[W], q=48000.0[VAR], nom_voltage=18850663.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-H, p=207000.0[W], q=52000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load13-I, p=32000.0[W], q=20000.0[VAR], nom_voltage=19552150.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-H, p=15000000.0[W], q=3000000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-I, p=5000000.0[W], q=1000000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-H, p=276000.0[W], q=690000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load3-I, p=224000.0[W], q=139000.0[VAR], nom_voltage=18882252.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-I, p=68000.0[W], q=42000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load1-H, p=15000000.0[W], q=3100000.0[VAR], nom_voltage=19531205.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load12-I, p=5000000.0[W], q=1700000.0[VAR], nom_voltage=19605385.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load14-I, p=330000.0[W], q=205000.0[VAR], nom_voltage=19532346.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load5_H, p=725000.0[W], q=182000.0[VAR], nom_voltage=18852447.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load4-H, p=432000.0[W], q=108000.0[VAR], nom_voltage=18866670.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load11-H, p=331000.0[W], q=83000.0[VAR], nom_voltage=18825361.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load10-H, p=477000.0[W], q=120000.0[VAR], nom_voltage=18827665.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load9-I, p=574000.0[W], q=356000.0[VAR], nom_voltage=18843089.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load6-H, p=550000.0[W], q=138000.0[VAR], nom_voltage=18836402.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load8-H, p=588000.0[W], q=147000.0[VAR], nom_voltage=18852622.0[V]
+DEBUG:root:Created ExternalNetworkInjection: name=HV-Netz, baseVoltage=110000.0[V], voltageRef=0[V]
+DEBUG:root:Created ACLineSegment: name=L12-13, L=1.64793, R=0.004643663774592231, C=6.637318169232858e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L13-14, L=0.60398, R=0.0009676090023510264, C=1.192015880561168e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L1-2, L=1.63278, R=0.0027452636133921027, C=3.7337033452114735e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L2-3, L=0.72488, R=0.0013248587979446344, C=2.4339541573802093e-06, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-4, L=0.15982, R=0.00019578710582687995, C=3.2940139416786494e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L4-5, L=0.19824, R=0.000191622551482642, C=2.1280050398516507e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L5-6, L=0.51744, R=0.0005147070859591895, C=7.042945762361632e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L3-8, L=0.2236, R=0.0003965610665373059, C=7.124032553284567e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L10-11, L=0.12111, R=0.00011642184087172144, C=1.2540030172801222e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L9-10, L=0.30723, R=0.0002716509620340167, C=3.100539887691371e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L8-9, L=0.10848, R=0.00011034742721038078, C=1.1648019768418849e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=L7-8, L=0.49098, R=0.0005448669476751037, C=7.793374581951844e-07, G=0.0
+DEBUG:root:Created PowerTransformer: name=TR1, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created PowerTransformer: name=TR2, nom_voltage_end_1=110000.0, nom_voltage_end_2=20000.0, ratio_abs=5.5, ratio_phase=0, resistance=1.90575, inductance=0.09647735509365489
+DEBUG:root:Created Node: name=N12
+DEBUG:root:Created Node: name=N13
+DEBUG:root:Created Node: name=N14
+DEBUG:root:Created Node: name=N0
+DEBUG:root:Created Node: name=N1
+DEBUG:root:Created Node: name=N2
+DEBUG:root:Created Node: name=N3
+DEBUG:root:Created Node: name=N4
+DEBUG:root:Created Node: name=N5
+DEBUG:root:Created Node: name=N11
+DEBUG:root:Created Node: name=N10
+DEBUG:root:Created Node: name=N8
+DEBUG:root:Created Node: name=N7
+DEBUG:root:Created Node: name=N6
+DEBUG:root:Created Node: name=N9
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:CIM object Diagram created : 1 times
+INFO:cimpy.cimimport:CIM object DiagramObjectPoint created : 168 times
+INFO:cimpy.cimimport:CIM object DiagramObject created : 77 times
+INFO:cimpy.cimimport:CIM object SvPowerFlow created : 16 times
+INFO:cimpy.cimimport:CIM object SvVoltage created : 14 times
+INFO:cimpy.cimimport:CIM object SvTapStep created : 5 times
+INFO:cimpy.cimimport:CIM object TopologicalIsland created : 1 times
+INFO:cimpy.cimimport:CIM object TopologicalNode created : 14 times
+INFO:cimpy.cimimport:CIM object VoltageLimit created : 14 times
+INFO:cimpy.cimimport:CIM object Terminal created : 58 times
+INFO:cimpy.cimimport:CIM object VoltageLevel created : 14 times
+INFO:cimpy.cimimport:CIM object OperationalLimitSet created : 56 times
+INFO:cimpy.cimimport:CIM object PowerTransformer created : 5 times
+INFO:cimpy.cimimport:CIM object ConformLoad created : 11 times
+INFO:cimpy.cimimport:CIM object SubGeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object RegulatingControl created : 5 times
+INFO:cimpy.cimimport:CIM object BaseVoltage created : 4 times
+INFO:cimpy.cimimport:CIM object PowerTransformerEnd created : 10 times
+INFO:cimpy.cimimport:CIM object CurrentLimit created : 42 times
+INFO:cimpy.cimimport:CIM object LoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object ConformLoadGroup created : 1 times
+INFO:cimpy.cimimport:CIM object OperationalLimitType created : 2 times
+INFO:cimpy.cimimport:CIM object RatioTapChanger created : 5 times
+INFO:cimpy.cimimport:CIM object SynchronousMachine created : 5 times
+INFO:cimpy.cimimport:CIM object ACLineSegment created : 16 times
+INFO:cimpy.cimimport:CIM object LoadResponseCharacteristic created : 1 times
+INFO:cimpy.cimimport:CIM object SubLoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object GeneratingUnit created : 5 times
+INFO:cimpy.cimimport:CIM object GeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object Substation created : 1 times
+INFO:cimpy.cimimport:CIM object SynchronousMachineTimeConstantReactance created : 5 times
+INFO:cimpy.cimimport:Created totally 560 CIM objects in 0.03671574592590332s
+
+
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created SynchronGenerator: name=Gen_0008, rated_apparent_power=100000000.0[VA], rated_voltage=11000.0[V], set_point_active_power=0.0[W], set_point_voltage=11990.0[pu], set_point_reactive_power=-17400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0001, rated_apparent_power=400000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=232400000.0[W], set_point_voltage=139920.0[pu], set_point_reactive_power=16900000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0006, rated_apparent_power=100000000.0[VA], rated_voltage=33000.0[V], set_point_active_power=0.0[W], set_point_voltage=35310.0[pu], set_point_reactive_power=-12200000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0003, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=0.0[W], set_point_voltage=133320.0[pu], set_point_reactive_power=-23400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0002, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=40000000.0[W], set_point_voltage=137940.0[pu], set_point_reactive_power=-42400000.0[VAR]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0008, nom_power=100000000.0[VA], nom_voltage=11000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0001, nom_power=400000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0006, nom_power=100000000.0[VA], nom_voltage=33000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0002, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0003, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:START of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml"
+INFO:cimpy.cimimport:END of parsing file "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
+INFO:cimpy.cimimport:CIM object Diagram created : 1 times
+INFO:cimpy.cimimport:CIM object DiagramObjectPoint created : 168 times
+INFO:cimpy.cimimport:CIM object DiagramObject created : 77 times
+INFO:cimpy.cimimport:CIM object SvPowerFlow created : 16 times
+INFO:cimpy.cimimport:CIM object SvVoltage created : 14 times
+INFO:cimpy.cimimport:CIM object SvTapStep created : 5 times
+INFO:cimpy.cimimport:CIM object TopologicalIsland created : 1 times
+INFO:cimpy.cimimport:CIM object TopologicalNode created : 14 times
+INFO:cimpy.cimimport:CIM object VoltageLimit created : 14 times
+INFO:cimpy.cimimport:CIM object Terminal created : 58 times
+INFO:cimpy.cimimport:CIM object VoltageLevel created : 14 times
+INFO:cimpy.cimimport:CIM object OperationalLimitSet created : 56 times
+INFO:cimpy.cimimport:CIM object PowerTransformer created : 5 times
+INFO:cimpy.cimimport:CIM object ConformLoad created : 11 times
+INFO:cimpy.cimimport:CIM object SubGeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object RegulatingControl created : 5 times
+INFO:cimpy.cimimport:CIM object BaseVoltage created : 4 times
+INFO:cimpy.cimimport:CIM object PowerTransformerEnd created : 10 times
+INFO:cimpy.cimimport:CIM object CurrentLimit created : 42 times
+INFO:cimpy.cimimport:CIM object LoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object ConformLoadGroup created : 1 times
+INFO:cimpy.cimimport:CIM object OperationalLimitType created : 2 times
+INFO:cimpy.cimimport:CIM object RatioTapChanger created : 5 times
+INFO:cimpy.cimimport:CIM object SynchronousMachine created : 5 times
+INFO:cimpy.cimimport:CIM object ACLineSegment created : 16 times
+INFO:cimpy.cimimport:CIM object LoadResponseCharacteristic created : 1 times
+INFO:cimpy.cimimport:CIM object SubLoadArea created : 1 times
+INFO:cimpy.cimimport:CIM object GeneratingUnit created : 5 times
+INFO:cimpy.cimimport:CIM object GeographicalRegion created : 1 times
+INFO:cimpy.cimimport:CIM object Substation created : 1 times
+INFO:cimpy.cimimport:CIM object SynchronousMachineTimeConstantReactance created : 5 times
+INFO:cimpy.cimimport:Created totally 560 CIM objects in 0.03762245178222656s
+
+
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created SynchronGenerator: name=Gen_0008, rated_apparent_power=100000000.0[VA], rated_voltage=11000.0[V], set_point_active_power=0.0[W], set_point_voltage=11990.0[pu], set_point_reactive_power=-17400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0001, rated_apparent_power=400000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=232400000.0[W], set_point_voltage=139920.0[pu], set_point_reactive_power=16900000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0006, rated_apparent_power=100000000.0[VA], rated_voltage=33000.0[V], set_point_active_power=0.0[W], set_point_voltage=35310.0[pu], set_point_reactive_power=-12200000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0003, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=0.0[W], set_point_voltage=133320.0[pu], set_point_reactive_power=-23400000.0[VAR]
+DEBUG:root:Created SynchronGenerator: name=Gen_0002, rated_apparent_power=100000000.0[VA], rated_voltage=132000.0[V], set_point_active_power=40000000.0[W], set_point_voltage=137940.0[pu], set_point_reactive_power=-42400000.0[VAR]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0007, nom_voltage_end_1=132000.0, nom_voltage_end_2=1000.0, ratio_abs=132.0, ratio_phase=0, resistance=0.0, inductance=0.09665240961556167
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0008, nom_voltage_end_1=11000.0, nom_voltage_end_2=1000.0, ratio_abs=11.0, ratio_phase=0, resistance=0.0, inductance=0.0005653767146748793
+DEBUG:root:Created PowerTransformer: name=Trf_0005_0006, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.11648019768418848
+DEBUG:root:Created PowerTransformer: name=Trf_0007_0009, nom_voltage_end_1=33000.0, nom_voltage_end_2=1000.0, ratio_abs=33.0, ratio_phase=0, resistance=0.0, inductance=0.003177820222892026
+DEBUG:root:Created PowerTransformer: name=Trf_0004_0009, nom_voltage_end_1=132000.0, nom_voltage_end_2=33000.0, ratio_abs=4.0, ratio_phase=0, resistance=0.0, inductance=0.2570585758183978
+DEBUG:root:Created EnergyConsumer: name=Load_0012, p=6100000.0[W], q=1600000.0[VAR], nom_voltage=34750600.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0013, p=13500000.0[W], q=5800000.0[VAR], nom_voltage=34527700.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0014, p=14900000.0[W], q=5000000.0[VAR], nom_voltage=33583900.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0004, p=47800000.0[W], q=-3900000.0[VAR], nom_voltage=135574000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0009, p=29500000.0[W], q=16600000.000000002[VAR], nom_voltage=33925300.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0003, p=94200000.0[W], q=19000000.0[VAR], nom_voltage=133320000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0011, p=3500000.0[W], q=1800000.0[VAR], nom_voltage=34488800.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0006, p=11200000.0[W], q=7500000.0[VAR], nom_voltage=35310000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0005, p=7600000.0[W], q=1600000.0[VAR], nom_voltage=136406000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0002, p=21700000.0[W], q=12700000.0[VAR], nom_voltage=137940000.0[V]
+DEBUG:root:Created EnergyConsumer: name=Load_0010, p=9000000.0[W], q=5800000.0[VAR], nom_voltage=33920100.0[V]
+DEBUG:root:Created ACLineSegment: name=Line_0006_0013, L=0.720373, R=0.0037630594744647735, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0013_0014, L=1.86143, R=0.010053128083694966, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0014, L=1.38423, R=0.007810369677291673, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0012, L=1.33849, R=0.007389484430285155, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0003_0004, L=11.6758, R=0.07904775084369015, C=5.267418522393217e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0005, L=9.41419, R=0.10308598293181305, C=7.490070354319232e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0012_0013, L=2.40582, R=0.005773849551311628, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0003, L=8.18754, R=0.0914989725582461, C=6.667982021601897e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0010_0011, L=0.893524, R=0.005548247419478867, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0009_0010, L=0.346411, R=0.002440919573464626, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/2, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0006_0011, L=1.03433, R=0.0057455464972651195, C=0.0, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0004, L=10.1251, R=0.08149263602782016, C=5.693661985817162e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0001_0002/1, L=6.75354, R=0.054695187742960755, C=4.019060200428087e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0004_0005, L=2.3261, R=0.019462660103350155, C=1.9486374189870847e-07, G=0.0
+DEBUG:root:Created ACLineSegment: name=Line_0002_0005, L=9.92297, R=0.08036502325601408, C=5.176063585058469e-07, G=0.0
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0008, nom_power=100000000.0[VA], nom_voltage=11000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0001, nom_power=400000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0006, nom_power=100000000.0[VA], nom_voltage=33000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0002, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=4.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created 6Order VBR SynchronGenerator: name=Gen_0003, nom_power=100000000.0[VA], nom_voltage=132000.0[W], nom_frequency=60[Hz], H=5.0, Ld=2.0, Lq=2.0, L0=0.15, Ld_t=0.3, Lq_t=0.3, Td0_t=6.66667, Tq0_t=6.66667, Ld_s=0.2, Lq_s=0.2, Td0_s=0.075, Tq0_s=0.075
+DEBUG:root:Created Node: name=Bus_0007
+DEBUG:root:Created Node: name=Bus_0001
+DEBUG:root:Created Node: name=Bus_0004
+DEBUG:root:Created Node: name=Bus_0010
+DEBUG:root:Created Node: name=Bus_0014
+DEBUG:root:Created Node: name=Bus_0011
+DEBUG:root:Created Node: name=Bus_0002
+DEBUG:root:Created Node: name=Bus_0009
+DEBUG:root:Created Node: name=Bus_0006
+DEBUG:root:Created Node: name=Bus_0008
+DEBUG:root:Created Node: name=Bus_0005
+DEBUG:root:Created Node: name=Bus_0012
+DEBUG:root:Created Node: name=Bus_0003
+DEBUG:root:Created Node: name=Bus_0013
