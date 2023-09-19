@@ -1,36 +1,42 @@
 {
 	"CIMFiles": [
-        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml",
-        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml",
-        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml",
-        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml",
-		"/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml",
-		"/home/mmo-cya/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
-
+        "/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DL_.xml",		
+        "/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SV_.xml",
+        "/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_TP_.xml",
+        "/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_YYY_EQ_.xml",
+		"/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_SSH_.xml",
+		"/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
     ],
 	"SolverParameters": {
 		"Domain": "RMS",	
 		"Solver": "MNA" 	
 	},
 	"SimulationParameters": {
-		"SimulationName": "IEEE14_TPF",
+		"SimulationName": "IEEE14_JSON",
+		"LogLevel": "info",
 		"StartTime": 0,
 		"EndTime" : 1.5,
-		"TimeStep": 0.1, 
-		"InitFromPF": true
+		"TimeStep": 0.001, 
+		"InitFromPF": true,
+		"InitFromNodesAndTerminals": true,
+		"ReferenceNode": "Bus_0001",
+		"SGModel": "6Order",
+		"Frequency": 60
 	},
 	"Events": {
-		"EventType": "ThreePhaseFault",
-		"EventStartTime": 0,
-		"EventEndTime": 10,
+		"EventType": "ShortCircuit",
+		"EventStartTime": 1.0,
+		"EventEndTime": 1.1,
 		"EventParameters": {
 			"FaultOpenResistance": 1e6,
 			"FaultClosedResistance": 0.001037837837837838,
-			"NodeName": "Bus_0003"
+			"NodeName": "Bus_0014"
 		}
-		
 	},
-	"LoggerVariable":{
-		"Voltages": ["Bus_0003"]
+	"LoggerVariables":{
+		"Node": {
+			"Voltages": ["Bus_0014"],
+			"Power": ["Bus_0014"]
+		}
 	}
 }
