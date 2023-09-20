@@ -8,15 +8,15 @@
 		"/home/mmo/git/Can/cimpy/cimpy/examples/sampledata/IEEE14/19700101T0000Z_XX_YYY_DY_.xml"
     ],
 	"SolverParameters": {
-		"Domain": "RMS",	
+		"Domains": ["RMS", "DP", "EMT"],	
 		"Solver": "MNA" 	
 	},
 	"SimulationParameters": {
 		"SimulationName": "IEEE14_JSON",
 		"LogLevel": "info",
 		"StartTime": 0,
-		"EndTime" : 1.5,
-		"TimeStep": 0.001, 
+		"EndTime" : 3,
+		"TimeSteps": [0.01, 0.005, 0.001, 0.0005, 0.0001], 
 		"InitFromPF": true,
 		"InitFromNodesAndTerminals": true,
 		"ReferenceNode": "Bus_0001",
@@ -25,11 +25,11 @@
 	},
 	"Events": {
 		"EventType": "ShortCircuit",
-		"EventStartTime": 1.0,
-		"EventEndTime": 1.1,
+		"EventStartTime": 0.02,
+		"EventEndTime": 0.1,
 		"EventParameters": {
 			"FaultOpenResistance": 1e6,
-			"FaultClosedResistance": 0.001037837837837838,
+			"FaultClosedResistance": 0.1,
 			"NodeName": "Bus_0014"
 		}
 	},

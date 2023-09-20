@@ -1,4 +1,6 @@
 import warnings
+import pandas as pd 
+import numpy as np
 import sys
 sys.path.insert(0,'/home/mmo/git/Can/dpsim/build')
 import dpsimpy
@@ -19,21 +21,20 @@ class DPsimLauncher:
         self.cimpy_topology = None
         # log level used in simulations
         self.loglevel = dpsimpy.LogLevel.info
-        # domain used in simulations
-        self.domain = Domain.DP
-        #
-        self.dpsimpy_components = self.dpsimpy_components = dpsimpy.dp.ph1
-        self.dpsimpy_components.SimNode = getattr(dpsimpy.dp, "SimNode") 
+        # list of domains used in simulations
+        self.domains = []
         # simulation start time
         self.start_time = 0
         # simulation end time
         self.end_time = 1
         # simulation step time
-        self.time_step = 1e-3
+        self.time_steps = []
         # simulation name
         self.sim_name = "sim_name"
         # syn gen model used in dynamic simulations
         self.syn_gen_model = SGModels.VBR_4Order
+        # system frequency
+        self.frequency = 60
         #
         self.init_from_nodes_and_terminals = True
         
@@ -79,22 +80,16 @@ class DPsimLauncher:
                 self.loglevel = dpsimpy.LogLevel.off            
     
         # get domain
-        self.dpsimpy_components = None
-        if "Domain" in self.data["SolverParameters"].keys():
-            if self.data["SolverParameters"]["Domain"] == "RMS":
-                self.domain = Domain.SP
-                self.dpsimpy_components = dpsimpy.sp.ph1
-                self.dpsimpy_components.SimNode = getattr(dpsimpy.sp, "SimNode")
-            elif self.data["SolverParameters"]["Domain"] == "DP":
-                self.domain = Domain.DP
-                self.dpsimpy_components = dpsimpy.dp.ph1
-                self.dpsimpy_components.SimNode = getattr(dpsimpy.dp, "SimNode") 
-            elif self.data["SolverParameters"]["Domain"] == "EMT":
-                self.domain = Domain.EMT
-                self.dpsimpy_components = dpsimpy.emt.ph3
-                self.dpsimpy_components.SimNode = getattr(dpsimpy.emt, "SimNode") 
-            else:
-                raise Exception('ERROR: domain {} is not supported in dpsimpy'.format(self.data["SolverParameters"]["Domain"]))
+        if "Domains" in self.data["SolverParameters"].keys():
+            for domain in self.data["SolverParameters"]["Domains"]:
+                if domain == "RMS":
+                    self.domains.append(Domain.SP)
+                elif domain == "DP":
+                    self.domains.append(Domain.DP)
+                elif domain == "EMT":
+                    self.domains.append(Domain.EMT)
+                else:
+                    raise Exception('ERROR: domain {} is not supported in dpsimpy'.format(self.data["SolverParameters"]["Domain"]))
 
         # get start time
         if "StartTime" in self.data["SimulationParameters"].keys():
@@ -105,8 +100,8 @@ class DPsimLauncher:
             self.end_time = self.data["SimulationParameters"]["EndTime"]
 
         # get time step
-        if "TimeStep" in self.data["SimulationParameters"].keys():
-            self.time_step = self.data["SimulationParameters"]["TimeStep"]  
+        if "TimeSteps" in self.data["SimulationParameters"].keys():
+            self.time_steps = self.data["SimulationParameters"]["TimeSteps"]  
 
         # get simulation name
         if "SimulationName" in self.data["SimulationParameters"].keys():
@@ -134,96 +129,7 @@ class DPsimLauncher:
             else:
                 # TODO: WARN MESSAGE
                 pass
-    
-    def start_pf_simulation(self):
-        if self.init_from_power_flow:
-            self.run_pf_simulation()
-        else:
-            #TODO
-            #load initial pf results from cim files
-            pass
-        
-    def start_dynamic_simulation(self):
-        self.name_dyn = self.sim_name + "_Dyn"
-        dpsimpy.Logger.set_log_dir("logs/" + self.name_dyn)
-
-         # create dpsim topology for dynamic simulation
-        self.system = CIM2DPsim.CIM2DPsim(self.cimpy_topology, domain=self.domain, log_level=self.loglevel, frequency = 60, gen_model=self.syn_gen_model)
-        
-        ### Simulation
-        self.sim = dpsimpy.Simulation(self.name_dyn, self.loglevel)
-        self.sim.set_system(self.system)
-        if self.domain == Domain.SP:
-            self.sim.set_domain(dpsimpy.Domain.SP)
-            self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.SP)
-        elif self.domain == Domain.DP:
-            self.sim.set_domain(dpsimpy.Domain.DP)
-            self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.DP)
-        elif self.domain == Domain.EMT:
-            self.sim.set_domain(dpsimpy.Domain.EMT)
-            self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.EMT)
             
-        # add events
-        self.read_events()
-        
-        #
-        self.sim.do_init_from_nodes_and_terminals(self.init_from_nodes_and_terminals)
-        # TODO: ADD SOLVERIMPLEMENTATION to json file
-        self.sim.set_direct_solver_implementation(dpsimpy.DirectLinearSolverImpl.SparseLU)
-        # TODO: DPSim: AUTOMATIC DETECTION OF system_matrix_recomputation?
-        self.sim.do_system_matrix_recomputation(True)
-        #
-        #self.sim.set_start_time(self.start_time)
-        self.sim.set_time_step(self.time_step)
-        self.sim.set_final_time(self.end_time)
-        
-        # create logger add variables to be logged
-        logger = dpsimpy.Logger(self.name_dyn)
-        logger = self.read_variables_to_log(self.system, logger)
-        self.sim.add_logger(logger)
-        
-        # run simulation
-        self.sim.run()
-        
-    def run_pf_simulation(self):
-        # 
-        self.sim_name_pf = self.sim_name + "_PF"
-        dpsimpy.Logger.set_log_dir("logs/" + self.sim_name_pf)
-
-        # create dpsim topology for pf simulation for initialization
-        self.system_pf = CIM2DPsim.CIM2DPsim(self.cimpy_topology, domain=Domain.PF, log_level=self.loglevel, frequency = 60)
-    
-        #set reference node 
-        reference_comp=None
-        for node, comp_list in self.system_pf.components_at_node.items():
-            if (node.name==self.data['SimulationParameters']['ReferenceNode']):
-                for comp in comp_list:
-                    if (isinstance(comp, dpsimpy.sp.ph1.SynchronGenerator) or isinstance(comp, dpsimpy.sp.ph1.NetworkInjektion)):
-                        reference_comp=comp
-                        break
-                if (reference_comp is None):  
-                    raise Exception('No SynchronGenerator or ExternalNetworkInjection is connected to node: {}!'.format(node.name))    
-        if (reference_comp is None):  
-            raise Exception('No node named: {} was found!'.format(node.name))
-    
-        reference_comp.modify_power_flow_bus_type(dpsimpy.PowerflowBusType.VD)
-    
-        # create logger add variables to be logged
-        logger = dpsimpy.Logger(self.sim_name_pf)
-        logger = self.read_variables_to_log(self.system_pf, logger)
-        
-        # start power flow simulation
-        self.sim_pf = dpsimpy.Simulation(self.sim_name_pf, self.loglevel)
-        self.sim_pf.set_system(self.system_pf)
-        self.sim_pf.set_domain(dpsimpy.Domain.SP)
-        self.sim_pf.set_solver(dpsimpy.Solver.NRP)
-        #self.sim_pf.set_solver_component_behaviour(dpsimpy.SolverBehaviour.Initialization)
-        self.sim_pf.do_init_from_nodes_and_terminals(False)
-        self.sim_pf.add_logger(logger)
-        self.sim_pf.set_time_step(TIME_STEP_PF)
-        self.sim_pf.set_final_time(FINAL_TIME_PF)
-        self.sim_pf.run()        
-    
     def read_variables_to_log(self, system, logger):
         # TODO: Add more variables and components
         for component_type, var_dict in self.data["LoggerVariables"].items():
@@ -264,22 +170,148 @@ class DPsimLauncher:
                                 logger.log_attribute(node_name+'.S', 's', node)
                         
         return logger
+    
+    def start_pf_simulation(self):
+        if self.init_from_power_flow:
+            self.run_pf_simulation()
+        else:
+            #TODO
+            #load initial pf results from cim files
+            pass
+    
+    def run_pf_simulation(self):
+        # 
+        self.sim_name_pf = self.sim_name + "_PF"
+        dpsimpy.Logger.set_log_dir("logs/" + self.sim_name_pf)
+
+        # create dpsim topology for pf simulation for initialization
+        self.system_pf = CIM2DPsim.CIM2DPsim(self.cimpy_topology, domain=Domain.PF, log_level=self.loglevel, frequency=self.frequency)
+    
+        #set reference node 
+        reference_comp=None
+        for node, comp_list in self.system_pf.components_at_node.items():
+            if (node.name==self.data['SimulationParameters']['ReferenceNode']):
+                for comp in comp_list:
+                    if (isinstance(comp, dpsimpy.sp.ph1.SynchronGenerator) or isinstance(comp, dpsimpy.sp.ph1.NetworkInjektion)):
+                        reference_comp=comp
+                        break
+                if (reference_comp is None):  
+                    raise Exception('No SynchronGenerator or ExternalNetworkInjection is connected to node: {}!'.format(node.name))    
+        if (reference_comp is None):  
+            raise Exception('No node named: {} was found!'.format(node.name))
+    
+        reference_comp.modify_power_flow_bus_type(dpsimpy.PowerflowBusType.VD)
+    
+        # create logger add variables to be logged
+        logger = dpsimpy.Logger(self.sim_name_pf)
+        logger = self.read_variables_to_log(self.system_pf, logger)
         
-    def read_events(self):
+        # start power flow simulation
+        self.sim_pf = dpsimpy.Simulation(self.sim_name_pf, self.loglevel)
+        self.sim_pf.set_system(self.system_pf)
+        self.sim_pf.set_domain(dpsimpy.Domain.SP)
+        self.sim_pf.set_solver(dpsimpy.Solver.NRP)
+        #self.sim_pf.set_solver_component_behaviour(dpsimpy.SolverBehaviour.Initialization)
+        self.sim_pf.do_init_from_nodes_and_terminals(False)
+        self.sim_pf.add_logger(logger)
+        self.sim_pf.set_time_step(TIME_STEP_PF)
+        self.sim_pf.set_final_time(FINAL_TIME_PF)
+        self.sim_pf.run()        
+    
+    def get_pf_results(self):
+        # return table contianing the node voltages (in kV) and node powers  (in MW)
+        pf_results = pd.DataFrame(columns=['Bus', 'V_mag[kV]', 'V_angle[deg]', 'P[MW]', 'Q[MW]'])
+        for idx, node in enumerate(self.system_pf.nodes):
+            voltage=node.attr("v").get()[0][0]
+            power=node.attr("s").get()[0][0]
+            pf_results.loc[idx] = ([node.name] + [round(np.absolute(voltage) / 1000, 4)]
+                + [round(np.angle(voltage*180/np.pi), 4)] 
+                + [round(1e-6 * np.real(power), 4)] 
+                + [round(1e-6 * np.imag(power), 5)])
+
+        return pf_results
+
+    def run_dynamic_simulations(self):
+        for domain in self.domains:
+            for time_step in self.time_steps:
+                self.start_dynamic_simulation(domain, time_step)
+        
+    def start_dynamic_simulation(self, domain, time_step):
+        self.name_dyn = self.sim_name + "_" + domain.name + "_TS" + str(time_step)
+        dpsimpy.Logger.set_log_dir("logs/" + self.name_dyn)
+
+         # create dpsim topology for dynamic simulation
+        self.system = CIM2DPsim.CIM2DPsim(self.cimpy_topology, domain=domain, log_level=self.loglevel, frequency=self.frequency, gen_model=self.syn_gen_model)
+        
+        ### Simulation
+        self.sim = dpsimpy.Simulation(self.name_dyn, self.loglevel)
+        
+        # add events
+        self.read_events(domain)
+        
+        self.sim.set_system(self.system)
+        if domain == Domain.SP:
+            self.sim.set_domain(dpsimpy.Domain.SP)
+            self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.SP)
+        elif domain == Domain.DP:
+            self.sim.set_domain(dpsimpy.Domain.DP)
+            self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.DP)
+        elif domain == Domain.EMT:
+            self.sim.set_domain(dpsimpy.Domain.EMT)
+            self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.EMT)
+        
+        #
+        self.sim.do_init_from_nodes_and_terminals(self.init_from_nodes_and_terminals)
+        # TODO: ADD SOLVERIMPLEMENTATION to json file
+        self.sim.set_direct_solver_implementation(dpsimpy.DirectLinearSolverImpl.SparseLU)
+        # TODO: DPSim: AUTOMATIC DETECTION OF system_matrix_recomputation?
+        self.sim.do_system_matrix_recomputation(True)
+        #
+        #self.sim.set_start_time(self.start_time)
+        self.sim.set_time_step(time_step)
+        self.sim.set_final_time(self.end_time)
+        
+        # create logger add variables to be logged
+        logger = dpsimpy.Logger(self.name_dyn)
+        logger = self.read_variables_to_log(self.system, logger)
+        self.sim.add_logger(logger)
+        
+        # run simulation
+        self.sim.run()
+        
+    def read_events(self, domain):
         # Füge der Topologie den gewünschten Event hinzu
         if "Events" in self.data:
             if self.data["Events"]['EventType'] == "ShortCircuit":
                 event_params = self.data["Events"]['EventParameters']
                 
+                # get event parameters
+                
+                # get event start time
+                event_start_time = 0
+                if "EventStartTime" in self.data["Events"].keys():
+                    event_start_time = self.data["Events"]["EventStartTime"]
+                else:
+                    raise Exception('Paramenter "EventStartTime" is not in the json file!') 
+                
+                # get event end time
+                event_end_time = 0
+                if "EventEndTime" in self.data["Events"].keys():
+                    event_end_time = self.data["Events"]["EventEndTime"]  
+                else:
+                    raise Exception('Paramenter "EventEndTime" is not in the json file!')
+                
+                # get name of nodes to which the switch has to be connected
                 node_name = ""
                 if "NodeName" in event_params.keys():
                     node_name = event_params['NodeName']
                 else:
                     raise Exception('Paramenter "NodeName" is not in the json file!')
-                
+                    
+                # get node to which the short switch has to be connected
                 node = None
                 for node_ in self.system.nodes:
-                    if event_params['NodeName'] == node_name:
+                    if node_name == node_.name:
                         node = node_
                         break
                 if (node is None):
@@ -299,17 +331,26 @@ class DPsimLauncher:
                     warnings.warn('Paramenter "FaultClosedResistance" is not in the json file!\n FaultClosedResistance set to 1e-3')
                     
                 # Füge switch mit Erdung hinzu
-                switch = self.dpsimpy_components.Switch('Fault_' + node_name, self.loglevel)
+                switch = None
+                gnd = None
+                if domain == Domain.SP:
+                    switch = dpsimpy.sp.ph1.Switch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.sp.SimNode.gnd
+                elif domain == Domain.DP:
+                    switch = dpsimpy.dp.ph1.Switch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.dp.SimNode.gnd
+                elif domain == Domain.EMT:
+                    switch = dpsimpy.emt.ph3.SeriesSwitch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.emt.SimNode.gnd 
                 switch.set_parameters(open_resistance, closed_resistance)
                 switch.open()
                 self.system.add(switch)
-                self.system.connect_component(switch, [self.dpsimpy_components.SimNode.gnd, node])
+                self.system.connect_component(switch, [gnd, node])
 
-                # Event hinzufügen
-                # TODO: READ TIMES FROM JSON FILE
-                sw_event_1 = dpsimpy.event.SwitchEvent(1.0, switch, True)
+                # Event hinzufügen           
+                sw_event_1 = dpsimpy.event.SwitchEvent(event_start_time, switch, True)
                 self.sim.add_event(sw_event_1)
-                sw_event_2 = dpsimpy.event.SwitchEvent(1.1, switch, False)
+                sw_event_2 = dpsimpy.event.SwitchEvent(event_end_time, switch, False)
                 self.sim.add_event(sw_event_2)
                 
             elif self.data["Events"]['EventType'] == "LoadStep":
@@ -408,6 +449,19 @@ class DPsimLauncher:
             return system
         """
    
-
-
+    def get_path_to_results(self):
+        # This function return a list containing the relative path to the files with the results of the dynamic simulations
+        dict_result_files = []
+        for time_step in self.time_steps:
+            path_dict = {}
+            path_dict["TimeStep"] = time_step
+            path_dict["Domain"] = []
+            path_dict["Path"] = []
+            for domain in self.domains:                
+                path_dict["Domain"].append(domain.name)
+                file_name = self.sim_name + "_" + domain.name + "_TS" + str(time_step)
+                path_dict["Path"].append("logs/" + file_name + "/" + file_name + ".csv")
+            
+            dict_result_files.append(path_dict)    
         
+        return dict_result_files
