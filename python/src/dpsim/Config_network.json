@@ -1,0 +1,33 @@
+{
+	"CIMFiles": [
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_DI.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_EQ.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_SV.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_TP.xml"
+    ],
+	"SolverParameters": {
+		"Domain": "RMS",	
+		"Solver": "MNA" 	
+	},
+	"SimulationParameters": {
+		"SimulationName": "CIGRE_TPF",
+		"StartTime": 0,
+		"EndTime" : 1.5,
+		"TimeStep": 0.1, 
+		"InitFromPF": true
+	},
+	"Events": {
+		"EventType": "ThreePhaseFault",
+		"EventStartTime": 0,
+		"EventEndTime": 10,
+		"EventParameters": {
+			"FaultOpenResistance": 1e6,
+			"FaultClosedResistance": 0.001037837837837838,
+			"NodeName": "N14"
+		}
+		
+	},
+	"LoggerVariable":{
+		"Voltages": ["N14"]
+	}
+}

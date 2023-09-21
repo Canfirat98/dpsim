@@ -319,9 +319,8 @@ void Base::ReducedOrderSynchronGenerator<VarType>::setInitialValues(
 		"\nInitial current magnitude: {:} p.u."
 		"\nInitial current phase: {:} rad = ({:}°)"
 		"\n--- Set initial values finished ---\n",
-
-		mInitElecPower.real(), mInitElecPower.real() / mNomPower,
-		mInitElecPower.imag(), mInitElecPower.imag() / mNomPower,
+		(**mInitElecPower).real(), (**mInitElecPower).real() / mNomPower,
+		(**mInitElecPower).imag(), (**mInitElecPower).imag() / mNomPower,
 		Math::abs(mInitVoltage),
 		Math::phase(mInitVoltage), Math::phaseDeg(mInitVoltage),
 		Math::abs(mInitCurrent),
@@ -360,14 +359,6 @@ void Base::ReducedOrderSynchronGenerator<Real>::initializeFromNodesAndTerminals(
 	**mEf = Math::abs(Eq0) + (**mLd - **mLq) * (**mIdq0)(0,0);
 	mEf_prev = **mEf;
 
-	// Initialize controllers
-	if (mHasExciter){
-		mExciter->initialize(Math::abs(mInitVoltage), **mEf);
-	}
-	if (mHasTurbineGovernor){
-		mTurbineGovernor->initialize(**mMechTorque);
-	}
-
 	// initial electrical torque
 	**mElecTorque = (**mVdq0)(0,0) * (**mIdq0)(0,0) + (**mVdq0)(1,0) * (**mIdq0)(1,0);
 
@@ -377,6 +368,24 @@ void Base::ReducedOrderSynchronGenerator<Real>::initializeFromNodesAndTerminals(
 	// initialize theta and calculate transform matrix
 	**mThetaMech = **mDelta - PI / 2.;
 
+	// Initialize controllers
+	if (mHasPSS) 
+		mPSS->initialize(**mOmMech, **mElecTorque, (**mVdq0)(0,0), (**mVdq0)(1,0));
+	if (mHasExciter) 
+		mExciter->initialize(Math::abs(mInitVoltage), **mEf);
+	if (mHasTurbineGovernor)
+		mTurbineGovernor->initialize(**mMechTorque);
+
+	// set initial interface current
+	(**mIntfCurrent)(0,0) = (mInitCurrent * mBase_I).real();
+	(**mIntfCurrent)(1,0) = (mInitCurrent * mBase_I * SHIFT_TO_PHASE_B).real();
+	(**mIntfCurrent)(2,0) = (mInitCurrent * mBase_I * SHIFT_TO_PHASE_C).real();
+
+	// set initial interface voltage
+	(**mIntfVoltage)(0,0) = (mInitVoltage * mBase_V).real();
+	(**mIntfVoltage)(1,0) = (mInitVoltage * mBase_V * SHIFT_TO_PHASE_B).real();
+	(**mIntfVoltage)(2,0) = (mInitVoltage * mBase_V * SHIFT_TO_PHASE_C).real();
+	
 	SPDLOG_LOGGER_DEBUG(this->mSLog,
 		"\n--- Initialization from power flow  ---"
 		"\nInitial Vd (per unit): {:f}"
@@ -434,14 +443,6 @@ void Base::ReducedOrderSynchronGenerator<Complex>::initializeFromNodesAndTermina
 	**mEf = Math::abs(Eq0) + (**mLd - **mLq) * (**mIdq)(0,0);
 	mEf_prev = **mEf;
 
-	// Initialize controllers
-	if (mHasExciter){
-		mExciter->initialize(Math::abs(mInitVoltage), **mEf);
-	}
-	if (mHasTurbineGovernor){
-		mTurbineGovernor->initialize(**mMechTorque);
-	}
-
 	// initial electrical torque
 	**mElecTorque = (**mVdq)(0,0) * (**mIdq)(0,0) + (**mVdq)(1,0) * (**mIdq)(1,0);
 
@@ -450,6 +451,20 @@ void Base::ReducedOrderSynchronGenerator<Complex>::initializeFromNodesAndTermina
 
 	// initialize theta and calculate transform matrix
 	**mThetaMech = **mDelta - PI / 2.;
+
+	// Initialize controllers
+	if (mHasPSS) 
+		mPSS->initialize(**mOmMech, **mElecTorque, (**mVdq)(0,0), (**mVdq)(1,0));
+	if (mHasExciter)
+		mExciter->initialize(Math::abs(mInitVoltage), **mEf);
+	if (mHasTurbineGovernor)
+		mTurbineGovernor->initialize(**mMechTorque);
+
+	// set initial value of current
+	(**mIntfCurrent)(0,0) = mInitCurrent * mBase_I_RMS;
+	
+	// set initial interface voltage
+	(**mIntfVoltage)(0,0) = mInitVoltage * mBase_V_RMS;
 
 	SPDLOG_LOGGER_DEBUG(this->mSLog,
 		"\n--- Initialization from power flow  ---"
@@ -494,66 +509,57 @@ template <>
 void Base::ReducedOrderSynchronGenerator<Complex>::mnaCompPreStep(Real time, Int timeStepCount) {
 	mSimTime = time;
 
-	// update controller variables
-	if (mHasExciter) {
-		mEf_prev = **mEf;
-		**mEf = mExciter->step((**mVdq)(0,0), (**mVdq)(1,0), mTimeStep);
-	}
+	// update governor variables
 	if (mHasTurbineGovernor) {
 		mMechTorque_prev = **mMechTorque;
 		**mMechTorque = mTurbineGovernor->step(**mOmMech, mTimeStep);
 	}
 
-	// predict mechanical vars for all reduced-order models in the same manner
-	if (mSimTime > 0.0) {
-		// predict omega at t=k+1 (forward euler)
-		**mElecTorque = (**mVdq)(0,0) * (**mIdq)(0,0) + (**mVdq)(1,0) * (**mIdq)(1,0);
-		**mOmMech = **mOmMech + mTimeStep * (1. / (2. * **mH) * (mMechTorque_prev - **mElecTorque));
+	// calculate mechanical variables at t=k+1 with forward euler
+	**mElecTorque = (**mVdq)(0,0) * (**mIdq)(0,0) + (**mVdq)(1,0) * (**mIdq)(1,0);
+	**mOmMech = **mOmMech + mTimeStep * (1. / (2. * **mH) * (mMechTorque_prev - **mElecTorque));
+	**mThetaMech = **mThetaMech + mTimeStep * (**mOmMech * mBase_OmMech);
+	**mDelta = **mDelta + mTimeStep * (**mOmMech - 1.) * mBase_OmMech;
 
-		// predict theta and delta at t=k+1 (backward euler)
-		**mThetaMech = **mThetaMech + mTimeStep * (**mOmMech * mBase_OmMech);
-		**mDelta = **mDelta + mTimeStep * (**mOmMech - 1.) * mBase_OmMech;
+	// update exciter and PSS variables
+	if (mHasPSS)
+		mVpss = mPSS->step(**mOmMech, **mElecTorque, (**mVdq)(0,0), (**mVdq)(1,0), mTimeStep);
+	if (mHasExciter) {
+		mEf_prev = **mEf;
+		**mEf = mExciter->step((**mVdq)(0,0), (**mVdq)(1,0), mTimeStep, mVpss);		
 	}
-
-	// model specific calculation of electrical vars
+	
 	stepInPerUnit();
-
-	// stamp model specific right side vector after calculation of electrical vars
 	(**mRightVector).setZero();
-	mnaCompApplyRightSideVectorStamp(**mRightVector);
+	mnaApplyRightSideVectorStamp(**mRightVector);
 }
 
 template <>
 void Base::ReducedOrderSynchronGenerator<Real>::mnaCompPreStep(Real time, Int timeStepCount) {
 	mSimTime = time;
-
-	// update controller variables
-	if (mHasExciter) {
-		mEf_prev = **mEf;
-		**mEf = mExciter->step((**mVdq0)(0,0), (**mVdq0)(1,0), mTimeStep);
-	}
+	// update governor variables
 	if (mHasTurbineGovernor) {
 		mMechTorque_prev = **mMechTorque;
 		**mMechTorque = mTurbineGovernor->step(**mOmMech, mTimeStep);
 	}
 
-	// predict mechanical vars for all reduced-order models in the same manner
-	if (mSimTime > 0.0) {
-		// predict omega at t=k+1 (forward euler)
-		**mElecTorque = (**mVdq0)(0,0) * (**mIdq0)(0,0) + (**mVdq0)(1,0) * (**mIdq0)(1,0);
-		**mOmMech = **mOmMech + mTimeStep * (1. / (2. * **mH) * (mMechTorque_prev - **mElecTorque));
+	// calculate mechanical variables at t=k+1 with forward euler
+	**mElecTorque = ((**mVdq0)(0,0) * (**mIdq0)(0,0) + (**mVdq0)(1,0) * (**mIdq0)(1,0));
+	**mOmMech = **mOmMech + mTimeStep * (1. / (2. * **mH) * (mMechTorque_prev - **mElecTorque));
+	**mThetaMech = **mThetaMech + mTimeStep * (**mOmMech * mBase_OmMech);
+	**mDelta = **mDelta + mTimeStep * (**mOmMech - 1.) * mBase_OmMech;
 
-		// predict theta and delta at t=k+1 (backward euler)
-		**mThetaMech = **mThetaMech + mTimeStep * (**mOmMech * mBase_OmMech);
-		**mDelta = **mDelta + mTimeStep * (**mOmMech - 1.) * mBase_OmMech;
+	// update exciter and PSS variables
+	if (mHasPSS)
+		mVpss = mPSS->step(**mOmMech, **mElecTorque, (**mVdq0)(0,0), (**mVdq0)(1,0), mTimeStep);
+	if (mHasExciter) {
+		mEf_prev = **mEf;
+		**mEf = mExciter->step((**mVdq0)(0,0), (**mVdq0)(1,0), mTimeStep, mVpss);	
 	}
 
-	// model specific calculation of electrical vars
 	stepInPerUnit();
-
-	// stamp model specific right side vector after calculation of electrical vars
 	(**mRightVector).setZero();
-	mnaCompApplyRightSideVectorStamp(**mRightVector);
+	mnaApplyRightSideVectorStamp(**mRightVector);
 }
 
 template <typename VarType>
@@ -582,36 +588,66 @@ void Base::ReducedOrderSynchronGenerator<VarType>::mnaCompPostStep(Real time, In
 }
 
 template <typename VarType>
-void Base::ReducedOrderSynchronGenerator<VarType>::addExciter(Real Ta, Real Ka, Real Te, Real Ke,
-	Real Tf, Real Kf, Real Tr)
-{
-	mExciter = Signal::Exciter::make(**this->mName + "_Exciter", this->mLogLevel);
-	mExciter->setParameters(Ta, Ka, Te, Ke, Tf, Kf, Tr);
+void Base::ReducedOrderSynchronGenerator<VarType>::addExciter(
+	CPS::Base::ExciterParameters exciterParameters, ExciterType exciterType) {
+	
+	if (exciterType == ExciterType::DC1Simp) 
+		mExciter = CPS::Signal::ExciterDC1Simp::make("Exciter_" + this->name(), this->mLogLevel);
+	if (exciterType == ExciterType::DC1) 
+		mExciter = CPS::Signal::ExciterDC1::make("Exciter_" + this->name(), this->mLogLevel);
+	
+	mExciter->setParameters(exciterParameters);
 	mHasExciter = true;
 }
 
 template <typename VarType>
 void Base::ReducedOrderSynchronGenerator<VarType>::addExciter(
-	std::shared_ptr<Signal::Exciter> exciter)
-{
+	std::shared_ptr<Base::Exciter> exciter) {
 	mExciter = exciter;
 	mHasExciter = true;
 }
 
 template <typename VarType>
-void Base::ReducedOrderSynchronGenerator<VarType>::addGovernor(Real T3, Real T4, Real T5, Real Tc,
-	Real Ts, Real R, Real Pmin, Real Pmax, Real OmRef, Real TmRef)
-{
+void Base::ReducedOrderSynchronGenerator<VarType>::addPSS(Real Kp, Real Kv, Real Kw, Real T1, Real T2, 
+	Real T3, Real T4, Real Vs_max, Real Vs_min, Real Tw) {
+	
+	if (!mHasExciter) {
+		std::cerr << "PSS can not be used without Exciter! PSS will be ignored!" << std::endl;
+		SPDLOG_LOGGER_ERROR(this->mSLog, "PSS can not be used without Exciter! PSS will be ignored!");
+		return;
+	}
+
+	mPSS = Signal::PSS1A::make(**this->mName + "_PSS", this->mLogLevel);
+	mPSS->setParameters(Kp, Kv, Kw, T1, T2, T3, T4, Vs_max, Vs_min, Tw);
+	mHasPSS = true;
+}
+
+template <typename VarType>
+void Base::ReducedOrderSynchronGenerator<VarType>::addPSS(
+	std::shared_ptr<Signal::PSS1A> PSS) {
+	
+	if (!mHasExciter) {
+		std::cerr << "PSS can not be used without Exciter! PSS will be ignored!" << std::endl;
+		SPDLOG_LOGGER_ERROR(this->mSLog, "PSS can not be used without Exciter! PSS will be ignored!");
+		return;
+	}
+
+	mPSS = PSS;
+	mHasPSS = true;
+}
+
+
+template <typename VarType>
+void Base::ReducedOrderSynchronGenerator<VarType>::addGovernor(Real T3, Real T4, Real T5, Real Tc, 
+	Real Ts, Real R, Real Pmin, Real Pmax, Real OmRef) {
 	mTurbineGovernor = Signal::TurbineGovernorType1::make(**this->mName + "_TurbineGovernor", this->mLogLevel);
 	mTurbineGovernor->setParameters(T3, T4, T5, Tc, Ts, R, Pmin, Pmax, OmRef);
-	mTurbineGovernor->initialize(TmRef);
 	mHasTurbineGovernor = true;
 }
 
 template <typename VarType>
 void Base::ReducedOrderSynchronGenerator<VarType>::addGovernor(
-	std::shared_ptr<Signal::TurbineGovernorType1> turbineGovernor)
-{
+	std::shared_ptr<Signal::TurbineGovernorType1> turbineGovernor) {
 	mTurbineGovernor = turbineGovernor;
 	mHasTurbineGovernor = true;
 }

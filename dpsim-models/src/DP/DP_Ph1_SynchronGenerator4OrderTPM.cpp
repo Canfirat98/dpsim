@@ -46,18 +46,20 @@ void DP::Ph1::SynchronGenerator4OrderTPM::setOperationalParametersPerUnit(Real n
 			nomVolt, nomFreq, H, Ld, Lq, L0,
 			Ld_t, Lq_t, Td0_t, Tq0_t);
 
-	mSLog->info("Set base parameters: \n"
-				"nomPower: {:e}\nnomVolt: {:e}\nnomFreq: {:e}\n",
-				nomPower, nomVolt, nomFreq);
+	SPDLOG_LOGGER_INFO(mSLog,
+		"Set base parameters: \n"
+		"nomPower: {:e}\nnomVolt: {:e}\nnomFreq: {:e}\n",
+		nomPower, nomVolt, nomFreq);
 
-	mSLog->info("Set operational parameters in per unit: \n"
-			"inertia: {:e}\n"
-			"Ld: {:e}\nLq: {:e}\nL0: {:e}\n"
-			"Ld_t: {:e}\nLq_t: {:e}\n"
-			"Td0_t: {:e}\nTq0_t: {:e}\n",
-			H, Ld, Lq, L0,
-			Ld_t, Lq_t,
-			Td0_t, Tq0_t);
+	SPDLOG_LOGGER_INFO(mSLog,
+		"Set operational parameters in per unit: \n"
+		"inertia: {:e}\n"
+		"Ld: {:e}\nLq: {:e}\nL0: {:e}\n"
+		"Ld_t: {:e}\nLq_t: {:e}\n"
+		"Td0_t: {:e}\nTq0_t: {:e}\n",
+		H, Ld, Lq, L0,
+		Ld_t, Lq_t,
+		Td0_t, Tq0_t);
 };
 
 void DP::Ph1::SynchronGenerator4OrderTPM::calculateStateSpaceMatrices() {
@@ -74,6 +76,11 @@ void DP::Ph1::SynchronGenerator4OrderTPM::specificInitialization() {
 	// initial emf in the dq reference frame
 	(**mEdq_t)(0,0) = (**mVdq)(0,0) - (**mIdq)(1,0) * **mLq_t;
 	(**mEdq_t)(1,0) = (**mVdq)(1,0) + (**mIdq)(0,0) * **mLd_t;
+
+	// set previous values of stator current at simulation start
+	//(**mIntfCurrent)(0,0) = std::conj(mInitElecPower / (mInitVoltage * mBase_V_RMS));
+	mIdpTwoPrevStep = **mIntfCurrent;
+
 	SPDLOG_LOGGER_INFO(mSLog,
 		"\n--- Model specific initialization  ---"
 		"\nInitial Ed_t (per unit): {:f}"
@@ -146,13 +153,6 @@ void DP::Ph1::SynchronGenerator4OrderTPM::stepInPerUnit() {
 	mResistanceMatrixVarying(1,0) = (mA + mB) / 2.0 * cos(2*DeltaTheta);
 	mResistanceMatrixVarying(1,1) = (mA + mB) / 2.0 * sin(2*DeltaTheta);
 	SPDLOG_LOGGER_DEBUG(mSLog, "\nR_var [pu] (t={:f}): {:s}", mSimTime, Logger::matrixToString(mResistanceMatrixVarying));
-
-	// predict electrical vars
-	// set previous values of stator current at simulation start
-	if (mSimTime == 0.0) {
-		(**mIntfCurrent)(0,0) = std::conj(**mInitElecPower / (mInitVoltage * mBase_V_RMS));
-		mIdpTwoPrevStep = **mIntfCurrent;
-	}
 
 	// predict stator current (linear extrapolation)
 	Matrix IdpPrediction = Matrix::Zero(2,1);

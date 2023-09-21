@@ -1,0 +1,34 @@
+{
+	"CIMFiles": [
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_DI.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_EQ.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_SV.xml",
+        "/home/mmo-cya/cimpy/cimpy/examples/sampledata/CIGRE_MV/Rootnet_FULL_NE_24J13h_TP.xml"
+    ],
+	"SolverParameters": {
+		"Domain": "RMS",	
+		"Solver": "MNA" 	
+	},
+	"SimulationParameters": {
+		"SimulationName": "CIGRE_LD",
+		"StartTime": 0,
+		"EndTime" : 1.5,
+		"TimeStep": 0.1, 
+		"InitFromPF": true
+	},
+	"Events": {
+		"EventType": "LineDisconnection",
+		"EventStartTime": 0,
+		"EventEndTime": 10,
+		"EventParameters": {
+			"BreakerClosedResistance": 0.0001,
+			"BreakerOpenResistance": 10e4,
+			"LineName": "L13-14",
+			"LineTermina": "str"
+		}
+		
+	},
+	"LoggerVariable":{
+		"Voltages": ["N14"]
+	}
+}

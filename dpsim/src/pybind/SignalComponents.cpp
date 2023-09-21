@@ -34,13 +34,19 @@ void addSignalComponents(py::module_ mSignal) {
         .def("set_parameters", &CPS::Signal::DecouplingLineEMT::setParameters, "node_1"_a, "node_2"_a, "resistance"_a, "inductance"_a, "capacitance"_a)
         .def("get_line_components", &CPS::Signal::DecouplingLineEMT::getLineComponents);
 
-    py::class_<CPS::Signal::Exciter, std::shared_ptr<CPS::Signal::Exciter>, CPS::SimSignalComp>(mSignal, "Exciter", py::multiple_inheritance())
-        .def(py::init<std::string>())
-        .def(py::init<std::string, CPS::Logger::Level>())
-        .def("set_parameters", &CPS::Signal::Exciter::setParameters, "Ta"_a, "Ka"_a, "Te"_a, "Ke"_a, "Tf"_a, "Kf"_a, "Tr"_a, "max_vr"_a=1.0, "min_vr"_a=-0.9);
-
-    py::class_<CPS::Signal::TurbineGovernorType1, std::shared_ptr<CPS::Signal::TurbineGovernorType1>, CPS::SimSignalComp>(mSignal, "TurbineGovernorType1", py::multiple_inheritance())
-        .def(py::init<std::string>())
-        .def(py::init<std::string, CPS::Logger::Level>())
-        .def("set_parameters", &CPS::Signal::TurbineGovernorType1::setParameters, "T3"_a, "T4"_a, "T5"_a, "Tc"_a, "Ts"_a, "R"_a, "Tmin"_a, "Tmax"_a, "OmRef"_a);
+    py::class_<CPS::Base::ExciterParameters>(mSignal, "ExciterParameters")
+        .def(py::init())
+        .def_readwrite("Tr", &CPS::Base::ExciterParameters::Tr)
+        .def_readwrite("Tb", &CPS::Base::ExciterParameters::Tb)
+        .def_readwrite("Tc", &CPS::Base::ExciterParameters::Tc)
+        .def_readwrite("Ta", &CPS::Base::ExciterParameters::Ta)
+        .def_readwrite("Ka", &CPS::Base::ExciterParameters::Ka)
+        .def_readwrite("Tef", &CPS::Base::ExciterParameters::Tef)
+        .def_readwrite("Kef", &CPS::Base::ExciterParameters::Kef)
+        .def_readwrite("Tf", &CPS::Base::ExciterParameters::Tf)
+        .def_readwrite("Kf", &CPS::Base::ExciterParameters::Kf)
+        .def_readwrite("Aef", &CPS::Base::ExciterParameters::Aef)
+        .def_readwrite("Bef", &CPS::Base::ExciterParameters::Bef)
+        .def_readwrite("MaxVa", &CPS::Base::ExciterParameters::MaxVa)
+        .def_readwrite("MinVa", &CPS::Base::ExciterParameters::MinVa);
 }

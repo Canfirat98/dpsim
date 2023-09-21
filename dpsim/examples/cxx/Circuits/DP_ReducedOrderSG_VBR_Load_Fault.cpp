@@ -1,6 +1,6 @@
 #include <DPsim.h>
+#include <dpsim-models/Factory.h>
 #include "../Examples.h"
-#include "../GeneratorFactory.h"
 
 using namespace DPsim;
 using namespace CPS;
@@ -12,13 +12,20 @@ const Examples::Grids::SMIB::ScenarioConfig3 GridParams;
 // Generator parameters
 const Examples::Components::SynchronousGeneratorKundur::MachineParameters syngenKundur;
 
+// PSS
+const Examples::Components::PowerSystemStabilizer::PSS1APSAT pssAndersonFarmer;
+
 // Excitation system
-const Examples::Components::ExcitationSystemEremia::Parameters excitationEremia;
+const Base::ExciterParameters excitationEremia = Examples::Components::Exciter::getExciterEremia();
 
 // Turbine Goverour
 const Examples::Components::TurbineGovernor::TurbineGovernorPSAT1 turbineGovernor;
 
 int main(int argc, char* argv[]) {
+
+	// initiaize factories
+	ExciterFactory::registerExciters();
+	SynchronGeneratorFactory::DP::Ph1::registerSynchronGenerators();
 
 	//Simultion parameters
 	Real switchClosed = GridParams.SwitchClosed;
@@ -28,6 +35,7 @@ int main(int argc, char* argv[]) {
 	Real finalTime = 5;
 	Real timeStep = 1e-3;
 	Real H = syngenKundur.H;
+	bool withPSS = false;
 	bool withExciter = false;
 	bool withTurbineGovernor = false;
 	std::string SGModel = "4";
@@ -37,13 +45,14 @@ int main(int argc, char* argv[]) {
 	// Command line args processing
 	CommandLineArgs args(argc, argv);
 	if (argc > 1) {
-		if (args.options.find("SGModel") != args.options.end()) {
+		if (args.options.find("SGModel") != args.options.end())
 			SGModel = args.getOptionString("SGModel");
+		if (args.options.find("WITHPSS") != args.options.end())
+			withPSS = args.getOptionBool("WITHPSS");
 		if (args.options.find("WITHEXCITER") != args.options.end())
 			withExciter = args.getOptionBool("WITHEXCITER");
 		if (args.options.find("WithTurbineGovernor") != args.options.end())
 			withTurbineGovernor = args.getOptionBool("WithTurbineGovernor");
-		}
 		if (args.options.find("Inertia") != args.options.end())  {
 			H = args.getOptionReal("Inertia");
 			inertia_str = "_Inertia_" + std::to_string(H);
@@ -59,7 +68,7 @@ int main(int argc, char* argv[]) {
 		logDownSampling = floor(100e-6 / timeStep);
 	else
 		logDownSampling = 1.0;
-	Logger::Level logLevel = Logger::Level::off;
+	Logger::Level logLevel = Logger::Level::debug;
 	std::string simName = "DP_SynGen" + SGModel + "Order_VBR_Load_Fault" + stepSize_str + inertia_str;
 
 
@@ -74,7 +83,7 @@ int main(int argc, char* argv[]) {
 	auto n1DP = SimNode<Complex>::make("n1DP", PhaseType::Single, initVoltN1);
 
 	// Synchronous generator
-	auto genDP = GeneratorFactory::createGenDP(SGModel, "SynGen", logLevel);
+	auto genDP = Factory<DP::Ph1::ReducedOrderSynchronGeneratorVBR>::get().create(SGModel, "SynGen", logLevel);
 	genDP->setOperationalParametersPerUnit(
 			syngenKundur.nomPower, syngenKundur.nomVoltage,
 			syngenKundur.nomFreq, H,
@@ -87,14 +96,21 @@ int main(int argc, char* argv[]) {
 	genDP->setModelAsNortonSource(true);
 
 	// Exciter
-	std::shared_ptr<Signal::Exciter> exciterDP = nullptr;
+	std::shared_ptr<Base::Exciter> exciterDP = nullptr;
 	if (withExciter) {
-		exciterDP = Signal::Exciter::make("SynGen_Exciter", logLevel);
-		exciterDP->setParameters(excitationEremia.Ta, excitationEremia.Ka,
-								 excitationEremia.Te, excitationEremia.Ke,
-								 excitationEremia.Tf, excitationEremia.Kf,
-								 excitationEremia.Tr);
+		exciterDP = Factory<Base::Exciter>::get().create("DC1Simp", "Exciter", logLevel);
+		exciterDP->setParameters(excitationEremia);
 		genDP->addExciter(exciterDP);
+	}
+
+	// Power system stabilizer
+	std::shared_ptr<Signal::PSS1A> pssDP = nullptr;
+	if (withPSS) {
+		pssDP = Signal::PSS1A::make("SynGen_PSS", logLevel);
+		pssDP->setParameters(pssAndersonFarmer.Kp, pssAndersonFarmer.Kv, pssAndersonFarmer.Kw, 
+			pssAndersonFarmer.T1, pssAndersonFarmer.T2, pssAndersonFarmer.T3, pssAndersonFarmer.T4, 
+			pssAndersonFarmer.Vs_max, pssAndersonFarmer.Vs_min, pssAndersonFarmer.Tw);
+		genDP->addPSS(pssDP);
 	}
 
 	// Turbine Governor
@@ -127,23 +143,15 @@ int main(int argc, char* argv[]) {
 
 	// Logging
 	auto loggerDP = DataLogger::make(simNameDP, true, logDownSampling);
-	loggerDP->logAttribute("v_gen", 	 genDP->attribute("v_intf"));
-    loggerDP->logAttribute("i_gen", 	 genDP->attribute("i_intf"));
-    loggerDP->logAttribute("Te", 	 genDP->attribute("Te"));
-    loggerDP->logAttribute("delta", 	 genDP->attribute("delta"));
-    loggerDP->logAttribute("w_r", 		 genDP->attribute("w_r"));
-	loggerDP->logAttribute("Vdq0", 		 genDP->attribute("Vdq0"));
-	loggerDP->logAttribute("Idq0", 		 genDP->attribute("Idq0"));
-
-	// Exciter
-	if (withExciter) {
-		loggerDP->logAttribute("Ef", 	 exciterDP->attribute("Ef"));
-	}
-
-	// Turbine Governor
-	if (withTurbineGovernor) {
-		loggerDP->logAttribute("Tm", turbineGovernorDP->attribute("Tm"));
-	}
+	loggerDP->logAttribute("v_gen",	genDP->attribute("v_intf"));
+    loggerDP->logAttribute("i_gen",	genDP->attribute("i_intf"));
+    loggerDP->logAttribute("Te",	genDP->attribute("Te"));
+    loggerDP->logAttribute("delta",	genDP->attribute("delta"));
+    loggerDP->logAttribute("w_r",	genDP->attribute("w_r"));
+	loggerDP->logAttribute("Vdq0",	genDP->attribute("Vdq0"));
+	loggerDP->logAttribute("Idq0",	genDP->attribute("Idq0"));
+	loggerDP->logAttribute("Ef",	genDP->attribute("Ef"));
+	loggerDP->logAttribute("Tm", 	genDP->attribute("Tm"));
 
 	Simulation simDP(simNameDP, logLevel);
 	simDP.doInitFromNodesAndTerminals(true);
