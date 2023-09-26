@@ -284,10 +284,8 @@ PYBIND11_MODULE(dpsimpy, m) {
 		.def("set_power", py::overload_cast<CPS::Complex>(&CPS::TopologicalTerminal::setPower))
 		.def("set_power", py::overload_cast<CPS::MatrixComp>(&CPS::TopologicalTerminal::setPower));
 
-	py::class_<CPS::SimTerminal<CPS::Complex>, std::shared_ptr<CPS::SimTerminal<CPS::Complex>>, CPS::TopologicalTerminal>(m, "SimTerminalComplex")
-		.def("node", &CPS::SimTerminal<CPS::Complex>::node);
-	py::class_<CPS::SimTerminal<CPS::Real>, std::shared_ptr<CPS::SimTerminal<CPS::Real>>, CPS::TopologicalTerminal>(m, "SimTerminalReal")
-		.def("node", &CPS::SimTerminal<CPS::Real>::node);
+	py::class_<CPS::SimTerminal<CPS::Complex>, std::shared_ptr<CPS::SimTerminal<CPS::Complex>>, CPS::TopologicalTerminal>(m, "SimTerminalComplex");
+	py::class_<CPS::SimTerminal<CPS::Real>, std::shared_ptr<CPS::SimTerminal<CPS::Real>>, CPS::TopologicalTerminal>(m, "SimTerminalReal");
 
 
 	//Events
