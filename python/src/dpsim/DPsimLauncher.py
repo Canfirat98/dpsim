@@ -130,7 +130,7 @@ class DPsimLauncher:
                 # TODO: WARN MESSAGE
                 pass
             
-    def read_variables_to_log(self, system, logger):
+    def read_variables_to_log(self, system, sim, logger):
         # TODO: Add more variables and components
         for component_type, var_dict in self.data["LoggerVariables"].items():
             if component_type=="Node":
@@ -168,7 +168,7 @@ class DPsimLauncher:
                                     # TODO: change exception by warning
                                     raise Exception('Node {} was not found!'.format(node_name))
                                 logger.log_attribute(node_name+'.S', 's', node)
-            if component_type=="Component":
+            elif component_type=="Component":
                 for variable in var_dict.keys():
                     if variable=="Currents":
                         if (var_dict["Currents"][0]=="all"):
@@ -185,8 +185,32 @@ class DPsimLauncher:
                                 if (comp_found==False):
                                     # TODO: change exception by warning?
                                     raise Exception('Component {} was not found!'.format(comp_name))
-
+                                
                                 logger.log_attribute(comp_name+'.I', 'i_intf', comp)
+                    else:
+                        # Generic
+                        # All attributes of components can be logged provided that they exist
+                        for comp_name in var_dict[variable]:
+                            # search for component in system topology
+                            comp_found = False
+                            comp = None
+                            for comp in system.components:
+                                if (comp.name == comp_name):
+                                    comp_found = True
+                                    break
+                            if (comp_found==False):
+                                # TODO: change exception by warning?
+                                warnings.warn('The component {} was not found. The attribute {} will no be logged!'.format(comp.name, variable))
+                            
+                            # check if attribute exists
+                            
+                            try:
+                                sim.get_idobj_attr(comp.name, variable)
+                                logger.log_attribute(comp.name+'.{}'.format(variable), variable, comp)
+                            except:
+                                warnings.warn('The component {} has no attribute "{}". This attribute will no be logged!'.format(comp.name, variable))
+                                continue
+                            
                         
         return logger
     
@@ -223,7 +247,7 @@ class DPsimLauncher:
     
         # create logger add variables to be logged
         logger = dpsimpy.Logger(self.sim_name_pf)
-        logger = self.read_variables_to_log(self.system_pf, logger)
+        logger = self.read_variables_to_log(self.system_pf, self.sim_pf, logger)
         
         # start power flow simulation
         self.sim_pf = dpsimpy.Simulation(self.sim_name_pf, self.loglevel)
@@ -294,7 +318,7 @@ class DPsimLauncher:
         
         # create logger add variables to be logged
         logger = dpsimpy.Logger(self.name_dyn)
-        logger = self.read_variables_to_log(self.system, logger)
+        logger = self.read_variables_to_log(self.system, self.sim, logger)
         self.sim.add_logger(logger)
         
         # run simulation
@@ -374,7 +398,78 @@ class DPsimLauncher:
                 sw_event_2 = dpsimpy.event.SwitchEvent(event_end_time, switch, False)
                 self.sim.add_event(sw_event_2)
             
-            # Füge der Topologie den gewünschten Event hinzu
+            elif self.data["Events"]['EventType'] == "LoadStep":
+                event_params = self.data["Events"]['EventParameters']
+                
+                # get event start time
+                event_start_time = 0
+                if "EventStartTime" in self.data["Events"].keys():
+                    event_start_time = self.data["Events"]["EventStartTime"]
+                else:
+                    raise Exception('Paramenter "EventStartTime" is not in the json file!') 
+                
+                # get event end time
+                event_end_time = 999999999
+                if "EventEndTime" in self.data["Events"].keys():
+                    event_end_time = self.data["Events"]["EventEndTime"]  
+                else:
+                    warnings.warn('Paramenter "EventEndTime" is not in the json file! EventEndTime set to {}'.format(event_end_time))
+                
+                node_name = ""
+                if "NodeName" in event_params.keys():
+                    node_name = event_params['NodeName']
+                else:
+                    raise Exception('Paramenter "NodeName" is not in the json file!')
+                
+                node = None
+                for node_ in self.system.nodes:
+                    if event_params['NodeName'] == node_name:
+                        node = node_
+                        break
+                if (node is None):
+                    # TODO: change exception by warning
+                    raise Exception('Node {} was not found!'.format(node_name))   
+                
+                open_resistance = 1e18
+                closed_resistance = None
+                additional_active_power = 0
+                additional_reactive_power = 0
+                if "AdditionalActivePower" in event_params.keys():
+                    additional_active_power = event_params['AdditionalActivePower'] * 1e6
+                if "AdditionalReactivePower" in event_params.keys():
+                    additional_reactive_power = event_params['AdditionalReactivePower'] * 1e6
+                if (additional_active_power==0 and additional_reactive_power==0):
+                    warnings.warn('Paramenter "AdditionalActivePower" and "AdditionalReactivePower" are equal to zero!\n Event "LoadStep" will be skipped')
+                    return
+                
+                closed_resistance= np.abs(node.initial_single_voltage()**2) / additional_active_power
+                                
+                # TODO: add impedance
+                #closed_impendace = ...
+                
+                # Füge switch mit Erdung hinzu
+                switch = None
+                gnd = None
+                if domain == Domain.SP:
+                    switch = dpsimpy.sp.ph1.Switch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.sp.SimNode.gnd
+                elif domain == Domain.DP:
+                    switch = dpsimpy.dp.ph1.Switch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.dp.SimNode.gnd
+                elif domain == Domain.EMT:
+                    switch = dpsimpy.emt.ph3.SeriesSwitch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.emt.SimNode.gnd 
+                switch.set_parameters(open_resistance, closed_resistance)
+                switch.open()
+                self.system.add(switch)
+                self.system.connect_component(switch, [gnd, node])
+
+                # Event hinzufügen
+                sw_event_1 = dpsimpy.event.SwitchEvent(event_start_time, switch, True)
+                self.sim.add_event(sw_event_1)
+                sw_event_2 = dpsimpy.event.SwitchEvent(event_end_time, switch, False)
+                self.sim.add_event(sw_event_2)
+                
             elif self.data["Events"]['EventType'] == "LineDisconnection":
                 event_params = self.data["Events"]['EventParameters']
                 
@@ -510,52 +605,6 @@ class DPsimLauncher:
                     sim.run()
 
                     return system
-
-            print(f"Die gewünschte Freileitung '{event_param['LineName']}' ist nicht in der Topologie enthalten.")
-            return system
-        
-            elif self.data["Events"]['EventType'] == "LoadStep":
-                event_params = self.data["Events"]['EventParameters']
-                
-                node_name = ""
-                if "NodeName" in event_params.keys():
-                    node_name = event_params['NodeName']
-                else:
-                    raise Exception('Paramenter "NodeName" is not in the json file!')
-                
-                node = None
-                for node_ in self.system.nodes:
-                    if event_params['NodeName'] == node_name:
-                        node = node_
-                        break
-                if (node is None):
-                    # TODO: change exception by warning
-                    raise Exception('Node {} was not found!'.format(node_name))   
-                
-                open_resistance = 1e12
-                if "FaultOpenResistance" in event_params.keys():
-                    open_resistance = event_params['FaultOpenResistance']
-                else:
-                    warnings.warn('Paramenter "FaultOpenResistance" is not in the json file!\n FaultOpenResistance set to 1e12')
-                    
-                closed_resistance = 1e-3  
-                if "FaultClosedResistance" in event_params.keys():
-                    closed_resistance = event_params['FaultClosedResistance']
-                else:
-                    warnings.warn('Paramenter "FaultClosedResistance" is not in the json file!\n FaultClosedResistance set to 1e-3')
-                    
-                # Füge switch mit Erdung hinzu
-                switch = self.dpsimpy_components.Switch('Fault_' + node_name, self.loglevel)
-                switch.set_parameters(open_resistance, closed_resistance)
-                switch.open()
-                switch.connect([self.dpsimpy_components.SimNode.gnd, node])
-                self.system.add(switch)
-
-                # Event hinzufügen
-                sw_event_1 = dpsimpy.event.SwitchEvent(1.0, switch, True)
-                self.sim.add_event(sw_event_1)
-                sw_event_2 = dpsimpy.event.SwitchEvent(1.1, switch, False)
-                self.sim.add_event(sw_event_2)
         """
 
    
