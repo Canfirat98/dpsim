@@ -168,6 +168,25 @@ class DPsimLauncher:
                                     # TODO: change exception by warning
                                     raise Exception('Node {} was not found!'.format(node_name))
                                 logger.log_attribute(node_name+'.S', 's', node)
+            if component_type=="Component":
+                for variable in var_dict.keys():
+                    if variable=="Currents":
+                        if (var_dict["Currents"][0]=="all"):
+                            for comp in system.components:
+                                logger.log_attribute(comp.name+'.I', 'i_intf', comp)
+                        else:
+                            for comp_name in var_dict["Currents"]:
+                                # search for component in system topology
+                                comp_found = False
+                                for comp in system.components:
+                                    if (comp.name == comp_name):
+                                        comp_found = True
+                                        break
+                                if (comp_found==False):
+                                    # TODO: change exception by warning?
+                                    raise Exception('Component {} was not found!'.format(comp_name))
+
+                                logger.log_attribute(comp_name+'.I', 'i_intf', comp)
                         
         return logger
     
@@ -245,11 +264,9 @@ class DPsimLauncher:
         
         ### Simulation
         self.sim = dpsimpy.Simulation(self.name_dyn, self.loglevel)
-        
-        # add events
-        self.read_events(domain)
-        
         self.sim.set_system(self.system)
+        
+        #
         if domain == Domain.SP:
             self.sim.set_domain(dpsimpy.Domain.SP)
             self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.SP)
@@ -259,6 +276,10 @@ class DPsimLauncher:
         elif domain == Domain.EMT:
             self.sim.set_domain(dpsimpy.Domain.EMT)
             self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.EMT)
+        
+        # add events
+        self.read_events(domain)
+        self.sim.set_system(self.system)
         
         #
         self.sim.do_init_from_nodes_and_terminals(self.init_from_nodes_and_terminals)
@@ -352,7 +373,147 @@ class DPsimLauncher:
                 self.sim.add_event(sw_event_1)
                 sw_event_2 = dpsimpy.event.SwitchEvent(event_end_time, switch, False)
                 self.sim.add_event(sw_event_2)
+            
+            # Füge der Topologie den gewünschten Event hinzu
+            elif self.data["Events"]['EventType'] == "LineDisconnection":
+                event_params = self.data["Events"]['EventParameters']
                 
+                # get event parameters
+                
+                # get event start time
+                event_start_time = 0
+                if "EventStartTime" in self.data["Events"].keys():
+                    event_start_time = self.data["Events"]["EventStartTime"]
+                else:
+                    raise Exception('Paramenter "EventStartTime" is not in the json file!') 
+                
+                # get event end time
+                #event_end_time = 0
+                #if "EventEndTime" in self.data["Events"].keys():
+                #    event_end_time = self.data["Events"]["EventEndTime"]  
+                #else:
+                #    raise Exception('Paramenter "EventEndTime" is not in the json file!')
+                
+                # get parameters
+                open_resistance = 1e18
+                if "SwitchOpenResistance" in event_params.keys():
+                    open_resistance = event_params['SwitchOpenResistance']
+                else:
+                    warnings.warn('Paramenter "SwitchOpenResistance" is not in the json file!\n SwitchOpenResistance set to 1e18')
+                    
+                closed_resistance = 1e-6  
+                if "SwitchClosedResistance" in event_params.keys():
+                    closed_resistance = event_params['SwitchClosedResistance']
+                else:
+                    warnings.warn('Paramenter "SwitchClosedResistance" is not in the json file!\n SwitchClosedResistance set to 1e-6  ')
+                    
+                # search for line in dpsim topology
+                line = None
+                for comp in self.system.components:
+                    if comp.name == event_params["LineName"]:
+                        line=comp
+                        break
+                if line==None:
+                    raise Exception('Line name={} was not found in dpsim topology!'.format(event_params["LineName"]))
+                
+                # Add dummy node between node0 of line and node_dummy
+                node_dummy = None
+                if domain == Domain.SP:
+                    node_dummy = dpsimpy.sp.ph1.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.Single)
+                elif domain == Domain.DP:
+                    node_dummy = dpsimpy.dp.ph1.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.Single)
+                elif domain == Domain.EMT:
+                    node_dummy = dpsimpy.emt.ph3.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.ABC)
+                self.system.add_node(node_dummy)
+                
+                # get nodes of line
+                node0 = comp.get_terminal(0).node()
+                node1 = comp.get_terminal(1).node()
+                
+                # Add switch between node0 and dummy_node
+                switch = None
+                if domain == Domain.SP:
+                    switch = dpsimpy.sp.ph1.Switch('Switch_' + line.name, self.loglevel)
+                elif domain == Domain.DP:
+                    switch = dpsimpy.dp.ph1.Switch('Switch_' + line.name, self.loglevel)
+                elif domain == Domain.EMT:
+                    switch = dpsimpy.emt.ph3.SeriesSwitch('Switch_' + line.name, self.loglevel)
+                switch.set_parameters(open_resistance, closed_resistance)
+                switch.open()
+                
+                # remove connection of line
+                for key, comps_at_node_list in self.system.components_at_node.items():
+                    if comp in comps_at_node_list:
+                        comps_at_node_list_new = self.system.components_at_node
+                        comps_at_node_list_new[key] = [comp_ for comp_ in comps_at_node_list_new[key] if comp_ != comp]
+                        self.system.components_at_node = comps_at_node_list_new
+                
+                # reconnect line
+                self.system.connect_component(comp, [node0, node_dummy])
+                                        
+                # initialize dummy node with voltage=voltage_node0
+                node_dummy.set_initial_voltage(node0.initial_single_voltage())
+                
+                # connect switch
+                self.system.add(switch)
+                self.system.connect_component(switch, [node_dummy, node1])
+
+                # Event hinzufügen           
+                sw_event_1 = dpsimpy.event.SwitchEvent(event_start_time, switch, True)
+                self.sim.add_event(sw_event_1)
+
+            else:
+                raise Exception('Please specify a valid event case. The possibilities are: "ShortCircuit" or "LineDisconnection"')
+                
+            """
+            if self.data["Events"]['EventType'] == "LineDisconnection":
+                event_params = self.data["Events"]['EventParameters']
+
+                for comp in self.system.components:
+                    if event_params['LineName'] == comp.name:
+                        # comp ist die zu entfernende Freileitung
+                        # Entferne Freileitung aus Komponentenliste    
+                        self.system.components = [x for x in self.system.components if x != comp]
+
+                        # Entferne Freileitung aus den Knoten-Listen
+                        for key, value in self.system.components_at_node.items():
+                            if comp in value:
+                                obj_dict = system.components_at_node
+                                obj_dict[key] = [c for c in obj_dict[key] if c != comp]
+                                system.components_at_node = obj_dict
+
+                    ### DPsim SP simulation
+                    sim_parameters = data['SimulationParameters']
+                    name = sim_parameters['SimulationName']
+                    dpsimpy.Logger.set_log_dir("logs/" + name)
+
+                    ### Simulation
+                    sim = dpsimpy.Simulation(name, dpsimpy.LogLevel.debug)
+                    sim.set_system(system)
+                    sim.set_domain(dpsimpy.Domain.SP)
+
+                    sim.do_init_from_nodes_and_terminals(True)
+                    sim.set_direct_solver_implementation(dpsimpy.DirectLinearSolverImpl.SparseLU)
+                    sim.do_system_matrix_recomputation(True)
+
+                    # Initialisiere Spannungen an Knoten vom dynamischen System
+                    self.system.init_with_powerflow(self.system_pf, domain=self.domain)
+
+                    logger = dpsimpy.Logger(name)
+                    sim.add_logger(logger)
+                    for node_i in system.nodes:
+                        logger.log_attribute(node_i.name + '.V', 'v', node_i)
+
+                    sim.set_time_step(sim_parameters['TimeStep'])
+                    sim.set_final_time(sim_parameters['EndTime'])
+
+                    sim.run()
+
+                    return system
+
+            print(f"Die gewünschte Freileitung '{event_param['LineName']}' ist nicht in der Topologie enthalten.")
+            return system
+        
             elif self.data["Events"]['EventType'] == "LoadStep":
                 event_params = self.data["Events"]['EventParameters']
                 
@@ -395,59 +556,8 @@ class DPsimLauncher:
                 self.sim.add_event(sw_event_1)
                 sw_event_2 = dpsimpy.event.SwitchEvent(1.1, switch, False)
                 self.sim.add_event(sw_event_2)
-                
-            else:
-                raise Exception("Bitte gebe einen gültigen Fehlerfall an. Zum Beispiel <ThreePhaseFault>.")
-
         """
-        elif event['EventType'] == "LineDisconnection":
-            event_param = event['EventParameters']
 
-            for comp in system.components:
-                if event_param['LineName'] == comp.name:
-                    # comp ist die zu entfernende Freileitung
-                    # Entferne Freileitung aus Komponentenliste    
-                    system.components = [x for x in system.components if x != comp]
-
-                    # Entferne Freileitung aus den Knoten-Listen
-                    for key, value in system.components_at_node.items():
-                        if comp in value:
-                            obj_dict = system.components_at_node
-                            obj_dict[key] = [c for c in obj_dict[key] if c != comp]
-                            system.components_at_node = obj_dict
-
-                    ### DPsim SP simulation
-                    sim_parameters = data['SimulationParameters']
-                    name = sim_parameters['SimulationName']
-                    dpsimpy.Logger.set_log_dir("logs/" + name)
-
-                    ### Simulation
-                    sim = dpsimpy.Simulation(name, dpsimpy.LogLevel.debug)
-                    sim.set_system(system)
-                    sim.set_domain(dpsimpy.Domain.SP)
-
-                    sim.do_init_from_nodes_and_terminals(True)
-                    sim.set_direct_solver_implementation(dpsimpy.DirectLinearSolverImpl.SparseLU)
-                    sim.do_system_matrix_recomputation(True)
-
-                    # Initialisiere Spannungen an Knoten vom dynamischen System
-                    self.system.init_with_powerflow(self.system_pf, domain=self.domain)
-
-                    logger = dpsimpy.Logger(name)
-                    sim.add_logger(logger)
-                    for node_i in system.nodes:
-                        logger.log_attribute(node_i.name + '.V', 'v', node_i)
-
-                    sim.set_time_step(sim_parameters['TimeStep'])
-                    sim.set_final_time(sim_parameters['EndTime'])
-
-                    sim.run()
-
-                    return system
-
-            print(f"Die gewünschte Freileitung '{event_param['LineName']}' ist nicht in der Topologie enthalten.")
-            return system
-        """
    
     def get_path_to_results(self):
         # This function return a list containing the relative path to the files with the results of the dynamic simulations
