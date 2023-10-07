@@ -193,7 +193,7 @@ class DPsimLauncher:
         for node, comp_list in self.system_pf.components_at_node.items():
             if (node.name==self.data['SimulationParameters']['ReferenceNode']):
                 for comp in comp_list:
-                    if (isinstance(comp, dpsimpy.sp.ph1.SynchronGenerator) or isinstance(comp, dpsimpy.sp.ph1.NetworkInjektion)):
+                    if (isinstance(comp, dpsimpy.sp.ph1.SynchronGenerator) or isinstance(comp, dpsimpy.sp.ph1.NetworkInjection)):
                         reference_comp=comp
                         break
                 if (reference_comp is None):  

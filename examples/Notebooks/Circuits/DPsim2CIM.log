@@ -1,0 +1,120 @@
+INFO:root:Choose base voltage 24.0kV of gen_pf for node n1_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n1_pf
+	baseVoltage=0.024[kV]
+	v=25.199999999999996
+	angle=0.2548640331192395[rad]"
+INFO:root:Choose base voltage 24.0kV of Pi_Line_pf for node n2_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n2_pf
+	baseVoltage=0.024[kV]
+	v=24.0
+	angle=0.0[rad]"
+DEBUG:root:Added SynchronGenerator: 
+	name=gen_pf, 
+	p=299.9999999999861[MW], 
+	q=43.411918697747915[MVAr], 
+	ratedU=0.0[kV], 
+	ratedS=303.1247180370013[MVA], 
+	targetValue=25.2, 
+	initial=299.9999999999861, 
+	node name=n1_pf
+DEBUG:root:Added PiLine: 
+	name=Pi_Line_pf, 
+	L=0.07315199999999998[H], 
+	R=0.52128[Ohm], 
+	C=0.03142361111111112[F], 
+	G=0.0[S], 
+	baseVoltage=24.0[kV], 
+	node1 name=n1_pf, 
+	node2 name=n2_pf
+INFO:root:Choose base voltage 24.0kV of gen_pf for node n1_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n1_pf
+	baseVoltage=0.024[kV]
+	v=25.199999999999996
+	angle=0.2548640331192395[rad]"
+INFO:root:Choose base voltage 24.0kV of Pi_Line_pf for node n2_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n2_pf
+	baseVoltage=0.024[kV]
+	v=24.0
+	angle=0.0[rad]"
+DEBUG:root:Added SynchronGenerator: 
+	name=gen_pf, 
+	p=299.9999999999861[MW], 
+	q=43.411918697747915[MVAr], 
+	ratedU=0.0[kV], 
+	ratedS=303.1247180370013[MVA], 
+	targetValue=25.2, 
+	initial=299.9999999999861, 
+	node name=n1_pf
+DEBUG:root:Added PiLine: 
+	name=Pi_Line_pf, 
+	L=0.07315199999999998[H], 
+	R=0.52128[Ohm], 
+	C=0.03142361111111112[F], 
+	G=0.0[S], 
+	baseVoltage=24.0[kV], 
+	node1 name=n1_pf, 
+	node2 name=n2_pf
+INFO:root:Choose base voltage 24.0kV of gen_pf for node n1_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n1_pf
+	baseVoltage=0.024[kV]
+	v=25.199999999999996
+	angle=0.2548640331192395[rad]"
+INFO:root:Choose base voltage 24.0kV of Pi_Line_pf for node n2_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n2_pf
+	baseVoltage=0.024[kV]
+	v=24.0
+	angle=0.0[rad]"
+DEBUG:root:Added SynchronGenerator: 
+	name=gen_pf, 
+	p=299.9999999999861[MW], 
+	q=43.411918697747915[MVAr], 
+	ratedU=0.0[kV], 
+	ratedS=303.1247180370013[MVA], 
+	targetValue=25.2, 
+	initial=299.9999999999861, 
+	node name=n1_pf
+DEBUG:root:Added PiLine: 
+	name=Pi_Line_pf, 
+	L=0.07315199999999998[H], 
+	R=0.52128[Ohm], 
+	C=0.03142361111111112[F], 
+	G=0.0[S], 
+	baseVoltage=24.0[kV], 
+	node1 name=n1_pf, 
+	node2 name=n2_pf
+INFO:root:Choose base voltage 24.0kV of gen_pf for node n1_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n1_pf
+	baseVoltage=0.024[kV]
+	v=25.199999999999996
+	angle=0.2548640331192395[rad]"
+INFO:root:Choose base voltage 24.0kV of Pi_Line_pf for node n2_pf
+DEBUG:root:Added TopologicalNode: 
+	name=n2_pf
+	baseVoltage=0.024[kV]
+	v=24.0
+	angle=0.0[rad]"
+DEBUG:root:Added SynchronGenerator: 
+	name=gen_pf, 
+	p=299.9999999999861[MW], 
+	q=43.411918697747915[MVAr], 
+	ratedU=0.0[kV], 
+	ratedS=303.1247180370013[MVA], 
+	targetValue=25.2, 
+	initial=299.9999999999861, 
+	node name=n1_pf
+DEBUG:root:Added PiLine: 
+	name=Pi_Line_pf, 
+	L=0.07315199999999998[H], 
+	R=0.52128[Ohm], 
+	C=0.03142361111111112[F], 
+	G=0.0[S], 
+	baseVoltage=24.0[kV], 
+	node1 name=n2_pf, 
+	node2 name=n1_pf

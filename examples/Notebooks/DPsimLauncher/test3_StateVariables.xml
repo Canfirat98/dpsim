@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cim="http://iec.ch/TC57/2013/CIM-schema-cim16#" xmlns:md="http://iec.ch/TC57/61970-552/ModelDescription/1#" xmlns:entsoe="http://entsoe.eu/CIM/SchemaExtension/3/1#" >
+<md:FullModel rdf:about="test3">
+    <md:Model.created>28/09/2023 17:26:59</md:Model.created>
+    <md:Model.modelingAuthoritySet>www.sogno.energy</md:Model.modelingAuthoritySet>
+    <md:Model.profile>StateVariables</md:Model.profile>
+</md:FullModel>
+<cim:SvVoltage rdf:ID="Bus_0006-sv">
+    <cim:SvVoltage.v>26.9314039403644</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_b2e35f92-55be-fcea-9d8b-5af0b03dcc34"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0003-sv">
+    <cim:SvVoltage.v>100.49005209509438</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_e86e5b76-c323-0298-3647-c7920a41ad35"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0010-sv">
+    <cim:SvVoltage.v>25.959235318538248</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_73dacfe6-4f37-a1b3-23b4-2f15f4842241"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0001-sv">
+    <cim:SvVoltage.v>93.68235530138875</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_57b2860d-5c8d-1361-fc37-c87e5d6acdf3"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0004-sv">
+    <cim:SvVoltage.v>100.48703764762871</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_8b4159f5-6562-fcb5-cc7b-3de69a428d1a"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0002-sv">
+    <cim:SvVoltage.v>97.47889072175516</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_f1b7a33c-1135-6321-28cf-a8acb3a66b61"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0005-sv">
+    <cim:SvVoltage.v>99.95080919951268</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_20974d78-1aad-78d3-f55b-a8acfe4b5034"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0008-sv">
+    <cim:SvVoltage.v>9.046851652629602</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_2f701ddb-97f1-a6b6-f496-8b188c691140"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0009-sv">
+    <cim:SvVoltage.v>25.926895459228785</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_25af8883-fd1b-f3a4-b482-6f8b4d6b3930"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0012-sv">
+    <cim:SvVoltage.v>26.648264513910878</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_432f6b40-c642-ecad-e98f-951505f5a8f9"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0011-sv">
+    <cim:SvVoltage.v>26.36856278443387</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_5732b6d1-bc4a-5bc7-c611-80909d9bbfe8"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0014-sv">
+    <cim:SvVoltage.v>25.865989275984926</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_901b81b9-b0d7-78aa-7d44-e1939bfec19e"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0013-sv">
+    <cim:SvVoltage.v>26.480569820569535</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_a1f14e91-7a1a-5af9-4ed2-dceac1d59ace"/>
+</cim:SvVoltage>
+<cim:SvVoltage rdf:ID="Bus_0007-sv">
+    <cim:SvVoltage.v>0.7903755359609849</cim:SvVoltage.v>
+    <cim:SvVoltage.TopologicalNode rdf:resource="#_16759bc8-872a-e3a5-d4f4-19112dc29b38"/>
+</cim:SvVoltage>
+<cim:SvPowerFlow rdf:ID="859300a4-4d95-4e8c-8018-285b3375982f">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0009"/>
+    <cim:SvPowerFlow.p>29.5</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>16.6</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="6dcc8093-cc06-4f13-a057-f9aabc838292">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0011"/>
+    <cim:SvPowerFlow.p>3.5</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>1.7999999999999998</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="49d480be-1a58-4ba0-a04e-b4b3871ad82a">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0003"/>
+    <cim:SvPowerFlow.p>94.2</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>19.0</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="6770fbd3-60ce-44d5-a471-c47a8d864330">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0002"/>
+    <cim:SvPowerFlow.p>21.7</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>12.7</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="c18d9400-7d7f-4ed4-86e3-2a3fa54e551a">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0010"/>
+    <cim:SvPowerFlow.p>9.0</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>5.8</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="c862acb0-60bd-4ff3-aa7a-853f44ddef6c">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0012"/>
+    <cim:SvPowerFlow.p>6.1</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>1.5999999999999999</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="e5787fe2-bc9c-46e8-a99b-0a67bbd2e09a">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0004"/>
+    <cim:SvPowerFlow.p>47.8</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>-3.9</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="fe087763-483d-4adc-8b50-9a222d18faa3">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0014"/>
+    <cim:SvPowerFlow.p>14.899999999999999</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>5.0</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="bc3e90b5-5dd7-4afe-9b8f-d54be1e87755">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0013"/>
+    <cim:SvPowerFlow.p>13.5</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>5.8</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="87a29f8c-4f9d-4ea8-8902-375a74de6fd1">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0006"/>
+    <cim:SvPowerFlow.p>11.2</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>7.5</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:SvPowerFlow rdf:ID="6448f36f-685d-4b0a-beda-8ae005cd68d0">
+    <cim:SvPowerFlow.Terminal rdf:resource="#Terminal_Load_0005"/>
+    <cim:SvPowerFlow.p>7.6</cim:SvPowerFlow.p>
+    <cim:SvPowerFlow.q>1.5999999999999999</cim:SvPowerFlow.q>
+</cim:SvPowerFlow>
+<cim:TopologicalNode rdf:about="#_b2e35f92-55be-fcea-9d8b-5af0b03dcc34">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0006-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_e86e5b76-c323-0298-3647-c7920a41ad35">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0003-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_73dacfe6-4f37-a1b3-23b4-2f15f4842241">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0010-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_57b2860d-5c8d-1361-fc37-c87e5d6acdf3">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0001-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_8b4159f5-6562-fcb5-cc7b-3de69a428d1a">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0004-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_f1b7a33c-1135-6321-28cf-a8acb3a66b61">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0002-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_20974d78-1aad-78d3-f55b-a8acfe4b5034">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0005-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_2f701ddb-97f1-a6b6-f496-8b188c691140">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0008-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_25af8883-fd1b-f3a4-b482-6f8b4d6b3930">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0009-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_432f6b40-c642-ecad-e98f-951505f5a8f9">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0012-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_5732b6d1-bc4a-5bc7-c611-80909d9bbfe8">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0011-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_901b81b9-b0d7-78aa-7d44-e1939bfec19e">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0014-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_a1f14e91-7a1a-5af9-4ed2-dceac1d59ace">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0013-sv"/>
+</cim:TopologicalNode>
+<cim:TopologicalNode rdf:about="#_16759bc8-872a-e3a5-d4f4-19112dc29b38">
+    <cim:TopologicalNode.SvVoltage rdf:resource="#Bus_0007-sv"/>
+</cim:TopologicalNode>
+</rdf:RDF>
