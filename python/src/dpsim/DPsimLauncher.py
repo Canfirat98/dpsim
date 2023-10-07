@@ -131,7 +131,7 @@ class DPsimLauncher:
                 # TODO: WARN MESSAGE
                 pass
             
-    def read_variables_to_log(self, system, logger):
+    def read_variables_to_log(self, system, sim, logger):
         # TODO: Add more variables and components
         for component_type, var_dict in self.data["LoggerVariables"].items():
             if component_type=="Node":
@@ -169,6 +169,49 @@ class DPsimLauncher:
                                     # TODO: change exception by warning
                                     raise Exception('Node {} was not found!'.format(node_name))
                                 logger.log_attribute(node_name+'.S', 's', node)
+            elif component_type=="Component":
+                for variable in var_dict.keys():
+                    if variable=="Currents":
+                        if (var_dict["Currents"][0]=="all"):
+                            for comp in system.components:
+                                logger.log_attribute(comp.name+'.I', 'i_intf', comp)
+                        else:
+                            for comp_name in var_dict["Currents"]:
+                                # search for component in system topology
+                                comp_found = False
+                                for comp in system.components:
+                                    if (comp.name == comp_name):
+                                        comp_found = True
+                                        break
+                                if (comp_found==False):
+                                    # TODO: change exception by warning?
+                                    raise Exception('Component {} was not found!'.format(comp_name))
+                                
+                                logger.log_attribute(comp_name+'.I', 'i_intf', comp)
+                    else:
+                        # Generic
+                        # All attributes of components can be logged provided that they exist
+                        for comp_name in var_dict[variable]:
+                            # search for component in system topology
+                            comp_found = False
+                            comp = None
+                            for comp in system.components:
+                                if (comp.name == comp_name):
+                                    comp_found = True
+                                    break
+                            if (comp_found==False):
+                                # TODO: change exception by warning?
+                                warnings.warn('The component {} was not found. The attribute {} will no be logged!'.format(comp.name, variable))
+                            
+                            # check if attribute exists
+                            
+                            try:
+                                sim.get_idobj_attr(comp.name, variable)
+                                logger.log_attribute(comp.name+'.{}'.format(variable), variable, comp)
+                            except:
+                                warnings.warn('The component {} has no attribute "{}". This attribute will no be logged!'.format(comp.name, variable))
+                                continue
+                            
                         
         return logger
     
@@ -205,7 +248,7 @@ class DPsimLauncher:
     
         # create logger add variables to be logged
         logger = dpsimpy.Logger(self.sim_name_pf)
-        logger = self.read_variables_to_log(self.system_pf, logger)
+        logger = self.read_variables_to_log(self.system_pf, self.sim_pf, logger)
         
         # start power flow simulation
         self.sim_pf = dpsimpy.Simulation(self.sim_name_pf, self.loglevel)
@@ -246,11 +289,9 @@ class DPsimLauncher:
         
         ### Simulation
         self.sim = dpsimpy.Simulation(self.name_dyn, self.loglevel)
-        
-        # add events
-        self.read_events(domain)
-        
         self.sim.set_system(self.system)
+        
+        #
         if domain == Domain.SP:
             self.sim.set_domain(dpsimpy.Domain.SP)
             self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.SP)
@@ -260,6 +301,10 @@ class DPsimLauncher:
         elif domain == Domain.EMT:
             self.sim.set_domain(dpsimpy.Domain.EMT)
             self.system.init_with_powerflow(systemPF=self.system_pf, domain=dpsimpy.Domain.EMT)
+        
+        # add events
+        self.read_events(domain)
+        self.sim.set_system(self.system)
         
         #
         self.sim.do_init_from_nodes_and_terminals(self.init_from_nodes_and_terminals)
@@ -274,7 +319,7 @@ class DPsimLauncher:
         
         # create logger add variables to be logged
         logger = dpsimpy.Logger(self.name_dyn)
-        logger = self.read_variables_to_log(self.system, logger)
+        logger = self.read_variables_to_log(self.system, self.sim, logger)
         self.sim.add_logger(logger)
         
         # run simulation
@@ -353,9 +398,23 @@ class DPsimLauncher:
                 self.sim.add_event(sw_event_1)
                 sw_event_2 = dpsimpy.event.SwitchEvent(event_end_time, switch, False)
                 self.sim.add_event(sw_event_2)
-                
+            
             elif self.data["Events"]['EventType'] == "LoadStep":
                 event_params = self.data["Events"]['EventParameters']
+                
+                # get event start time
+                event_start_time = 0
+                if "EventStartTime" in self.data["Events"].keys():
+                    event_start_time = self.data["Events"]["EventStartTime"]
+                else:
+                    raise Exception('Paramenter "EventStartTime" is not in the json file!') 
+                
+                # get event end time
+                event_end_time = 999999999
+                if "EventEndTime" in self.data["Events"].keys():
+                    event_end_time = self.data["Events"]["EventEndTime"]  
+                else:
+                    warnings.warn('Paramenter "EventEndTime" is not in the json file! EventEndTime set to {}'.format(event_end_time))
                 
                 node_name = ""
                 if "NodeName" in event_params.keys():
@@ -372,50 +431,152 @@ class DPsimLauncher:
                     # TODO: change exception by warning
                     raise Exception('Node {} was not found!'.format(node_name))   
                 
-                open_resistance = 1e12
-                if "FaultOpenResistance" in event_params.keys():
-                    open_resistance = event_params['FaultOpenResistance']
-                else:
-                    warnings.warn('Paramenter "FaultOpenResistance" is not in the json file!\n FaultOpenResistance set to 1e12')
-                    
-                closed_resistance = 1e-3  
-                if "FaultClosedResistance" in event_params.keys():
-                    closed_resistance = event_params['FaultClosedResistance']
-                else:
-                    warnings.warn('Paramenter "FaultClosedResistance" is not in the json file!\n FaultClosedResistance set to 1e-3')
-                    
+                open_resistance = 1e18
+                closed_resistance = None
+                additional_active_power = 0
+                additional_reactive_power = 0
+                if "AdditionalActivePower" in event_params.keys():
+                    additional_active_power = event_params['AdditionalActivePower'] * 1e6
+                if "AdditionalReactivePower" in event_params.keys():
+                    additional_reactive_power = event_params['AdditionalReactivePower'] * 1e6
+                if (additional_active_power==0 and additional_reactive_power==0):
+                    warnings.warn('Paramenter "AdditionalActivePower" and "AdditionalReactivePower" are equal to zero!\n Event "LoadStep" will be skipped')
+                    return
+                
+                closed_resistance= np.abs(node.initial_single_voltage()**2) / additional_active_power
+                                
+                # TODO: add impedance
+                #closed_impendace = ...
+                
                 # Füge switch mit Erdung hinzu
-                switch = self.dpsimpy_components.Switch('Fault_' + node_name, self.loglevel)
+                switch = None
+                gnd = None
+                if domain == Domain.SP:
+                    switch = dpsimpy.sp.ph1.Switch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.sp.SimNode.gnd
+                elif domain == Domain.DP:
+                    switch = dpsimpy.dp.ph1.Switch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.dp.SimNode.gnd
+                elif domain == Domain.EMT:
+                    switch = dpsimpy.emt.ph3.SeriesSwitch('Fault_' + node_name, self.loglevel)
+                    gnd = dpsimpy.emt.SimNode.gnd 
                 switch.set_parameters(open_resistance, closed_resistance)
                 switch.open()
-                switch.connect([self.dpsimpy_components.SimNode.gnd, node])
                 self.system.add(switch)
+                self.system.connect_component(switch, [gnd, node])
 
                 # Event hinzufügen
-                sw_event_1 = dpsimpy.event.SwitchEvent(1.0, switch, True)
+                sw_event_1 = dpsimpy.event.SwitchEvent(event_start_time, switch, True)
                 self.sim.add_event(sw_event_1)
-                sw_event_2 = dpsimpy.event.SwitchEvent(1.1, switch, False)
+                sw_event_2 = dpsimpy.event.SwitchEvent(event_end_time, switch, False)
                 self.sim.add_event(sw_event_2)
                 
+            elif self.data["Events"]['EventType'] == "LineDisconnection":
+                event_params = self.data["Events"]['EventParameters']
+                
+                # get event parameters
+                
+                # get event start time
+                event_start_time = 0
+                if "EventStartTime" in self.data["Events"].keys():
+                    event_start_time = self.data["Events"]["EventStartTime"]
+                else:
+                    raise Exception('Paramenter "EventStartTime" is not in the json file!') 
+                
+                # get event end time
+                #event_end_time = 0
+                #if "EventEndTime" in self.data["Events"].keys():
+                #    event_end_time = self.data["Events"]["EventEndTime"]  
+                #else:
+                #    raise Exception('Paramenter "EventEndTime" is not in the json file!')
+                
+                # get parameters
+                open_resistance = 1e18
+                if "SwitchOpenResistance" in event_params.keys():
+                    open_resistance = event_params['SwitchOpenResistance']
+                else:
+                    warnings.warn('Paramenter "SwitchOpenResistance" is not in the json file!\n SwitchOpenResistance set to 1e18')
+                    
+                closed_resistance = 1e-6  
+                if "SwitchClosedResistance" in event_params.keys():
+                    closed_resistance = event_params['SwitchClosedResistance']
+                else:
+                    warnings.warn('Paramenter "SwitchClosedResistance" is not in the json file!\n SwitchClosedResistance set to 1e-6  ')
+                    
+                # search for line in dpsim topology
+                line = None
+                for comp in self.system.components:
+                    if comp.name == event_params["LineName"]:
+                        line=comp
+                        break
+                if line==None:
+                    raise Exception('Line name={} was not found in dpsim topology!'.format(event_params["LineName"]))
+                
+                # Add dummy node between node0 of line and node_dummy
+                node_dummy = None
+                if domain == Domain.SP:
+                    node_dummy = dpsimpy.sp.ph1.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.Single)
+                elif domain == Domain.DP:
+                    node_dummy = dpsimpy.dp.ph1.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.Single)
+                elif domain == Domain.EMT:
+                    node_dummy = dpsimpy.emt.ph3.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.ABC)
+                self.system.add_node(node_dummy)
+                
+                # get nodes of line
+                node0 = comp.get_terminal(0).node()
+                node1 = comp.get_terminal(1).node()
+                
+                # Add switch between node0 and dummy_node
+                switch = None
+                if domain == Domain.SP:
+                    switch = dpsimpy.sp.ph1.Switch('Switch_' + line.name, self.loglevel)
+                elif domain == Domain.DP:
+                    switch = dpsimpy.dp.ph1.Switch('Switch_' + line.name, self.loglevel)
+                elif domain == Domain.EMT:
+                    switch = dpsimpy.emt.ph3.SeriesSwitch('Switch_' + line.name, self.loglevel)
+                switch.set_parameters(open_resistance, closed_resistance)
+                switch.open()
+                
+                # remove connection of line
+                for key, comps_at_node_list in self.system.components_at_node.items():
+                    if comp in comps_at_node_list:
+                        comps_at_node_list_new = self.system.components_at_node
+                        comps_at_node_list_new[key] = [comp_ for comp_ in comps_at_node_list_new[key] if comp_ != comp]
+                        self.system.components_at_node = comps_at_node_list_new
+                
+                # reconnect line
+                self.system.connect_component(comp, [node0, node_dummy])
+                                        
+                # initialize dummy node with voltage=voltage_node0
+                node_dummy.set_initial_voltage(node0.initial_single_voltage())
+                
+                # connect switch
+                self.system.add(switch)
+                self.system.connect_component(switch, [node_dummy, node1])
+
+                # Event hinzufügen           
+                sw_event_1 = dpsimpy.event.SwitchEvent(event_start_time, switch, True)
+                self.sim.add_event(sw_event_1)
+
             else:
-                raise Exception("Bitte gebe einen gültigen Fehlerfall an. Zum Beispiel <ThreePhaseFault>.")
+                raise Exception('Please specify a valid event case. The possibilities are: "ShortCircuit" or "LineDisconnection"')
+                
+            """
+            if self.data["Events"]['EventType'] == "LineDisconnection":
+                event_params = self.data["Events"]['EventParameters']
 
-        """
-        elif event['EventType'] == "LineDisconnection":
-            event_param = event['EventParameters']
+                for comp in self.system.components:
+                    if event_params['LineName'] == comp.name:
+                        # comp ist die zu entfernende Freileitung
+                        # Entferne Freileitung aus Komponentenliste    
+                        self.system.components = [x for x in self.system.components if x != comp]
 
-            for comp in system.components:
-                if event_param['LineName'] == comp.name:
-                    # comp ist die zu entfernende Freileitung
-                    # Entferne Freileitung aus Komponentenliste    
-                    system.components = [x for x in system.components if x != comp]
-
-                    # Entferne Freileitung aus den Knoten-Listen
-                    for key, value in system.components_at_node.items():
-                        if comp in value:
-                            obj_dict = system.components_at_node
-                            obj_dict[key] = [c for c in obj_dict[key] if c != comp]
-                            system.components_at_node = obj_dict
+                        # Entferne Freileitung aus den Knoten-Listen
+                        for key, value in self.system.components_at_node.items():
+                            if comp in value:
+                                obj_dict = system.components_at_node
+                                obj_dict[key] = [c for c in obj_dict[key] if c != comp]
+                                system.components_at_node = obj_dict
 
                     ### DPsim SP simulation
                     sim_parameters = data['SimulationParameters']
@@ -445,10 +606,8 @@ class DPsimLauncher:
                     sim.run()
 
                     return system
-
-            print(f"Die gewünschte Freileitung '{event_param['LineName']}' ist nicht in der Topologie enthalten.")
-            return system
         """
+
    
     def get_path_to_results(self):
         # This function return a list containing the relative path to the files with the results of the dynamic simulations
