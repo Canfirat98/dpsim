@@ -34,7 +34,7 @@
 	},
 	"LoggerVariables":{
 		"Component": {
-			"Currents": ["Line_0006_0011", "Line_0009_0014", "Line_0006_0013", "Line_0009_0010"]
+			"Currents": ["Line_0006_0011", "Line_0010_0011", "Line_0006_0013", "Line_0009_0010"]
 		}
 	}
 }

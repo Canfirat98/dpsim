@@ -1,14 +1,16 @@
 import warnings
 import pandas as pd 
 import numpy as np
+import json
+import cimpy
+
 import sys
 sys.path.insert(0,'/home/mmo/git/Can/dpsim/build')
 import dpsimpy
-import json
-import cimpy
-from cimpy import CIM2DPsim
-from cimpy.CIM2DPsim import Domain
-from cimpy.CIM2DPsim import SGModels
+
+import CIM2DPsim
+from CIM2DPsim import Domain
+from CIM2DPsim import SGModels
 
 TIME_STEP_PF = 0.1
 FINAL_TIME_PF = 0.1
@@ -138,13 +140,13 @@ class DPsimLauncher:
                     if variable=="Voltages":
                         if (var_dict["Voltages"][0]=="all"):
                             for node in system.nodes:
-                                logger.log_attribute(node.name+'.V', 'v', node)
+                                logger.log_attribute(node.name()+'.V', 'v', node)
                         else:
                             for node_name in var_dict["Voltages"]:
                                 # search for node in sim_pf
                                 node_found = False
                                 for node in system.nodes:
-                                    if (node.name == node_name):
+                                    if (node.name() == node_name):
                                         node_found = True
                                         break
                                 if (node_found==False):
@@ -155,13 +157,13 @@ class DPsimLauncher:
                     elif variable=="Power":
                         if (var_dict["Power"][0]=="all"):
                             for node in system.nodes:
-                                logger.log_attribute(node.name+'.S', 's', node)
+                                logger.log_attribute(node.name()+'.S', 's', node)
                         else:
                             for node_name in var_dict["Power"]:
                                 # search for node in sim_pf
                                 node_found = False
                                 for node in system.nodes:
-                                    if (node.name == node_name):
+                                    if (node.name() == node_name):
                                         node_found = True
                                         break
                                 if (node_found==False):
@@ -173,13 +175,13 @@ class DPsimLauncher:
                     if variable=="Currents":
                         if (var_dict["Currents"][0]=="all"):
                             for comp in system.components:
-                                logger.log_attribute(comp.name+'.I', 'i_intf', comp)
+                                logger.log_attribute(comp.name()+'.I', 'i_intf', comp)
                         else:
                             for comp_name in var_dict["Currents"]:
                                 # search for component in system topology
                                 comp_found = False
                                 for comp in system.components:
-                                    if (comp.name == comp_name):
+                                    if (comp.name() == comp_name):
                                         comp_found = True
                                         break
                                 if (comp_found==False):
@@ -195,20 +197,20 @@ class DPsimLauncher:
                             comp_found = False
                             comp = None
                             for comp in system.components:
-                                if (comp.name == comp_name):
+                                if (comp.name() == comp_name):
                                     comp_found = True
                                     break
                             if (comp_found==False):
                                 # TODO: change exception by warning?
-                                warnings.warn('The component {} was not found. The attribute {} will no be logged!'.format(comp.name, variable))
+                                warnings.warn('The component {} was not found. The attribute {} will no be logged!'.format(comp.name(), variable))
                             
                             # check if attribute exists
                             
                             try:
-                                sim.get_idobj_attr(comp.name, variable)
-                                logger.log_attribute(comp.name+'.{}'.format(variable), variable, comp)
+                                sim.get_idobj_attr(comp.name(), variable)
+                                logger.log_attribute(comp.name()+'.{}'.format(variable), variable, comp)
                             except:
-                                warnings.warn('The component {} has no attribute "{}". This attribute will no be logged!'.format(comp.name, variable))
+                                warnings.warn('The component {} has no attribute "{}". This attribute will no be logged!'.format(comp.name(), variable))
                                 continue
                             
                         
@@ -233,15 +235,15 @@ class DPsimLauncher:
         #set reference node 
         reference_comp=None
         for node, comp_list in self.system_pf.components_at_node.items():
-            if (node.name==self.data['SimulationParameters']['ReferenceNode']):
+            if (node.name()==self.data['SimulationParameters']['ReferenceNode']):
                 for comp in comp_list:
                     if (isinstance(comp, dpsimpy.sp.ph1.SynchronGenerator) or isinstance(comp, dpsimpy.sp.ph1.NetworkInjektion)):
                         reference_comp=comp
                         break
                 if (reference_comp is None):  
-                    raise Exception('No SynchronGenerator or ExternalNetworkInjection is connected to node: {}!'.format(node.name))    
+                    raise Exception('No SynchronGenerator or ExternalNetworkInjection is connected to node: {}!'.format(node.name()))    
         if (reference_comp is None):  
-            raise Exception('No node named: {} was found!'.format(node.name))
+            raise Exception('No node named: {} was found!'.format(node.name()))
     
         reference_comp.modify_power_flow_bus_type(dpsimpy.PowerflowBusType.VD)
     
@@ -267,7 +269,7 @@ class DPsimLauncher:
         for idx, node in enumerate(self.system_pf.nodes):
             voltage=node.attr("v").get()[0][0]
             power=node.attr("s").get()[0][0]
-            pf_results.loc[idx] = ([node.name] + [round(np.absolute(voltage) / 1000, 4)]
+            pf_results.loc[idx] = ([node.name()] + [round(np.absolute(voltage) / 1000, 4)]
                 + [round(np.angle(voltage*180/np.pi), 4)] 
                 + [round(1e-6 * np.real(power), 4)] 
                 + [round(1e-6 * np.imag(power), 5)])
@@ -356,12 +358,12 @@ class DPsimLauncher:
                 # get node to which the short switch has to be connected
                 node = None
                 for node_ in self.system.nodes:
-                    if node_name == node_.name:
+                    if node_name == node_.name():
                         node = node_
                         break
                 if (node is None):
                     # TODO: change exception by warning
-                    raise Exception('Node {} was not found!'.format(node_name))   
+                    raise Exception('Node {} was not found!'.format(node_name()))   
                     
                 open_resistance = 1e12
                 if "FaultOpenResistance" in event_params.keys():
@@ -423,7 +425,7 @@ class DPsimLauncher:
                 
                 node = None
                 for node_ in self.system.nodes:
-                    if event_params['NodeName'] == node_name:
+                    if node_name == node_.name():
                         node = node_
                         break
                 if (node is None):
@@ -505,7 +507,7 @@ class DPsimLauncher:
                 # search for line in dpsim topology
                 line = None
                 for comp in self.system.components:
-                    if comp.name == event_params["LineName"]:
+                    if comp.name() == event_params["LineName"]:
                         line=comp
                         break
                 if line==None:
@@ -514,11 +516,11 @@ class DPsimLauncher:
                 # Add dummy node between node0 of line and node_dummy
                 node_dummy = None
                 if domain == Domain.SP:
-                    node_dummy = dpsimpy.sp.ph1.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.Single)
+                    node_dummy = dpsimpy.sp.ph1.SimNode('DummyNode_' + line.name(), dpsimpy.PhaseType.Single)
                 elif domain == Domain.DP:
-                    node_dummy = dpsimpy.dp.ph1.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.Single)
+                    node_dummy = dpsimpy.dp.ph1.SimNode('DummyNode_' + line.name(), dpsimpy.PhaseType.Single)
                 elif domain == Domain.EMT:
-                    node_dummy = dpsimpy.emt.ph3.SimNode('DummyNode_' + line.name, dpsimpy.PhaseType.ABC)
+                    node_dummy = dpsimpy.emt.ph3.SimNode('DummyNode_' + line.name(), dpsimpy.PhaseType.ABC)
                 self.system.add_node(node_dummy)
                 
                 # get nodes of line
@@ -528,11 +530,11 @@ class DPsimLauncher:
                 # Add switch between node0 and dummy_node
                 switch = None
                 if domain == Domain.SP:
-                    switch = dpsimpy.sp.ph1.Switch('Switch_' + line.name, self.loglevel)
+                    switch = dpsimpy.sp.ph1.Switch('Switch_' + line.name(), self.loglevel)
                 elif domain == Domain.DP:
-                    switch = dpsimpy.dp.ph1.Switch('Switch_' + line.name, self.loglevel)
+                    switch = dpsimpy.dp.ph1.Switch('Switch_' + line.name(), self.loglevel)
                 elif domain == Domain.EMT:
-                    switch = dpsimpy.emt.ph3.SeriesSwitch('Switch_' + line.name, self.loglevel)
+                    switch = dpsimpy.emt.ph3.SeriesSwitch('Switch_' + line.name(), self.loglevel)
                 switch.set_parameters(open_resistance, closed_resistance)
                 switch.open()
                 
@@ -565,7 +567,7 @@ class DPsimLauncher:
                 event_params = self.data["Events"]['EventParameters']
 
                 for comp in self.system.components:
-                    if event_params['LineName'] == comp.name:
+                    if event_params['LineName'] == comp.name():
                         # comp ist die zu entfernende Freileitung
                         # Entferne Freileitung aus Komponentenliste    
                         self.system.components = [x for x in self.system.components if x != comp]
@@ -606,8 +608,7 @@ class DPsimLauncher:
 
                     return system
         """
-
-   
+    
     def get_path_to_results(self):
         # This function return a list containing the relative path to the files with the results of the dynamic simulations
         dict_result_files = []
