@@ -227,10 +227,6 @@ def get_node_base_voltage(DPsim_system_PF, node):
             base_voltage = unitValue(comp.attr("base_Voltage").get(), Multiplier.m)   
             logging.info('Choose base voltage {}kV of {} for node {}'.format(base_voltage, comp.name(), node.name()))
             break
-        elif isinstance(comp, dpsimpy.sp.ph1.SynchronGenerator):
-            base_voltage = unitValue(comp.attr("base_Voltage").get(), Multiplier.m)   
-            logging.info('Choose base voltage {}kV of {} for node {}'.format(base_voltage, comp.name(), node.name()))
-            break  
         #elif isinstance(comp, dpsimpy.sp.ph1.Load):
         #    print(comp)
         #    print(comp.attr("base_Voltage"))
